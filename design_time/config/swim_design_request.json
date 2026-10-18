@@ -1,0 +1,172 @@
+{
+  "case_id": "SWIM-SASS-001",
+
+  "system_name": "SWIM Self-Adaptive Web System",
+
+  "design_objective": "Design a self-adaptive software architecture that can maintain response-time requirements under changing workload while balancing resource usage and optional-content quality.",
+
+  "functional_requirements": [
+    {
+      "id": "FR1",
+      "requirement": "The system shall process incoming web requests."
+    },
+    {
+      "id": "FR2",
+      "requirement": "The system shall support basic and optional request processing."
+    },
+    {
+      "id": "FR3",
+      "requirement": "The system shall dynamically adjust the number of active servers."
+    },
+    {
+      "id": "FR4",
+      "requirement": "The system shall dynamically adjust the dimmer controlling optional content."
+    },
+    {
+      "id": "FR5",
+      "requirement": "The system shall observe runtime response time, workload, server utilization, server state, and dimmer state."
+    }
+  ],
+
+  "adaptation_goals": [
+    {
+      "id": "AG1",
+      "goal": "Maintain average response time at or below 0.75 seconds."
+    },
+    {
+      "id": "AG2",
+      "goal": "Preserve as much optional functionality as possible when the response-time goal is satisfied."
+    },
+    {
+      "id": "AG3",
+      "goal": "Avoid unnecessary server allocation when workload decreases."
+    },
+    {
+      "id": "AG4",
+      "goal": "Prevent unsafe or policy-violating adaptation actions."
+    }
+  ],
+
+  "quality_attributes": [
+    {
+      "name": "performance",
+      "priority": "very_high",
+      "weight": 0.30,
+      "goal": "Maintain the trusted response-time target under workload variation."
+    },
+    {
+      "name": "scalability",
+      "priority": "high",
+      "weight": 0.20,
+      "goal": "Adapt computing capacity when workload changes."
+    },
+    {
+      "name": "reliability",
+      "priority": "high",
+      "weight": 0.15,
+      "goal": "Maintain dependable adaptation behavior during runtime changes."
+    },
+    {
+      "name": "safety",
+      "priority": "high",
+      "weight": 0.15,
+      "goal": "Ensure that unsafe adaptation proposals cannot directly reach system effectors."
+    },
+    {
+      "name": "resource_efficiency",
+      "priority": "medium",
+      "weight": 0.10,
+      "goal": "Avoid maintaining unnecessary server capacity."
+    },
+    {
+      "name": "explainability",
+      "priority": "medium",
+      "weight": 0.10,
+      "goal": "Provide understandable rationale for architectural and runtime adaptation decisions."
+    }
+  ],
+
+  "environment_assumptions": [
+    "Workload may vary significantly over time.",
+    "Additional servers require time to become active.",
+    "Response-time and utilization measurements are available through runtime monitoring.",
+    "The runtime system exposes approved effectors for server and dimmer adaptation.",
+    "LLM-generated decisions are not trusted to execute directly."
+  ],
+
+  "uncertainty_sources": [
+    {
+      "id": "U1",
+      "source": "Workload uncertainty",
+      "description": "Request arrival rate may increase or decrease unexpectedly."
+    },
+    {
+      "id": "U2",
+      "source": "Resource-state uncertainty",
+      "description": "A newly added server may require time before becoming fully active."
+    },
+    {
+      "id": "U3",
+      "source": "Runtime observation uncertainty",
+      "description": "Observed runtime metrics represent a changing system state and may temporarily be incomplete."
+    },
+    {
+      "id": "U4",
+      "source": "LLM reasoning uncertainty",
+      "description": "LLM-generated diagnoses and plans may be incorrect, inconsistent, or violate trusted constraints."
+    }
+  ],
+
+  "trusted_constraints": {
+    "response_time_target_seconds": 0.75,
+    "minimum_servers": 1,
+    "maximum_servers": 6,
+    "dimmer_minimum": 0.0,
+    "dimmer_maximum": 1.0,
+    "dimmer_step": 0.25,
+    "allowed_runtime_actions": [
+      "add_server",
+      "remove_server",
+      "set_dimmer",
+      "none"
+    ],
+    "direct_llm_effector_access": false,
+    "deterministic_safety_validation_required": true,
+    "architect_approval_required_at_design_time": true
+  },
+
+  "architectural_concerns": [
+    "How runtime observations are monitored.",
+    "How adaptation needs are diagnosed.",
+    "How adaptation alternatives are generated.",
+    "How previous adaptation experience is reused.",
+    "How trusted constraints are enforced.",
+    "How adaptation actions are executed.",
+    "How adaptation outcomes are evaluated.",
+    "How failures trigger replanning or escalation.",
+    "How architectural decisions and rationale remain explainable."
+  ],
+
+  "candidate_architecture_scope": {
+    "include_design_time_llm_support": true,
+    "include_architectural_rag": true,
+    "include_runtime_agentic_controller": true,
+    "include_deterministic_safety_layer": true,
+    "include_runtime_memory": true,
+    "include_human_oversight": true
+  },
+
+  "evaluation_scale": {
+    "minimum_score": 1,
+    "maximum_score": 5,
+    "interpretation": {
+      "1": "very poor support",
+      "2": "poor support",
+      "3": "moderate support",
+      "4": "good support",
+      "5": "very good support"
+    }
+  },
+
+  "notes": "Quality-attribute weights are explicit architect-defined inputs for the research demonstrator. They are used for transparent trade-off analysis and visualization and are not claimed to be universally optimal."
+}

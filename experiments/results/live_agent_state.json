@@ -1,0 +1,18 @@
+{
+  "timestamp_utc": "2026-10-12T20:34:02.423077+00:00",
+  "stage": "MONITOR",
+  "runtime_regime": "healthy",
+  "rag_summary": null,
+  "rag_similarity": null,
+  "diagnosis": null,
+  "candidate_plan": null,
+  "safety_status": null,
+  "safety_reason": null,
+  "execution": null,
+  "outcome_status": null,
+  "outcome_reason": null,
+  "recovery_route": null,
+  "recovery_attempts": 0,
+  "fail_safe_triggered": false,
+  "operator_intervention_mode": null
+}

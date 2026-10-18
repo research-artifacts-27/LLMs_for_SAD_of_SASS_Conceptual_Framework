@@ -1,0 +1,242 @@
+{
+  "review_type": "human_triggered_architecture_reconsideration",
+  "schema_version": "1.0",
+  "generated_utc": "2026-10-16T09:36:04.699380+00:00",
+  "human_trigger": {
+    "confirmed": true,
+    "automatic": false,
+    "reason": "Review RTD-02: repeated partial adaptation outcomes observed across eight runtime episodes, to assess whether the current architecture should be retained or whether planning magnitude, sequencing, or planning horizon should be reconsidered."
+  },
+  "runtime_feedback": {
+    "source": "design_time/outputs/runtime_design_feedback.json",
+    "review_recommended": true,
+    "trigger_ids": [
+      "RTD-02"
+    ],
+    "trigger_count": 1
+  },
+  "retrieval": {
+    "method": "existing hybrid architecture RAG",
+    "semantic_top_k": 8,
+    "retrieved_entry_count": 13,
+    "output": "design_time/outputs/architecture_reconsideration_retrieved_knowledge.json"
+  },
+  "llm_review": {
+    "current_architecture_assessment": {
+      "summary": "A1, Centralized Agentic MAPE-K, remains the approved baseline recorded in ADR-001. RTD-02 warrants targeted review of planning adequacy and outcome evaluation, but does not establish that centralized control should be replaced. A1 already supports coordinated proposals and per-action revalidation of multi-action plans; the review should distinguish incomplete implementation or operating-policy specification from a genuinely missing architectural capability. No architecture, policy, or approval status is changed by this assessment.",
+      "runtime_evidence_interpretation": "The supplied summary reports 86 PASS and 8 PARTIAL outcomes. Episodes 5, 6, 27, 28, 78, 79, 80, and 81 had actions take effect while the runtime goal remained unsatisfied. This supports examining adaptation magnitude, sequencing, planning horizon, settling criteria, and sustained-goal recovery. It does not establish that actions were too small, that LLM latency caused violations, or that any alternative would perform better. No final QoS violations at maximum capacity, safety rejections, recovery attempts, or fail-safe events were reported; these absences neither prove available capacity would have resolved the violations nor demonstrate safety and recovery mechanisms under fault conditions. Episode-level measurements, timing, action sequences, and experiment provenance are not supplied. Some episodes may involve controlled fault injection, but their provenance cannot be inferred. Episode indices alone do not establish a continuous overload event or eventual recovery.",
+      "strengths_to_preserve": [
+        "One logical controller coordinates server allocation and optional-content control using shared observations.",
+        "The LLM and retrieved experience remain advisory, without effector credentials or direct invocation paths.",
+        "A deterministic, non-bypassable safety boundary validates each mutation against current state and trusted policy.",
+        "Trusted constraints remain unchanged: response-time target 0.75 seconds, server bounds 1 through 6, dimmer bounds 0.0 through 1.0, trusted 0.25 step, and only add_server, remove_server, set_dimmer, or none.",
+        "Active capacity is distinguished from pending server activation; acknowledgments are distinguished from observed adaptation success.",
+        "Runtime memory, explicit outcome classifications, bounded recovery, and human oversight support inspection and learning without transferring authority to the LLM.",
+        "A1's documented prototype alignment and centralized explanation trail remain valuable, without constituting verification of every design detail."
+      ],
+      "concerns_for_review": [
+        "Determine whether PARTIAL outcomes reflect insufficient adaptation magnitude, changing workload, delayed server activation, evaluation before settling, or another cause.",
+        "Inspect whether multi-action planning described by A1 is actually available and used, rather than assuming a new architecture is needed to introduce it.",
+        "Clarify how PARTIAL outcomes enter continued observation, ordinary adaptation, bounded replanning, or escalation. Eight PARTIAL outcomes with zero recorded recovery attempts warrant checking semantics and instrumentation, not assuming a recovery defect.",
+        "Check whether repeated ordinary episodes can inadvertently reset recovery budgets while the same unmet objective persists.",
+        "Measure violation duration and magnitude, optional-content loss, and server usage; episode counts alone do not establish operational severity.",
+        "Preserve the distinction between approved architecture and unresolved operating parameters, including step semantics, timing windows, and recovery deadlines."
+      ]
+    },
+    "review_options": [
+      {
+        "id": "R1",
+        "disposition": "retain_current",
+        "name": "Retain A1 and investigate episode-level behavior",
+        "description": "Retain the approved architecture without structural changes. Examine the eight PARTIAL episodes and comparable PASS episodes to determine whether existing A1 capabilities were implemented, configured, and evaluated as intended. This option treats RTD-02 as an evidence and conformance investigation, not as a reason to dismiss the symptom or authorize policy changes.",
+        "architectural_changes": [],
+        "runtime_implications": [
+          "Existing approved control and safety behavior remains the baseline; no new autonomous actions or policy values are introduced.",
+          "Correlate observations, proposals, gate verdicts, effector acknowledgments, activation timelines, and outcome windows.",
+          "Document missing experiment provenance explicitly and separate known fault-injection episodes from ordinary operation.",
+          "Any later configuration correction would require the applicable human review rather than being authorized by this option."
+        ],
+        "quality_attribute_implications": {
+          "performance": "No performance improvement is implied; investigation could reveal whether existing planning or evaluation behavior explains the symptom.",
+          "scalability": "Preserves centralized management of the existing one-to-six-server range.",
+          "reliability": "Avoids introducing control-path changes, but leaves any genuine planning or recovery weakness unresolved until diagnosed.",
+          "safety": "Preserves the existing deterministic boundary and trusted constraints; zero observed rejections is not treated as proof of enforcement.",
+          "resource_efficiency": "Avoids speculative increases in adaptation magnitude, while existing excess capacity or unnecessary dimming may persist.",
+          "explainability": "Episode reconstruction can improve confidence in the explanation of PARTIAL outcomes without altering the decision architecture."
+        },
+        "addresses_runtime_triggers": [
+          "RTD-02"
+        ],
+        "knowledge_used": [
+          "AK1",
+          "AK2",
+          "AK10",
+          "AK13",
+          "AK14"
+        ],
+        "advantages": [
+          "Preserves the approved design and its prototype traceability.",
+          "Minimizes redesign based on aggregate evidence or ambiguous provenance.",
+          "Can distinguish architectural limitations from implementation gaps and evaluation artifacts."
+        ],
+        "risks": [
+          "If inadequate planning is the actual cause, retaining current behavior may prolong repeated response-time violations.",
+          "Missing historical telemetry may prevent reliable reconstruction.",
+          "An investigation without explicit review milestones could defer a necessary decision indefinitely."
+        ],
+        "validation_needed": [
+          "Inspect all eight PARTIAL episodes and matched PASS episodes, including response-time values, workload, utilization, dimmer state, active and pending servers, and action timing.",
+          "Check outcome windows against server activation and dimmer settling; keep genuinely unsettled effects pending rather than prematurely labeling them PARTIAL or PASS.",
+          "Verify actual multi-action proposal support, per-action state revalidation, and policy-compliant sequencing.",
+          "Audit PARTIAL-to-recovery transitions, episode identity, budget resets, and the meaning of zero recorded recovery attempts.",
+          "Determine provenance where records permit; otherwise retain an unknown-provenance label and avoid population-level conclusions."
+        ]
+      },
+      {
+        "id": "R2",
+        "disposition": "revise_current",
+        "name": "Refine A1 with bounded outcome-oriented planning",
+        "description": "Consider a bounded refinement of A1's planner, execution coordination, and evaluator contracts to make expected adaptation magnitude and planning horizon explicit. This is not the introduction of multi-action planning from scratch: A1 already permits coordinated multi-action proposals. The proposed revision would make staged progress toward the unmet objective inspectable and bounded while preserving centralized control. If implementation review shows these mechanisms already exist, the issue may instead be conformance or configuration and need no architectural revision.",
+        "architectural_changes": [
+          "Extend the proposal contract with the observed goal gap, an expected effect range with uncertainty, a bounded horizon, staged allowed actions, dependencies, observation checkpoints, and stop conditions.",
+          "Add explicit comparison of feasible action sequences, including dimming while capacity starts, avoiding duplicate additions, and coordinating optional-content restoration with scale-in.",
+          "Refine the execution coordinator to execute only the currently validated stage, refresh observations at checkpoints, and invalidate remaining stages when workload, policy version, or relevant state changes.",
+          "Extend outcome evaluation and memory to link stage-level results with an overall goal-recovery episode, distinguishing partial progress, unsettled effects, and unsuccessful settled outcomes.",
+          "Define a deterministic recovery-episode contract covering PARTIAL handling, attempt and elapsed-time limits, and escalation. Exact bounds and thresholds would require separate architect approval."
+        ],
+        "runtime_implications": [
+          "The planner could propose a stronger bounded sequence without treating the entire sequence as authorized for execution.",
+          "Every mutation would still pass the deterministic gate against current state, pending reservations, and unchanged trusted constraints.",
+          "Larger planned effects would come from sequencing permitted actions, not weakening the 0.25 dimmer step, exceeding server bounds, or inventing new effectors.",
+          "Expected effects would remain hypotheses checked against observations, not guarantees or authorization criteria supplied solely by the LLM.",
+          "Retrieved PARTIAL episodes could inform planning, but could neither change trusted policies nor directly trigger actions.",
+          "All proposed mechanisms remain unevaluated; no deployment or runtime change is authorized."
+        ],
+        "quality_attribute_implications": {
+          "performance": "May reduce repeated under-correction if inadequate magnitude or horizon is confirmed; added planning and checkpoints could also increase latency.",
+          "scalability": "May improve coordination of existing capacity transitions without changing the server range or removing startup delay.",
+          "reliability": "Explicit stage state and linked recovery episodes could improve handling of incomplete progress, but add restart and reconciliation obligations.",
+          "safety": "Preserves per-action deterministic validation; longer sequences increase exposure to stale assumptions and require cancellation and revalidation tests.",
+          "resource_efficiency": "Magnitude-aware planning could avoid repeated ineffective changes, but overestimation could overallocate servers or suppress optional functionality unnecessarily.",
+          "explainability": "Expected effects, checkpoints, and observed stage outcomes could clarify why a sequence was proposed and why it stopped or changed."
+        },
+        "addresses_runtime_triggers": [
+          "RTD-02"
+        ],
+        "knowledge_used": [
+          "AK1",
+          "AK2",
+          "AK5",
+          "AK6",
+          "AK8",
+          "AK10",
+          "AK11",
+          "AK12",
+          "AK13",
+          "AK14"
+        ],
+        "advantages": [
+          "Directly investigates the trigger's magnitude, sequencing, and horizon questions while retaining A1's structural foundation.",
+          "Makes the distinction between successful actuation and restored runtime goals explicit across multiple stages.",
+          "Offers a narrower change surface than replacing centralized control."
+        ],
+        "risks": [
+          "The refinement may not address the actual cause if PARTIAL outcomes arise from observation timing, injected faults, or rapidly changing demand.",
+          "Longer plans can become stale, overshoot capacity needs, or create oscillation.",
+          "Predicted action effects may be inaccurate or confounded by workload changes.",
+          "Poor episode-boundary design could still permit indefinite recovery through budget resets."
+        ],
+        "validation_needed": [
+          "First establish which proposed capabilities are absent from the actual A1 implementation.",
+          "Compare unchanged A1 with a separately authorized experimental refinement using matched initial states, workload traces, and labeled fault scenarios.",
+          "Measure time to target restoration, violation duration and excess, delivered optional content, server-time usage, control latency, and action reversals; do not optimize PARTIAL counts alone.",
+          "Test delayed activation, changing workload between stages, stale observations, lost acknowledgments, partial execution, restart, and cancellation of obsolete remaining stages.",
+          "Verify unchanged bounds, step semantics, last-serving-server protection, and gate enforcement for every action.",
+          "Have the architect review horizon limits, checkpoints, recovery limits, and escalation rules before any executable policy is adopted."
+        ]
+      },
+      {
+        "id": "R3",
+        "disposition": "reopen_selection",
+        "name": "Reassess A3 against retained and refined A1",
+        "description": "Reopen architectural comparison with A3, Two-Timescale Supervisory Adaptation, as a candidate alongside unchanged and refined A1. This larger redesign would be relevant if timing evidence shows that LLM-dependent reaction delay materially contributes to unresolved goals. RTD-02 alone does not establish that condition. A3's original 4.0 score versus A1's 3.8 remains historical advisory assessment, not measured superiority or authorization to replace A1.",
+        "architectural_changes": [
+          "Consider an independent deterministic fast dimmer proposer using architect-approved rules, with no direct effector access.",
+          "Retain an agentic supervisory loop for capacity planning and sustained optional-quality recovery.",
+          "Introduce deterministic cross-loop arbitration through the preserved safety boundary, with current-state revalidation and explicit actuator ownership.",
+          "Add joint episode records and cross-timescale evaluation for immediate dimmer effects and delayed capacity effects."
+        ],
+        "runtime_implications": [
+          "Dimmer proposals could be generated without waiting for LLM inference, but would still require fresh observations and gate authorization.",
+          "Supervisory planning would need to account for fast-loop interventions and prevent dimming from concealing persistent capacity needs.",
+          "The fast path would provide no relief once permitted dimmer reduction is exhausted and would not guarantee the response-time target.",
+          "Insufficient observations would still block state-dependent mutations; shared monitoring and execution remain dependencies.",
+          "Reopening selection would require human review of alternatives and evidence, not automatically select A3 or supersede ADR-001."
+        ],
+        "quality_attribute_implications": {
+          "performance": "Could improve reaction time if LLM latency is a material cause; would not directly resolve all magnitude, evaluation-window, or capacity problems.",
+          "scalability": "Separates transient mitigation from slower scaling while retaining the same capacity limits.",
+          "reliability": "Could retain limited dimmer adaptation during supervisory unavailability, but adds arbitration and shared-dependency failure modes.",
+          "safety": "Preserves deterministic validation for both loops, while expanding the interaction behavior that must be verified.",
+          "resource_efficiency": "Could avoid unnecessary scaling for short bursts, but persistent dimming could sacrifice optional quality rather than allocate appropriate capacity.",
+          "explainability": "Rule-based fast actions are inspectable, but attributing combined outcomes across two loops is more difficult."
+        },
+        "addresses_runtime_triggers": [
+          "RTD-02"
+        ],
+        "knowledge_used": [
+          "AK1",
+          "AK2",
+          "AK6",
+          "AK8",
+          "AK10",
+          "AK11",
+          "AK12",
+          "AK13",
+          "AK15"
+        ],
+        "advantages": [
+          "Examines a documented alternative that specifically removes LLM latency from immediate dimmer proposal generation.",
+          "Allows comparison of a targeted A1 refinement with a structurally different response.",
+          "Could provide limited adaptation continuity during supervisory failure."
+        ],
+        "risks": [
+          "No supplied timing evidence shows that a fast loop would address these eight PARTIAL outcomes.",
+          "Cross-loop restoration and scale-in can produce oscillation despite individually valid actions.",
+          "Additional implementation and validation would weaken immediate alignment with the demonstrated centralized prototype.",
+          "The historical numerical lead could distract from implementation maturity and unverified operational benefits."
+        ],
+        "validation_needed": [
+          "Measure monitoring, retrieval, inference, gate, effector, and activation delays to determine whether an LLM-independent dimmer path addresses the observed problem.",
+          "Compare unchanged A1, the proposed bounded A1 refinement, and A3 under matched workloads and explicitly labeled fault scenarios.",
+          "Validate arbitration during simultaneous dimmer restoration, overload response, and server removal.",
+          "Test prolonged optional-content suppression, dimmer exhaustion, stale observations, supervisory failure, and shared-gate failure behavior.",
+          "Retain architect-defined weights unless the architect explicitly changes them; justify any future score revisions with evidence and keep implementation maturity separate.",
+          "Prepare a proposed decision record for human review only if selection is reopened; leave ADR-001 accepted unless the architect approves a superseding decision."
+        ]
+      }
+    ],
+    "llm_recommendation": {
+      "option_id": "R2",
+      "reason": "Advisory recommendation: prioritize investigation and specification of the bounded A1 refinement in R2, using R1's episode reconstruction as a prerequisite to deciding whether any revision is warranted. This most directly addresses the human review question about magnitude, sequencing, and horizon without assuming centralized control is defective. If existing capabilities already cover the need or the symptom is explained by evaluation timing, retaining A1 may be sufficient. Consider R3 only if comparative timing and workload evidence supports the larger redesign. A1 remains the approved baseline, and the human architect alone can approve any change.",
+      "confidence": "medium",
+      "limitations": [
+        "Only aggregate outcomes and episode indices are available; no causal diagnosis is established.",
+        "Experiment provenance is unspecified for the cited episodes and must not be guessed.",
+        "No detailed measurements establish violation duration, adaptation magnitude, LLM latency, server activation timing, or eventual goal restoration.",
+        "The actual implementation coverage of A1's existing multi-action planning and recovery semantics is unknown.",
+        "The proposed refinements and architectural alternatives have not been implemented or evaluated as part of this review.",
+        "Neither observed PASS outcomes nor architectural validation establish deployment readiness, universal target attainment, or safety under untested faults.",
+        "Trusted policies remain outside generative authority, and no recommendation authorizes deployment, effector invocation, or modification of the accepted ADR."
+      ]
+    }
+  },
+  "authority_boundary": {
+    "automatic_redesign": false,
+    "automatic_architecture_approval": false,
+    "automatic_policy_change": false,
+    "automatic_runtime_deployment": false,
+    "human_architect_approval_required": true
+  },
+  "architect_status": "PENDING_REVIEW"
+}

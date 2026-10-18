@@ -1,0 +1,706 @@
+{
+  "automatic_approval": false,
+  "validation_results": [
+    {
+      "alternative_id": "A1",
+      "alternative_name": "Centralized Agentic MAPE-K",
+      "weighted_rank": 2,
+      "weighted_total": 3.8,
+      "deterministic_validation": {
+        "status": "PASS",
+        "checks": [
+          {
+            "check_id": "C1",
+            "description": "Architecture contains explicit design-time structure.",
+            "status": "PASS",
+            "evidence": "Design-time components found: 5"
+          },
+          {
+            "check_id": "C2",
+            "description": "Architecture contains explicit runtime adaptation structure.",
+            "status": "PASS",
+            "evidence": "Runtime components found: 7"
+          },
+          {
+            "check_id": "C3",
+            "description": "Architecture defines a runtime safety mechanism.",
+            "status": "PASS",
+            "evidence": "The LLM has no effector credentials or direct invocation path. The deterministic gate enforces the allowed action vocabulary, server bounds of 1 through 6, dimmer bounds of 0.0 through 1.0, and the trusted 0.25 dimmer step. It checks dimmer values and changes against the approved step interpretation, rejecting ambiguous proposals. Server validation accounts for active servers, reserved additions, and pending removals so concurrent or delayed changes cannot exceed allocation bounds or remove the last serving server. State-dependent actions require sufficiently complete, fresh observations and matching state versions. The 0.75-second target remains an immutable trusted goal, but structural policy validation cannot guarantee future response time under uncertain workload. Performance must be checked through runtime feedback."
+          },
+          {
+            "check_id": "C4",
+            "description": "Architecture does not explicitly give the LLM direct effector authority.",
+            "status": "PASS",
+            "evidence": "No explicit direct-LLM-effector authority detected."
+          },
+          {
+            "check_id": "C5",
+            "description": "Architecture defines runtime adaptation memory.",
+            "status": "PASS",
+            "evidence": "Maintain a centralized episode store containing observation versions, retrieved evidence, proposal rationale, policy version, gate verdicts, execution acknowledgments, and measured outcomes. Retrieve by workload, utilization, server-transition state, and dimmer context. Mark partial, failed, and unsettled episodes explicitly. Current observations and trusted constraints override retrieved experience; memory cannot invoke effectors."
+          },
+          {
+            "check_id": "C6",
+            "description": "Architecture defines failure recovery.",
+            "status": "PASS",
+            "evidence": "Propose an explicit budget of two revised proposals after an initial rejected or unsuccessful proposal, subject to architect approval. Every revision uses refreshed observations and passes the gate again. Do not classify a still-starting server as failed merely because its capacity is not yet visible. After exhaustion, planner unavailability, or insufficient observations, dispatch no unvalidated mutation, continue monitoring, and escalate with the evidence trail. Holding state is not claimed to preserve the response-time target. Distinguish a real operator notification from simulated escalation in the demonstrator."
+          },
+          {
+            "check_id": "C7",
+            "description": "Architecture keeps an explicit architect role at design time.",
+            "status": "PASS",
+            "evidence": "The architect validates generated reasoning, approves the eventual architecture and executable policies, and retains authority over changes to trusted constraints. Generated recommendations cannot authorize deployment."
+          },
+          {
+            "check_id": "C8",
+            "description": "Architecture provides rationale for every required quality attribute.",
+            "status": "PASS",
+            "evidence": "Required: ['explainability', 'performance', 'reliability', 'resource_efficiency', 'safety', 'scalability']; Actual: ['explainability', 'performance', 'reliability', 'resource_efficiency', 'safety', 'scalability']"
+          }
+        ]
+      },
+      "llm_requirement_validation": {
+        "status": "PASS",
+        "requirement_coverage": [
+          {
+            "item": "Design-time LLM support",
+            "status": "PASS",
+            "evidence": "The LLM Architecture Reasoner uses the design request and retrieved knowledge to generate and explain alternatives. The requirements registry separates mandatory constraints from generated recommendations.",
+            "concern": "Generated reasoning must still be checked for factual accuracy and requirement traceability during architect review."
+          },
+          {
+            "item": "Architectural RAG",
+            "status": "PASS",
+            "evidence": "Architectural RAG retrieves knowledge before design reasoning, preserves identifiers and selection context, and treats retrieved material as advisory rather than executable policy.",
+            "concern": "The contents of AK1 through AK15 referenced by the candidate were not supplied, so their relevance, correctness, and actual use cannot be independently verified."
+          },
+          {
+            "item": "Multiple design alternatives and transparent trade-offs",
+            "status": "PASS",
+            "evidence": "The design-time flow explicitly generates alternatives, traces them to requirements and knowledge identifiers, and reviews qualitative consequences against all six quality attributes using the supplied priorities and weights.",
+            "concern": "Actual alternative descriptions and review artifacts are not included. This validates the proposed capability, not evidence that alternatives have already been adequately explored."
+          },
+          {
+            "item": "Architect oversight and design-time approval",
+            "status": "PASS",
+            "evidence": "Architect Review and Configuration Approval must approve the eventual architecture and executable policy configuration before deployment. The architect retains authority over trusted-constraint changes, and generated recommendations cannot authorize deployment.",
+            "concern": "Retry limits, observation windows, step interpretation, and anti-oscillation settings remain subject to approval; this validation does not substitute for that approval."
+          },
+          {
+            "item": "FR1: Incoming web-request processing",
+            "status": "PASS",
+            "evidence": "The SWIM Managed Web System explicitly processes incoming web requests.",
+            "concern": "None at the supplied architectural scope."
+          },
+          {
+            "item": "FR2: Basic and optional processing",
+            "status": "PASS",
+            "evidence": "The managed system distinguishes basic from optional request processing and exposes a dimmer for optional content.",
+            "concern": "Implementation tests should confirm that reducing optional content does not disable required basic processing."
+          },
+          {
+            "item": "FR3: Dynamic server scaling",
+            "status": "PASS",
+            "evidence": "The planner proposes add_server and remove_server actions, the gate checks allocation bounds and pending transitions, and the approved adapter executes validated actions.",
+            "concern": "Safe request draining during removal and reconciliation after uncertain effector outcomes are not specified."
+          },
+          {
+            "item": "FR4: Dynamic dimmer adaptation",
+            "status": "PASS",
+            "evidence": "The planner coordinates dimmer reduction with delayed server scaling and considers optional-content restoration when headroom permits. The gate enforces the 0.0 to 1.0 bounds and trusted 0.25 step.",
+            "concern": "The approved step interpretation must unambiguously define permitted values and transitions without weakening the supplied 0.25 constraint."
+          },
+          {
+            "item": "FR5: Runtime monitoring",
+            "status": "PASS",
+            "evidence": "The Runtime Monitor and Snapshot Store collects average response time, workload, utilization, server states, and dimmer state. Snapshots contain timestamps, versions, missing-data indicators, and separate active and pending servers.",
+            "concern": "Sampling intervals, the response-time averaging window, and freshness thresholds are not yet specified."
+          },
+          {
+            "item": "Runtime analysis and planning",
+            "status": "PASS",
+            "evidence": "The Central Agentic Analyzer and Planner diagnoses response-time pressure and workload changes using current observations and retrieved experience, then proposes coordinated actions with rationale, expected effects, and preconditions.",
+            "concern": "Planning deadlines and an explicit method for comparing runtime action alternatives are not defined."
+          },
+          {
+            "item": "AG1: Maintain average response time at or below 0.75 seconds",
+            "status": "PARTIAL",
+            "evidence": "The 0.75-second target remains immutable, guides planning, and is checked against measured post-execution outcomes. Immediate dimmer reduction can compensate while added servers become active.",
+            "concern": "No timing analysis or workload evidence establishes that the controller reacts quickly enough. LLM latency, server startup delays, and saturation at six servers with minimum optional content can prevent target attainment. The architecture correctly acknowledges these limits rather than claiming a guarantee."
+          },
+          {
+            "item": "AG2: Preserve optional functionality when response time permits",
+            "status": "PASS",
+            "evidence": "The adaptation flow considers restoring optional content when observed headroom permits and coordinates quality decisions with capacity changes.",
+            "concern": "A concrete restoration policy, hysteresis, and evidence that optional content is not unnecessarily suppressed remain to be established."
+          },
+          {
+            "item": "AG3: Avoid unnecessary server allocation",
+            "status": "PASS",
+            "evidence": "Planning considers server removal under observed headroom and uses utilization, workload, and pending activation to avoid redundant additions.",
+            "concern": "Scale-in thresholds, cooldowns, and the ordering of scale-in versus dimmer restoration require approved operating rules and testing."
+          },
+          {
+            "item": "AG4: Deterministic safety validation and trusted runtime constraints",
+            "status": "PASS",
+            "evidence": "The deterministic gate validates structured proposals against allowed actions, server bounds of one through six, dimmer bounds, step rules, current state, and observation freshness. Every state-changing action in a multi-action proposal is revalidated before dispatch.",
+            "concern": "Implementation assurance must verify fail-closed parsing, policy integrity, and that serialization and state-version checks prevent races through dispatch. Structural validation alone cannot prove future response-time compliance."
+          },
+          {
+            "item": "Prohibition of direct LLM-to-effector authority",
+            "status": "PASS",
+            "evidence": "The LLM has no effector credentials or direct invocation path. Only validated actions pass through the execution coordinator to the approved effector adapter. Retrieved experience cannot invoke effectors.",
+            "concern": "Deployment permissions and network interfaces must preserve this boundary, including during recovery and operator intervention."
+          },
+          {
+            "item": "U1: Workload uncertainty",
+            "status": "PARTIAL",
+            "evidence": "Continuous workload monitoring, coordinated scaling and dimming, fresh-state validation, and outcome feedback address changing demand.",
+            "concern": "No separate fast control path or bounded planning latency is provided. Rapid workload changes may repeatedly invalidate plans or outpace adaptation."
+          },
+          {
+            "item": "U2: Resource-state uncertainty and delayed activation",
+            "status": "PASS",
+            "evidence": "The monitor distinguishes active from pending servers; safety checks account for reserved additions and pending removals; recovery does not mistake a still-starting server for failed capacity.",
+            "concern": "Startup deadlines and reconciliation rules for transitions that never settle or lose acknowledgments remain unspecified."
+          },
+          {
+            "item": "U3: Incomplete or changing runtime observations",
+            "status": "PASS",
+            "evidence": "Snapshots expose missing data and state versions. State-dependent actions require sufficiently complete, fresh observations, and stale proposals are prevented from reaching effectors.",
+            "concern": "The minimum observation set and acceptable age for each action must be configured. Persistent missing observations can safely block mutations while still allowing performance degradation."
+          },
+          {
+            "item": "U4: Incorrect or inconsistent LLM reasoning",
+            "status": "PASS",
+            "evidence": "LLM proposals are advisory, undergo deterministic checks, require observed outcome validation, and may be revised only within a bounded proposal budget. Trusted policy overrides memory.",
+            "concern": "A structurally valid proposal can still be ineffective or counterproductive. Its effects must be detected through timely runtime feedback."
+          },
+          {
+            "item": "Execution coordination and approved effectors",
+            "status": "PASS",
+            "evidence": "The execution coordinator serializes changes, revalidates individual actions, and dispatches only through the approved adapter. The adapter tracks acknowledgments and pending transitions without equating acknowledgment with adaptation success.",
+            "concern": "Idempotency, controller-restart recovery, and handling of partially completed multi-action plans need implementation-level specification."
+          },
+          {
+            "item": "Bounded recovery and replanning",
+            "status": "PARTIAL",
+            "evidence": "The candidate proposes two revised proposals after an initial rejection or unsuccessful proposal. Each revision uses refreshed observations and repeats safety validation; exhaustion leads to monitoring and escalation without unvalidated mutation.",
+            "concern": "The retry budget is awaiting architect approval. Attempt counts do not bound total recovery time without planner, effector, startup, and observation deadlines. Budget reset rules are also needed to prevent equivalent failures from causing indefinitely repeated recovery cycles."
+          },
+          {
+            "item": "Post-execution validation",
+            "status": "PASS",
+            "evidence": "The Outcome Evaluator compares observed effects with intended effects and the 0.75-second target over an approved observation window. PASS, PARTIAL, FAIL, and pending outcomes distinguish successful adaptation from acknowledgments or unsettled evidence.",
+            "concern": "The observation window, settling criteria, and maximum pending duration are not finalized."
+          },
+          {
+            "item": "Runtime adaptation memory and experience reuse",
+            "status": "PASS",
+            "evidence": "The centralized episode store records observation and policy versions, retrieved evidence, rationale, gate verdicts, acknowledgments, and measured outcomes. Retrieval uses workload, utilization, server-transition, and dimmer context; failed and unsettled episodes are explicitly marked.",
+            "concern": "Retention, relevance thresholds, and handling of obsolete policy versions should be defined to limit misleading reuse and oscillation."
+          },
+          {
+            "item": "Human escalation",
+            "status": "PASS",
+            "evidence": "Recovery escalates unresolved failures, planner unavailability, and insufficient observations with an evidence trail. The candidate explicitly distinguishes real operator notification from simulated escalation.",
+            "concern": "Notification routing, acknowledgment, escalation deadlines, and operator procedures are not specified. A simulated notification alone would not establish operational escalation."
+          },
+          {
+            "item": "Explainability and architectural traceability",
+            "status": "PASS",
+            "evidence": "Design-time evidence links and a runtime history connect requirements, retrieved knowledge, observations, proposal rationale, policy versions, safety decisions, and measured outcomes.",
+            "concern": "An explanation is not proof of correctness; review should verify that cited evidence supports the recorded rationale."
+          },
+          {
+            "item": "Centralized-controller reliability",
+            "status": "PARTIAL",
+            "evidence": "A shared state model and serialized execution simplify coordination, while planner unavailability causes safe withholding of unvalidated actions and escalation.",
+            "concern": "The logical controller remains an adaptation dependency. Restart reconciliation, availability measures, and a bounded fallback response are not described; preserving the safety boundary does not preserve adaptation availability."
+          }
+        ],
+        "major_strengths": [
+          "Explicit separation of untrusted LLM reasoning and retrieved experience from authoritative policy and effector authority.",
+          "Complete architectural feedback loop covering monitoring, analysis, planning, deterministic validation, execution, observed outcome evaluation, and experience reuse.",
+          "Coordinated server scaling and dimmer control account for delayed server activation and distinguish active capacity from pending transitions.",
+          "Design-time architectural RAG, alternative generation, rationale preservation, and mandatory architect approval are explicitly represented.",
+          "Per-action revalidation, serialized changes, and versioned observations address stale and conflicting proposals.",
+          "The candidate does not confuse effector acknowledgment with successful adaptation or structural safety with guaranteed response-time compliance."
+        ],
+        "major_validation_concerns": [
+          "Response-time adequacy remains unproven: LLM-dependent reaction latency and the absence of a fast fallback path require workload and timing validation against the 0.75-second target.",
+          "Recovery is bounded by a proposed retry count, but not yet by elapsed time; pending transitions and observations need deadlines and explicit exhaustion behavior.",
+          "Several safety-relevant operating parameters await architect approval, including freshness thresholds, observation windows, retry rules, and precise dimmer-step semantics.",
+          "Effector idempotency, uncertain-outcome reconciliation, safe scale-in, and controller-restart behavior need specification and tests.",
+          "Anti-oscillation and resource-versus-quality operating rules are not concrete enough to establish stable scaling and dimmer behavior under fluctuating load.",
+          "Architectural knowledge contents, actual design-alternative artifacts, and operational escalation delivery are not available for independent verification."
+        ],
+        "validation_summary": "PASS at the architectural level: no explicit hard-requirement violation or breach of the trusted LLM-to-effector boundary is present. The candidate provides the required design-time support and runtime adaptation mechanisms without relying on a trade-off score. This is not architecture selection, deployment approval, or proof that the 0.75-second target will always be met. Performance responsiveness, time-bounded recovery, operating-policy approval, and execution failure handling remain validation obligations before operational acceptance."
+      },
+      "final_validation_status": "PASS"
+    },
+    {
+      "alternative_id": "A2",
+      "alternative_name": "Coordinating Peer Adaptation Agents",
+      "weighted_rank": 3,
+      "weighted_total": 3.45,
+      "deterministic_validation": {
+        "status": "PASS",
+        "checks": [
+          {
+            "check_id": "C1",
+            "description": "Architecture contains explicit design-time structure.",
+            "status": "PASS",
+            "evidence": "Design-time components found: 5"
+          },
+          {
+            "check_id": "C2",
+            "description": "Architecture contains explicit runtime adaptation structure.",
+            "status": "PASS",
+            "evidence": "Runtime components found: 8"
+          },
+          {
+            "check_id": "C3",
+            "description": "Architecture defines a runtime safety mechanism.",
+            "status": "PASS",
+            "evidence": "Both agents are untrusted proposers without effector access. Deterministic validators enforce only add_server, remove_server, set_dimmer, and none; server bounds of 1 through 6; dimmer bounds of 0.0 through 1.0; and the approved interpretation of the 0.25 dimmer step. Atomic reservations include pending additions and removals, and removal must not eliminate the last serving server. A common policy version, ordered commits, and gateway fencing prevent two independently valid proposals from jointly violating constraints. Conflicting or stale proposals are rejected or deferred rather than executed speculatively. If coordination cannot establish authoritative state, new mutations stop. The 0.75-second target is shared trusted configuration and an observed outcome criterion, not a property guaranteed merely by transaction safety."
+          },
+          {
+            "check_id": "C4",
+            "description": "Architecture does not explicitly give the LLM direct effector authority.",
+            "status": "PASS",
+            "evidence": "No explicit direct-LLM-effector authority detected."
+          },
+          {
+            "check_id": "C5",
+            "description": "Architecture defines runtime adaptation memory.",
+            "status": "PASS",
+            "evidence": "Maintain agent-specific retrieval indexes for capacity and dimmer experience, linked by common episode, observation, policy, and commit identifiers. Include peer proposals and cross-effects so an agent does not infer that its own action alone caused an improvement. Store safety verdicts and PASS, PARTIAL, FAIL, or pending observations. Current policy overrides every retrieved case, and retrieval cannot create a committed action."
+          },
+          {
+            "check_id": "C6",
+            "description": "Architecture defines failure recovery.",
+            "status": "PASS",
+            "evidence": "Propose a shared maximum of two revised coordination rounds after the initial failed round, subject to architect approval. The budget belongs to the global episode so peers cannot multiply retries independently. Refresh observations, retrieve relevant failures, reconcile again, and revalidate every revision. Track server activation until an approved observation timeout before classifying it as failed. On exhausted rounds, unresolved conflicts, or loss of authoritative coordination, stop new mutations, keep monitoring, and escalate. The demonstrator must label simulated escalation separately from actual human interaction."
+          },
+          {
+            "check_id": "C7",
+            "description": "Architecture keeps an explicit architect role at design time.",
+            "status": "PASS",
+            "evidence": "The architect approves action ownership, consistency rules, deterministic arbitration policy, and escalation behavior. The architect must explicitly accept the additional distributed-control complexity; no new requirement for a geographically distributed deployment is assumed."
+          },
+          {
+            "check_id": "C8",
+            "description": "Architecture provides rationale for every required quality attribute.",
+            "status": "PASS",
+            "evidence": "Required: ['explainability', 'performance', 'reliability', 'resource_efficiency', 'safety', 'scalability']; Actual: ['explainability', 'performance', 'reliability', 'resource_efficiency', 'safety', 'scalability']"
+          }
+        ]
+      },
+      "llm_requirement_validation": {
+        "status": "PASS",
+        "requirement_coverage": [
+          {
+            "item": "FR1 and FR2: Process web requests with basic and optional processing",
+            "status": "PASS",
+            "evidence": "The SWIM Managed Web System explicitly processes basic and optional web-request work and exposes protected server and dimmer effectors.",
+            "concern": "None at the architectural level."
+          },
+          {
+            "item": "FR3: Dynamically adjust active servers",
+            "status": "PASS",
+            "evidence": "The Capacity Agent proposes add_server and remove_server actions, which are reserved, validated, committed, and executed through the gateway.",
+            "concern": "None at the architectural level."
+          },
+          {
+            "item": "FR4: Dynamically adjust the optional-content dimmer",
+            "status": "PASS",
+            "evidence": "The Optional-Content Agent proposes set_dimmer actions to protect response time and restore optional functionality when headroom permits.",
+            "concern": "The exact interpretation of the trusted 0.25 dimmer step remains to be specified."
+          },
+          {
+            "item": "FR5: Monitor response time, workload, utilization, server state, and dimmer state",
+            "status": "PASS",
+            "evidence": "The Versioned Observation Service publishes all five required measurements with timestamps, missing-data indicators, and observation versions.",
+            "concern": "Sampling intervals, freshness thresholds, and handling rules for individual missing metrics require configuration."
+          },
+          {
+            "item": "Design-time LLM support",
+            "status": "PASS",
+            "evidence": "The LLM Architecture Reasoner uses retrieved evidence to propose peer responsibilities, interaction sequences, and conflict scenarios without treating generated protocols as trusted.",
+            "concern": "None."
+          },
+          {
+            "item": "Architectural RAG",
+            "status": "PASS",
+            "evidence": "Architectural RAG retrieves supplied knowledge about decentralized control, feedback loops, memory, safety, and oversight before architecture reasoning.",
+            "concern": "The contents of the referenced AK sources are not supplied, so their relevance and the grounding of specific claims cannot be independently verified."
+          },
+          {
+            "item": "Multiple design alternatives",
+            "status": "PARTIAL",
+            "evidence": "The design flow explicitly asks the LLM to propose distributed responsibilities and coordination alternatives and examines multiple conflict scenarios.",
+            "concern": "The architecture provides an alternative-generation mechanism but does not show distinct alternatives or their comparative rationale. This is a design-time evidence gap, not a reason to select another architecture."
+          },
+          {
+            "item": "Architect oversight and mandatory design-time approval",
+            "status": "PASS",
+            "evidence": "Architect approval is required before deployment of the protocol and configuration, including action ownership, consistency rules, arbitration, and escalation behavior.",
+            "concern": "The candidate describes the approval gate; it does not establish that approval has already occurred."
+          },
+          {
+            "item": "Runtime analysis, planning, and adaptation alternatives",
+            "status": "PASS",
+            "evidence": "The two agents independently diagnose their assigned responsibilities, retrieve experience, and publish structured proposals with expected cross-effects. Deterministic reconciliation and revised coordination rounds resolve incompatible proposals.",
+            "concern": "The detailed arbitration policy and rules for evaluating alternatives are not yet specified."
+          },
+          {
+            "item": "AG1: Maintain average response time at or below 0.75 seconds",
+            "status": "PARTIAL",
+            "evidence": "Both agents use the shared trusted 0.75-second target, and outcome evaluators check actual global response time after execution.",
+            "concern": "The averaging window, control cadence, decision thresholds, and acceptable adaptation latency are unspecified. Performance under representative workloads has not been demonstrated, and transaction safety alone cannot guarantee this goal."
+          },
+          {
+            "item": "AG2: Preserve optional functionality when response time is satisfactory",
+            "status": "PARTIAL",
+            "evidence": "The Optional-Content Agent restores optional functionality when headroom permits, and coordination recognizes interactions between restoration and server removal.",
+            "concern": "Headroom criteria and the policy for balancing optional-content restoration against resource reduction remain unspecified."
+          },
+          {
+            "item": "AG3: Avoid unnecessary servers after workload decreases",
+            "status": "PASS",
+            "evidence": "The Capacity Agent owns remove_server planning, while reconciliation accounts for optional-content restoration to avoid premature scale-in.",
+            "concern": "Scale-in thresholds, stabilization periods, and anti-oscillation rules need to be defined and tested."
+          },
+          {
+            "item": "AG4: Deterministic safety validation",
+            "status": "PASS",
+            "evidence": "Deterministic Commit Validators enforce action ownership, bounds, policy versions, observation freshness, and nonconflicting reservations before the gateway executes committed actions.",
+            "concern": "Implementation testing must establish that every execution path passes through this boundary."
+          },
+          {
+            "item": "Prohibition of direct LLM-to-effector authority",
+            "status": "PASS",
+            "evidence": "Both agents are explicitly untrusted proposers without effector access. They write proposals to the ledger; only committed, validated, fenced commands reach approved effectors.",
+            "concern": "None in the stated architecture."
+          },
+          {
+            "item": "Trusted action allowlist and server bounds",
+            "status": "PASS",
+            "evidence": "The safety mechanism permits only add_server, remove_server, set_dimmer, and none, enforces one through six servers, includes pending transitions in reservations, and prohibits removal of the last serving server.",
+            "concern": "None in the stated policy."
+          },
+          {
+            "item": "Trusted dimmer bounds and step",
+            "status": "PARTIAL",
+            "evidence": "The safety mechanism explicitly enforces the 0.0 through 1.0 bounds and references enforcement of the approved interpretation of the 0.25 step.",
+            "concern": "The step semantics must be made unambiguous in the trusted validator. Architect approval cannot authorize a weaker interpretation than the supplied constraint."
+          },
+          {
+            "item": "U1: Workload uncertainty",
+            "status": "PARTIAL",
+            "evidence": "Shared workload and response-time observations support both capacity adaptation and optional-content reduction.",
+            "concern": "No explicit overload policy or deterministic fallback is specified for workloads that change faster than LLM planning, coordination, or server activation."
+          },
+          {
+            "item": "U2: Delayed server activation and resource-state uncertainty",
+            "status": "PASS",
+            "evidence": "Capacity planning accounts for startup delays, pending additions are recorded, requested capacity is not counted as active, and activation is tracked until an observation timeout.",
+            "concern": "Activation timeout values and reconciliation of servers that activate after a timeout require definition."
+          },
+          {
+            "item": "U3: Incomplete or changing runtime observations",
+            "status": "PARTIAL",
+            "evidence": "Observations have timestamps, versions, and missing-data indicators. Stale proposals are rejected or deferred, and mutations stop when authoritative coordination cannot be established.",
+            "concern": "The minimum complete observation set and deterministic behavior for fresh but incomplete snapshots are not specified."
+          },
+          {
+            "item": "U4: Incorrect or inconsistent LLM reasoning",
+            "status": "PASS",
+            "evidence": "LLM outputs remain proposals subject to trusted policy, deterministic arbitration, and execution validation. Retrieved experience cannot create a committed action or override current policy.",
+            "concern": "Constraint-compliant but ineffective plans remain possible; outcome evaluation and recovery are therefore essential."
+          },
+          {
+            "item": "Distributed coordination and safe execution",
+            "status": "PASS",
+            "evidence": "Atomic reservations, a single ordered commit record, common policy versions, and authoritative gateway fencing address conflicting proposals, stale owners, and replayed commits.",
+            "concern": "Crash recovery, ambiguous effector completion, and ledger-to-effector reconciliation need protocol-level specification and fault-injection testing."
+          },
+          {
+            "item": "Bounded recovery",
+            "status": "PARTIAL",
+            "evidence": "The candidate proposes a global maximum of two revised coordination rounds after the initial failed round. Each revision refreshes observations and repeats validation; exhaustion stops mutations and triggers escalation.",
+            "concern": "The numerical bound remains subject to approval. Episode identity, prevention of budget reset across repeated failures, and timeouts for planning, coordination, and execution must be fixed to establish bounded recovery in elapsed time."
+          },
+          {
+            "item": "Post-execution validation",
+            "status": "PASS",
+            "evidence": "Outcome Evaluators assess actual local and global effects, record PASS, PARTIAL, FAIL, or pending outcomes, and initiate bounded recovery for rejected or ineffective actions.",
+            "concern": "Evaluation windows and quantitative outcome criteria beyond the response-time target need specification."
+          },
+          {
+            "item": "Runtime adaptation memory",
+            "status": "PASS",
+            "evidence": "Agent-specific retrieval indexes are linked by episode, observation, policy, and commit identifiers. Stored episodes include peer proposals, cross-effects, safety verdicts, and outcomes.",
+            "concern": "Incomplete or confounded episodes need retrieval-quality controls; linked records alone do not establish causal attribution."
+          },
+          {
+            "item": "Human escalation",
+            "status": "PASS",
+            "evidence": "The Recovery and Human Escalation Endpoint presents unresolved conflicts, execution failures, and infeasible goals to an operator. Exhausted recovery or unavailable authoritative coordination stops mutations while monitoring continues.",
+            "concern": "Operator notification, acknowledgement, and safe resumption procedures are unspecified. Simulated escalation must remain distinguishable from real human interaction."
+          },
+          {
+            "item": "Explainability and architectural rationale",
+            "status": "PASS",
+            "evidence": "The review workspace retains qualitative trade-offs and architect-defined weights. Runtime proposals, objections, observations, safety verdicts, ordered commits, and linked outcomes support reconstruction of decisions.",
+            "concern": "A durable approved design-rationale record should accompany deployment; no ADR or equivalent completed record is supplied."
+          }
+        ],
+        "major_strengths": [
+          "Separates untrusted LLM analysis and planning from deterministic authorization and protected effectors.",
+          "Addresses cross-agent safety explicitly through transactional reservations, ordered commits, shared policy versions, and fencing.",
+          "Covers both required adaptation dimensions: server scaling and optional-content dimmer control.",
+          "Accounts for startup delays and distinguishes pending capacity from active serving capacity.",
+          "Connects post-execution global validation, shared recovery budgets, adaptation memory, and human escalation.",
+          "Includes architectural RAG, design-time LLM reasoning, coordination alternatives, and mandatory architect approval."
+        ],
+        "major_validation_concerns": [
+          "Response-time achievement is not demonstrated. Control timing, measurement windows, overload handling, and stabilization policies remain open.",
+          "The trusted dimmer-step semantics and behavior for incomplete observations require precise deterministic rules.",
+          "The recovery budget is proposed rather than finalized, and end-to-end time bounds and episode-reset rules are unspecified.",
+          "Distributed execution requires further validation of crash recovery, ambiguous effector outcomes, and state reconciliation.",
+          "Coordination loss safely suspends mutations but may leave response-time violations unresolved until coordination or operator intervention becomes available.",
+          "Concrete design alternatives, retrieval grounding, and approved design rationale are not supplied as validation artifacts."
+        ],
+        "validation_summary": "PASS at the architectural level: no explicit architecture-breaking violation of the supplied trusted requirements is present. A2 provides the required design-time support, protected runtime adaptation loop, server and dimmer control, outcome evaluation, memory, and human oversight. This is not a trade-off-based selection or a claim of deployment readiness. The identified partial specifications require closure and testing before asserting reliable response-time performance and fully bounded operational recovery."
+      },
+      "final_validation_status": "PASS"
+    },
+    {
+      "alternative_id": "A3",
+      "alternative_name": "Two-Timescale Supervisory Adaptation",
+      "weighted_rank": 1,
+      "weighted_total": 4.0,
+      "deterministic_validation": {
+        "status": "PASS",
+        "checks": [
+          {
+            "check_id": "C1",
+            "description": "Architecture contains explicit design-time structure.",
+            "status": "PASS",
+            "evidence": "Design-time components found: 5"
+          },
+          {
+            "check_id": "C2",
+            "description": "Architecture contains explicit runtime adaptation structure.",
+            "status": "PASS",
+            "evidence": "Runtime components found: 8"
+          },
+          {
+            "check_id": "C3",
+            "description": "Architecture defines a runtime safety mechanism.",
+            "status": "PASS",
+            "evidence": "Neither the LLM supervisor nor the deterministic fast loop can invoke effectors directly. The shared gate enforces the allowed actions, 1-to-6 server bounds, 0.0-to-1.0 dimmer bounds, and the approved 0.25-step interpretation. It validates current observations, policy versions, pending capacity reservations, and preservation of at least one serving server. Arbitration and fast-loop rules are trusted deterministic configuration, not LLM-generated runtime instructions. Both loops treat 0.75 seconds as the immutable response-time target. Faster dimmer control improves reaction opportunities but does not prove target satisfaction when observations lag or available capacity is insufficient."
+          },
+          {
+            "check_id": "C4",
+            "description": "Architecture does not explicitly give the LLM direct effector authority.",
+            "status": "PASS",
+            "evidence": "No explicit direct-LLM-effector authority detected."
+          },
+          {
+            "check_id": "C5",
+            "description": "Architecture defines runtime adaptation memory.",
+            "status": "PASS",
+            "evidence": "Store joint episodes containing fast-loop interventions, supervisory proposals, observation and policy versions, safety verdicts, server activation timelines, and observed outcomes. Runtime retrieval informs supervisory planning but cannot alter fast-loop rules or trusted constraints. Preserve the distinction between a capacity improvement and a response-time improvement obtained by temporarily reducing optional content."
+          },
+          {
+            "check_id": "C6",
+            "description": "Architecture defines failure recovery.",
+            "status": "PASS",
+            "evidence": "Propose at most two revised supervisory plans after an initial rejection or unsuccessful settled outcome, subject to architect approval; every revision is revalidated. The fast loop may continue only under its preapproved rules with sufficiently fresh observations. A rejected fast-loop action is not blindly retried against the same state: refresh observations and pass the issue to the supervisor. Repeated ineffective interventions or exhaustion of available dimmer reduction trigger the bounded recovery episode rather than an unlimited adjustment cycle. On supervisory failure or exhausted recovery, escalate while retaining only permitted deterministic behavior; if observations are inadequate, stop new state changes. Distinguish actual human escalation from a simulated demonstrator event."
+          },
+          {
+            "check_id": "C7",
+            "description": "Architecture keeps an explicit architect role at design time.",
+            "status": "PASS",
+            "evidence": "The architect approves the eventual hierarchy, deterministic fast-loop rules, arbitration policy, and all trusted operating parameters. The LLM cannot rewrite those rules or change the response-time target at runtime."
+          },
+          {
+            "check_id": "C8",
+            "description": "Architecture provides rationale for every required quality attribute.",
+            "status": "PASS",
+            "evidence": "Required: ['explainability', 'performance', 'reliability', 'resource_efficiency', 'safety', 'scalability']; Actual: ['explainability', 'performance', 'reliability', 'resource_efficiency', 'safety', 'scalability']"
+          }
+        ]
+      },
+      "llm_requirement_validation": {
+        "status": "PASS",
+        "requirement_coverage": [
+          {
+            "item": "FR1 and FR2: Web requests with basic and optional processing",
+            "status": "PASS",
+            "evidence": "The SWIM Managed Web System explicitly processes incoming requests with basic and optional work and exposes dimmer-controlled optional processing.",
+            "concern": "None at the architectural level."
+          },
+          {
+            "item": "FR3: Dynamic server allocation",
+            "status": "PASS",
+            "evidence": "The supervisory planner proposes server additions and removals through the shared safety gate and approved effector adapter. Monitoring distinguishes active servers from servers still starting.",
+            "concern": "Activation deadlines, failed-start handling, and safe removal procedures require concrete implementation policies."
+          },
+          {
+            "item": "FR4: Dynamic dimmer adaptation",
+            "status": "PASS",
+            "evidence": "The deterministic fast loop proposes bounded dimmer steps without LLM latency, while the supervisor can recommend quality restoration. Conflicts are resolved deterministically.",
+            "concern": "The precise 0.25-step semantics and approved control rules must be fixed and tested before deployment."
+          },
+          {
+            "item": "FR5: Required runtime observations",
+            "status": "PASS",
+            "evidence": "The shared monitor supplies versioned response-time, workload, utilization, server-state, and dimmer observations, including completeness and pending transitions.",
+            "concern": "Freshness thresholds, sampling intervals, and completeness criteria remain configuration obligations."
+          },
+          {
+            "item": "AG1: Average response time at or below 0.75 seconds",
+            "status": "PARTIAL",
+            "evidence": "Both loops use the immutable 0.75-second target. Fast dimming addresses immediate pressure, and supervisory scaling addresses sustained demand and activation delays.",
+            "concern": "The architecture provides a credible adaptation mechanism, not evidence of target attainment. The averaging window, feasible workload envelope, and performance under delayed observations and saturated resources must be validated."
+          },
+          {
+            "item": "AG2: Preserve optional functionality when response time permits",
+            "status": "PASS",
+            "evidence": "The fast loop cautiously restores optional content under sustained headroom. Supervisory analysis considers optional-content loss, and memory distinguishes capacity improvements from improvements caused by dimming.",
+            "concern": "Concrete supervisory triggers are needed to prevent fast dimming from indefinitely masking a capacity shortage."
+          },
+          {
+            "item": "AG3: Avoid unnecessary server allocation",
+            "status": "PASS",
+            "evidence": "The supervisor analyzes resource usage and proposes server removal when headroom permits, with re-evaluation against current dimmer and workload observations.",
+            "concern": "Scale-down hysteresis and coordination with dimmer restoration need scenario-based validation."
+          },
+          {
+            "item": "AG4: Prevent unsafe or policy-violating adaptation",
+            "status": "PASS",
+            "evidence": "Every executable action from either controller passes through a deterministic gate that checks trusted bounds, current observations, policy versions, and pending reservations.",
+            "concern": "Structural constraint enforcement must not be mistaken for proof that an action will satisfy the response-time objective."
+          },
+          {
+            "item": "Design-time LLM support",
+            "status": "PASS",
+            "evidence": "The LLM Architecture and Control Reasoner explains fast-loop alternatives, supervisory responsibilities, and interactions while executable policy remains outside runtime LLM authority.",
+            "concern": "None at the architectural level."
+          },
+          {
+            "item": "Architectural RAG",
+            "status": "PASS",
+            "evidence": "A dedicated Architectural RAG component retrieves knowledge about MAPE-K, degradation, scaling delays, safety, memory, and oversight before design generation.",
+            "concern": "The contents of the referenced AK entries are not supplied, so their relevance and grounding cannot be independently verified. Retrieved evidence should retain provenance and remain subordinate to trusted constraints."
+          },
+          {
+            "item": "Multiple design alternatives",
+            "status": "PARTIAL",
+            "evidence": "The design-time reasoner explicitly explains alternatives for fast-loop rules, supervisory responsibilities, and cross-loop interaction.",
+            "concern": "The flow does not explicitly require generation and retention of multiple complete architectural alternatives. Alternative coverage is clear at the control-design level but incomplete at the whole-architecture level; no architecture selection is required for this validation."
+          },
+          {
+            "item": "Architect oversight and design-time approval",
+            "status": "PASS",
+            "evidence": "The architecture requires architect approval of the hierarchy, fast-loop rules, arbitration, retry budget, and operating windows before deployment.",
+            "concern": "Approval is specified as a deployment prerequisite; the supplied candidate is not evidence that approval has already occurred."
+          },
+          {
+            "item": "Runtime analysis, planning, and adaptation alternatives",
+            "status": "PASS",
+            "evidence": "The agentic supervisor retrieves episodes, diagnoses persistent pressure and optional-quality loss, and proposes capacity or quality-restoration actions. Bounded revised plans provide a recovery path.",
+            "concern": "Explicit criteria for comparing feasible runtime alternatives would make planning more reproducible and explainable."
+          },
+          {
+            "item": "Deterministic safety validation and trusted numeric bounds",
+            "status": "PASS",
+            "evidence": "The shared gate enforces the allowed action set, server bounds of 1 through 6, dimmer bounds of 0.0 through 1.0, the approved 0.25-step interpretation, and preservation of at least one serving server.",
+            "concern": "Boundary tests must cover concurrent proposals, pending additions and removals, invalid dimmer values, and observation changes between validation and execution."
+          },
+          {
+            "item": "Prohibition of direct LLM-to-effector authority",
+            "status": "PASS",
+            "evidence": "Neither the LLM supervisor nor the deterministic fast loop can invoke effectors directly. Only the approved adapter executes gate-validated actions, and runtime retrieval cannot alter trusted policy.",
+            "concern": "Implementation must enforce this separation through access controls and interfaces, not merely controller conventions."
+          },
+          {
+            "item": "Cross-loop arbitration and execution",
+            "status": "PASS",
+            "evidence": "The gate serializes proposals, rejects stale plans, defers conflicting dimmer increases, and re-evaluates server removals against current observations. The adapter tracks acknowledgments and in-flight changes.",
+            "concern": "Atomic validation-to-execution behavior, duplicate-command handling, and actuator timeout semantics remain unspecified."
+          },
+          {
+            "item": "U1 and U2: Workload changes and delayed server activation",
+            "status": "PASS",
+            "evidence": "Fast dimming bridges immediate pressure while supervisory capacity changes settle. Versioned observations, pending capacity reservations, and separate evaluation windows account for activation delay.",
+            "concern": "Burst workloads and failed or excessively delayed activation require tests; bounded resources cannot guarantee response time under unlimited demand."
+          },
+          {
+            "item": "U3: Incomplete or changing observations",
+            "status": "PASS",
+            "evidence": "Monitoring records completeness and versions, the gate rejects stale plans, and recovery stops new state changes when observations are inadequate.",
+            "concern": "Stopping adaptation preserves the control boundary but may leave response time degraded. Prolonged observation loss needs explicit escalation timing."
+          },
+          {
+            "item": "U4: Incorrect or inconsistent LLM reasoning",
+            "status": "PASS",
+            "evidence": "LLM proposals are untrusted, independently checked, and subject to bounded revision. Trusted configuration cannot be rewritten by runtime LLM reasoning.",
+            "concern": "A policy-compliant proposal may still be ineffective; outcome evaluation and adversarial proposal tests remain necessary."
+          },
+          {
+            "item": "Bounded recovery",
+            "status": "PASS",
+            "evidence": "The candidate proposes at most two revised supervisory plans after an initial rejection or unsuccessful settled outcome. Fast-loop rejection requires fresh observations rather than blind retry, and repeated ineffective interventions enter bounded recovery.",
+            "concern": "Approval must fix the retry budget, episode boundaries, repeated-failure thresholds, and pending-action deadlines so recovery cannot remain pending indefinitely or reset its budget continuously."
+          },
+          {
+            "item": "Post-execution validation",
+            "status": "PASS",
+            "evidence": "The cross-timescale evaluator checks actual immediate dimmer and delayed capacity effects against objectives and the target, records PASS, PARTIAL, or FAIL, and keeps unsettled effects pending.",
+            "concern": "Acceptance criteria, settling windows, and handling of confounding workload changes must be defined and tested."
+          },
+          {
+            "item": "Runtime adaptation memory",
+            "status": "PASS",
+            "evidence": "Joint episodes store interventions, supervisory proposals, observation and policy versions, safety verdicts, activation timelines, and outcomes. Retrieved experience informs supervisory planning without changing constraints.",
+            "concern": "Retention, retrieval relevance, and treatment of obsolete or unsuccessful episodes need implementation policies."
+          },
+          {
+            "item": "Human escalation",
+            "status": "PASS",
+            "evidence": "Supervisory failure or exhausted recovery triggers human notification while only permitted deterministic behavior continues. The design distinguishes actual escalation from a simulated demonstrator event.",
+            "concern": "Deployment must specify an actual recipient, delivery mechanism, acknowledgment expectations, and behavior while awaiting intervention."
+          },
+          {
+            "item": "Explainable decisions and rationale",
+            "status": "PASS",
+            "evidence": "Design-time rationale is preserved in the approval workspace. Runtime explanations combine deterministic rules, evidence-linked supervisory reasoning, safety verdicts, and joint episode outcomes.",
+            "concern": "Decision-to-evidence traceability should be verified in implementation, especially when both loops influence an outcome."
+          }
+        ],
+        "major_strengths": [
+          "Removes LLM latency from immediate dimmer adaptation while retaining supervisory reasoning for slower capacity decisions.",
+          "Explicitly prohibits direct controller-to-effector execution and applies one deterministic safety boundary to both loops.",
+          "Accounts for stale observations, pending capacity, and cross-loop conflicts rather than treating adaptations as isolated actions.",
+          "Combines post-execution evaluation, runtime memory, bounded replanning, and human escalation.",
+          "Requires architect approval of executable policy and acknowledges that bounded safe actions do not prove response-time compliance."
+        ],
+        "major_validation_concerns": [
+          "Response-time compliance remains unproven; validation needs an explicit average-response-time window, workload envelope, and tests for burst load, activation delay, observation lag, and resource saturation.",
+          "Multiple design alternatives are represented primarily as control and interaction alternatives rather than explicitly retained complete architecture alternatives.",
+          "Loop periods, hysteresis, dimmer-step semantics, freshness thresholds, evaluation windows, and recovery deadlines remain proposed configuration rather than approved operational policy.",
+          "Shared monitoring, arbitration, and execution are critical dependencies. Their failure behavior and non-bypassable, atomic enforcement require implementation evidence.",
+          "Fast dimming may mask sustained capacity shortages, and poorly coordinated quality restoration and scale-down may oscillate; both risks require targeted validation.",
+          "Human escalation is architecturally present but requires a concrete operational handoff, especially during observation loss or exhausted capacity."
+        ],
+        "validation_summary": "PASS at the architectural level: no supplied hard requirement or trusted authority boundary is contradicted. A3 provides the required processing, monitoring, dimmer and server adaptation, design-time LLM/RAG support, architect oversight, deterministic execution controls, bounded recovery, outcome validation, runtime memory, and escalation mechanisms. Partial coverage remains for complete design alternatives and demonstrated response-time attainment. These limitations require refinement and verification before deployment; this verdict is neither architecture selection nor a claim of proven operational performance."
+      },
+      "final_validation_status": "PASS"
+    }
+  ]
+}

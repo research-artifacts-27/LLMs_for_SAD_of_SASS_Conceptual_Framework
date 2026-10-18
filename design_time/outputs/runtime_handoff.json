@@ -1,0 +1,208 @@
+{
+  "handoff_status": "READY",
+  "design_case_id": "SWIM-SASS-001",
+  "approved_architecture": {
+    "alternative_id": "A1",
+    "name": "Centralized Agentic MAPE-K",
+    "architectural_style": "Centralized MAPE-K controller with an untrusted LLM planner and a deterministic execution boundary",
+    "decision_authority": "human_architect",
+    "architect_rationale": "A1 is selected because it provides the closest structural alignment with the implemented and experimentally demonstrated runtime prototype. Although A3 achieved the highest weighted trade-off score, A1 already realizes the required centralized agentic adaptation loop, runtime RAG, LLM-supported analysis and planning, deterministic safety validation, approved SWIM effectors, post-execution validation, runtime memory, bounded recovery, and human escalation. Selecting A1 therefore provides stronger traceability between the approved design and the implemented demonstrator, while A3 remains a promising future architectural extension."
+  },
+  "architecture_decision_record": {
+    "adr_id": "ADR-001",
+    "status": "Accepted"
+  },
+  "runtime_control_style": "centralized",
+  "approved_runtime_structure": {
+    "control_style": "centralized",
+    "components": [
+      {
+        "name": "SWIM Managed Web System",
+        "responsibility": "Process incoming requests with distinguishable basic and optional processing. Expose approved server and dimmer effectors without exposing them to the LLM."
+      },
+      {
+        "name": "Runtime Monitor and Snapshot Store",
+        "responsibility": "Collect average response time, workload, utilization, server states, and dimmer state. Attach timestamps and state versions, and distinguish active servers from pending activation."
+      },
+      {
+        "name": "Central Agentic Analyzer and Planner",
+        "responsibility": "Use current observations and retrieved experience to diagnose adaptation needs and propose coordinated server and dimmer actions with rationale, expected effects, and preconditions."
+      },
+      {
+        "name": "Adaptation Memory and Runtime Retrieval",
+        "responsibility": "Retrieve relevant previous states, proposals, safety verdicts, and observed outcomes for the planner. Keep experience separate from authoritative policy."
+      },
+      {
+        "name": "Deterministic Safety Gate and Execution Coordinator",
+        "responsibility": "Validate structured proposals against trusted policy and current state, serialize changes, and prevent stale or conflicting proposals from reaching effectors."
+      },
+      {
+        "name": "Approved Effector Adapter",
+        "responsibility": "Execute only validated add_server, remove_server, set_dimmer, or none actions. Track acknowledgments and pending transitions without treating acknowledgment as successful adaptation."
+      },
+      {
+        "name": "Outcome Evaluator and Recovery Supervisor",
+        "responsibility": "Compare observed outcomes with intended effects and the 0.75-second target, record evidence, bound replanning, and escalate unresolved failures to a human."
+      }
+    ],
+    "adaptation_flow": [
+      "Monitor the managed system and build a versioned snapshot containing every FR5 observation and explicit missing-data indicators.",
+      "Retrieve relevant adaptation episodes; analyze response-time pressure, workload changes, utilization, pending server activation, and optional-content level.",
+      "Generate a structured proposal using only allowed actions. Coordinate dimmer reduction with delayed scaling when needed, and consider optional-content restoration and server removal when observed headroom permits.",
+      "Apply deterministic validation to the proposal. A multi-action proposal is not authorized wholesale: revalidate each state-changing action against the latest state before dispatch.",
+      "Execute validated actions through the approved adapter and monitor transitions, including the delay before an added server becomes active.",
+      "Evaluate observed effects over an architect-approved observation window. Record PASS when the intended effect is observed and the response-time target is met, PARTIAL when evidence shows incomplete improvement, and FAIL when execution or settled outcomes fail the intended objective. Keep incomplete or unsettled observations pending rather than claiming success.",
+      "Store the evidence and rationale, then continue monitoring or enter bounded replanning and escalation."
+    ],
+    "safety_mechanism": "The LLM has no effector credentials or direct invocation path. The deterministic gate enforces the allowed action vocabulary, server bounds of 1 through 6, dimmer bounds of 0.0 through 1.0, and the trusted 0.25 dimmer step. It checks dimmer values and changes against the approved step interpretation, rejecting ambiguous proposals. Server validation accounts for active servers, reserved additions, and pending removals so concurrent or delayed changes cannot exceed allocation bounds or remove the last serving server. State-dependent actions require sufficiently complete, fresh observations and matching state versions. The 0.75-second target remains an immutable trusted goal, but structural policy validation cannot guarantee future response time under uncertain workload. Performance must be checked through runtime feedback.",
+    "memory_strategy": "Maintain a centralized episode store containing observation versions, retrieved evidence, proposal rationale, policy version, gate verdicts, execution acknowledgments, and measured outcomes. Retrieve by workload, utilization, server-transition state, and dimmer context. Mark partial, failed, and unsettled episodes explicitly. Current observations and trusted constraints override retrieved experience; memory cannot invoke effectors.",
+    "failure_recovery": "Propose an explicit budget of two revised proposals after an initial rejected or unsuccessful proposal, subject to architect approval. Every revision uses refreshed observations and passes the gate again. Do not classify a still-starting server as failed merely because its capacity is not yet visible. After exhaustion, planner unavailability, or insufficient observations, dispatch no unvalidated mutation, continue monitoring, and escalate with the evidence trail. Holding state is not claimed to preserve the response-time target. Distinguish a real operator notification from simulated escalation in the demonstrator."
+  },
+  "trusted_runtime_policy_from_design": {
+    "max_servers": 6,
+    "min_servers": 1,
+    "response_time_target": 0.75,
+    "dimmer_min": 0.0,
+    "dimmer_max": 1.0,
+    "dimmer_step": 0.25,
+    "allowed_actions": [
+      "add_server",
+      "remove_server",
+      "set_dimmer",
+      "none"
+    ]
+  },
+  "current_runtime_policy": {
+    "max_servers": 6,
+    "min_servers": 1,
+    "response_time_target": 0.75,
+    "dimmer_min": 0.0,
+    "dimmer_max": 1.0,
+    "dimmer_step": 0.25,
+    "adaptation_period_seconds": 60,
+    "allowed_actions": [
+      "add_server",
+      "remove_server",
+      "set_dimmer",
+      "none"
+    ]
+  },
+  "policy_consistency": {
+    "overall_status": "PASS",
+    "checks": [
+      {
+        "property": "max_servers",
+        "expected_from_approved_design": 6,
+        "actual_runtime_value": 6,
+        "status": "PASS"
+      },
+      {
+        "property": "min_servers",
+        "expected_from_approved_design": 1,
+        "actual_runtime_value": 1,
+        "status": "PASS"
+      },
+      {
+        "property": "response_time_target",
+        "expected_from_approved_design": 0.75,
+        "actual_runtime_value": 0.75,
+        "status": "PASS"
+      },
+      {
+        "property": "dimmer_min",
+        "expected_from_approved_design": 0.0,
+        "actual_runtime_value": 0.0,
+        "status": "PASS"
+      },
+      {
+        "property": "dimmer_max",
+        "expected_from_approved_design": 1.0,
+        "actual_runtime_value": 1.0,
+        "status": "PASS"
+      },
+      {
+        "property": "dimmer_step",
+        "expected_from_approved_design": 0.25,
+        "actual_runtime_value": 0.25,
+        "status": "PASS"
+      },
+      {
+        "property": "allowed_actions",
+        "expected_from_approved_design": [
+          "add_server",
+          "remove_server",
+          "set_dimmer",
+          "none"
+        ],
+        "actual_runtime_value": [
+          "add_server",
+          "remove_server",
+          "set_dimmer",
+          "none"
+        ],
+        "status": "PASS"
+      }
+    ]
+  },
+  "implementation_traceability": {
+    "monitoring": {
+      "design_responsibility": "Observe real SWIM runtime state.",
+      "implementation": "monitor.py"
+    },
+    "runtime_analysis": {
+      "design_responsibility": "Interpret runtime state and diagnose adaptation need.",
+      "implementation": "analyzer.py"
+    },
+    "runtime_rag": {
+      "design_responsibility": "Retrieve relevant previous adaptation experience.",
+      "implementation": "rag_retriever.py"
+    },
+    "planning": {
+      "design_responsibility": "Generate candidate runtime adaptation plans.",
+      "implementation": "planner.py"
+    },
+    "agentic_replanning": {
+      "design_responsibility": "Recover from rejected adaptation candidates.",
+      "implementation": "failure_router.py + agent_controller.py"
+    },
+    "deterministic_safety": {
+      "design_responsibility": "Prevent unsafe or policy-violating plans from reaching effectors.",
+      "implementation": "safety_checker.py"
+    },
+    "execution": {
+      "design_responsibility": "Invoke only approved SWIM adaptation effectors.",
+      "implementation": "executor.py + swim_client.py"
+    },
+    "post_execution_validation": {
+      "design_responsibility": "Evaluate observed adaptation effects and QoS outcome.",
+      "implementation": "outcome_evaluator.py"
+    },
+    "runtime_memory": {
+      "design_responsibility": "Store states, decisions, safety verdicts, and observed outcomes.",
+      "implementation": "runtime_kb.py + runtime_kb.json"
+    },
+    "bounded_recovery": {
+      "design_responsibility": "Limit autonomous recovery attempts.",
+      "implementation": "agent_controller.py"
+    },
+    "operator_escalation": {
+      "design_responsibility": "Escalate when bounded autonomous recovery is exhausted.",
+      "implementation": "agent_controller.py",
+      "prototype_status": "simulated operator escalation only"
+    }
+  },
+  "runtime_governance": {
+    "llm_direct_effector_access": false,
+    "deterministic_safety_required": true,
+    "post_execution_validation_required": true,
+    "runtime_memory_enabled": true,
+    "bounded_replanning_required": true,
+    "human_escalation": "simulated in current prototype"
+  },
+  "design_to_runtime_traceability": {
+    "design_request": "design_time/config/swim_design_request.json",
+    "architect_decision": "design_time/outputs/architect_decision.json",
+    "adr": "design_time/outputs/ADR-001.json",
+    "runtime_policy": "trusted_policies.json"
+  }
+}

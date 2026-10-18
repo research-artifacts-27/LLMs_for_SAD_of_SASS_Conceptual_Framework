@@ -1,0 +1,115 @@
+======================================
+EXP-F: RETRY EXHAUSTION AND FAIL-SAFE
+Controlled persistent-failure injection
+======================================
+=== MONITOR — REAL SWIM ===
+Connecting to SWIM at localhost:4242...
+Connected to real SWIM.
+Observed Total Servers: 1
+Observed Active Servers: 1
+Observed Maximum Servers: 6
+Server Booting: False
+Observed Response Time: 0.0383 seconds
+Observed Average Utilization: 36.6%
+Observed Total Utilization: 0.366
+Utilization Entries Available: 1 / 1 active server(s)
+Observed Dimmer: 0.9
+Observed Arrival Rate: 9.63333
+Basic Response Time: 0.0014 seconds
+Optional Response Time: 0.0424 seconds
+SWIM connection closed.
+
+=== INITIAL REAL SWIM STATE ===
+Servers: 1
+Active servers: 1
+Response time: 0.03831576526812296
+Dimmer: 0.9
+Configured recovery bound: 2
+
+=== INITIAL UNSAFE CANDIDATE ===
+{'action': 'remove_server'}
+
+=== SAFETY CHECK — REAL SWIM ===
+Result: FAIL
+Reason: Cannot remove a server because 1 active server(s) equals the trusted minimum of 1.
+
+=== RECOVERY ATTEMPT 1 OF 2 ===
+
+=== FAILURE ROUTING ===
+Failure reason: Cannot remove a server because 1 active server(s) equals the trusted minimum of 1.
+Agent selected route: REPLAN
+Recovery route: replan
+Controlled fault injection: unsafe candidate is deliberately retained.
+Injected candidate: {'action': 'remove_server'}
+
+=== SAFETY CHECK — REAL SWIM ===
+Result: FAIL
+Reason: Cannot remove a server because 1 active server(s) equals the trusted minimum of 1.
+
+=== RECOVERY ATTEMPT 2 OF 2 ===
+
+=== FAILURE ROUTING ===
+Failure reason: Cannot remove a server because 1 active server(s) equals the trusted minimum of 1.
+Agent selected route: REPLAN
+Recovery route: replan
+Controlled fault injection: unsafe candidate is deliberately retained.
+Injected candidate: {'action': 'remove_server'}
+
+=== SAFETY CHECK — REAL SWIM ===
+Result: FAIL
+Reason: Cannot remove a server because 1 active server(s) equals the trusted minimum of 1.
+
+=== RETRY LOOP FINISHED ===
+Recovery attempts: 2
+Recovery routes: ['replan', 'replan']
+Final safety status: FAIL
+
+=== RETRY BOUND EXHAUSTED ===
+
+======================================
+ AUTONOMOUS ADAPTATION SUSPENDED
+======================================
+No candidate adaptation passed the deterministic safety check within the configured retry bound.
+Further autonomous adaptation is suspended for this control cycle.
+The current SWIM configuration is preserved.
+No rejected adaptation command is sent to the SWIM effectors.
+Operator escalation is requested in the prototype.
+NOTE: operator notification is simulated; no real human is contacted.
+
+======================================
+ SIMULATED OPERATOR INTERVENTION
+======================================
+Prototype records that an operator would inspect the rejected adaptation.
+No real operator interaction occurs in this demonstration.
+Simulated operator clearance is recorded.
+Control returns to monitoring without executing the rejected plan.
+=== MONITOR — REAL SWIM ===
+Connecting to SWIM at localhost:4242...
+Connected to real SWIM.
+Observed Total Servers: 1
+Observed Active Servers: 1
+Observed Maximum Servers: 6
+Server Booting: False
+Observed Response Time: 0.0380 seconds
+Observed Average Utilization: 36.3%
+Observed Total Utilization: 0.363
+Utilization Entries Available: 1 / 1 active server(s)
+Observed Dimmer: 0.9
+Observed Arrival Rate: 9.65
+Basic Response Time: 0.0014 seconds
+Optional Response Time: 0.0421 seconds
+SWIM connection closed.
+
+=== FINAL REAL SWIM STATE ===
+Servers: 1
+Active servers: 1
+Response time: 0.037994230042208636
+Dimmer: 0.9
+
+=== EXP-F SUMMARY ===
+Recovery attempts: 2
+Final safety status: FAIL
+Rejected unsafe actions executed: 0
+Fail-safe triggered: True
+Simulated operator escalation: True
+Final server count: 1

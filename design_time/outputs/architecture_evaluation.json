@@ -1,0 +1,256 @@
+{
+  "evaluation_method": {
+    "score_minimum": 1,
+    "score_maximum": 5,
+    "weights_defined_by": "architect",
+    "weighted_score_calculation": "deterministic",
+    "automatic_architecture_approval": false
+  },
+  "quality_attribute_weights": {
+    "performance": {
+      "weight": 0.3,
+      "priority": "very_high",
+      "goal": "Maintain the trusted response-time target under workload variation."
+    },
+    "scalability": {
+      "weight": 0.2,
+      "priority": "high",
+      "goal": "Adapt computing capacity when workload changes."
+    },
+    "reliability": {
+      "weight": 0.15,
+      "priority": "high",
+      "goal": "Maintain dependable adaptation behavior during runtime changes."
+    },
+    "safety": {
+      "weight": 0.15,
+      "priority": "high",
+      "goal": "Ensure that unsafe adaptation proposals cannot directly reach system effectors."
+    },
+    "resource_efficiency": {
+      "weight": 0.1,
+      "priority": "medium",
+      "goal": "Avoid maintaining unnecessary server capacity."
+    },
+    "explainability": {
+      "weight": 0.1,
+      "priority": "medium",
+      "goal": "Provide understandable rationale for architectural and runtime adaptation decisions."
+    }
+  },
+  "evaluations": [
+    {
+      "alternative_id": "A3",
+      "alternative_name": "Two-Timescale Supervisory Adaptation",
+      "quality_attribute_scores": {
+        "performance": {
+          "score": 4,
+          "rationale": "The deterministic dimmer loop responds without waiting for LLM reasoning and can mitigate overload while supervisory scaling waits for server activation.",
+          "tradeoff": "Observation lag, dimmer exhaustion, and insufficient capacity can still prevent the 0.75-second target. Loop periods and interaction rules require approval and validation."
+        },
+        "scalability": {
+          "score": 4,
+          "rationale": "The supervisor manages the required server range and pending activation state, while the fast loop offers temporary workload relief during capacity transitions.",
+          "tradeoff": "Scaling still depends on supervisory planning and the shared execution boundary; persistent dimming can conceal the need for additional capacity."
+        },
+        "reliability": {
+          "score": 4,
+          "rationale": "Preapproved dimmer control can continue during supervisory LLM unavailability, while cross-timescale outcome evaluation and bounded recovery track unsuccessful or unsettled adaptations.",
+          "tradeoff": "This fallback is limited to deterministic dimmer behavior. Monitoring, arbitration, and the safety gate remain shared dependencies, and inadequate observations stop state changes."
+        },
+        "safety": {
+          "score": 4,
+          "rationale": "Both loops must pass the same deterministic gate, which checks trusted bounds, policy versions, observations, and pending reservations; explicit arbitration blocks conflicting dimmer intentions.",
+          "tradeoff": "Two interacting control timescales expand the behavior that must be validated. Individually valid dimmer and server actions can still create repeated overload if interaction rules are poorly configured."
+        },
+        "resource_efficiency": {
+          "score": 4,
+          "rationale": "Fast dimming can absorb transient pressure without immediate capacity additions, while supervisory analysis considers utilization, optional-quality loss, and opportunities to remove unnecessary servers.",
+          "tradeoff": "Excessive reliance on dimming can reduce server use at the expense of optional functionality. Restoration and scale-in must be coordinated to avoid recurring overload."
+        },
+        "explainability": {
+          "score": 4,
+          "rationale": "Fast actions have deterministic rule-based explanations, and joint episode records connect supervisory rationale with dimmer interventions, activation timelines, safety verdicts, and outcomes.",
+          "tradeoff": "Explaining the overall result requires separating immediate dimmer effects from delayed capacity effects; concurrent loop activity makes causal attribution more complex than a single decision history."
+        }
+      },
+      "overall_tradeoff_summary": "Hybrid control separates immediate dimmer mitigation from slower capacity reasoning and retains limited adaptation during supervisory failure. Those benefits require validated cross-loop arbitration and tuning, with particular attention to avoiding prolonged optional-content loss and oscillation between quality restoration and server removal.",
+      "weighted_breakdown": {
+        "performance": {
+          "score": 4.0,
+          "weight": 0.3,
+          "weighted_value": 1.2
+        },
+        "scalability": {
+          "score": 4.0,
+          "weight": 0.2,
+          "weighted_value": 0.8
+        },
+        "reliability": {
+          "score": 4.0,
+          "weight": 0.15,
+          "weighted_value": 0.6
+        },
+        "safety": {
+          "score": 4.0,
+          "weight": 0.15,
+          "weighted_value": 0.6
+        },
+        "resource_efficiency": {
+          "score": 4.0,
+          "weight": 0.1,
+          "weighted_value": 0.4
+        },
+        "explainability": {
+          "score": 4.0,
+          "weight": 0.1,
+          "weighted_value": 0.4
+        }
+      },
+      "weighted_total": 4.0,
+      "weighted_rank": 1
+    },
+    {
+      "alternative_id": "A1",
+      "alternative_name": "Centralized Agentic MAPE-K",
+      "quality_attribute_scores": {
+        "performance": {
+          "score": 3,
+          "rationale": "A shared snapshot and unified planner coordinate dimmer reduction with delayed server activation, while outcome evaluation checks the 0.75-second target.",
+          "tradeoff": "LLM reasoning remains on the adaptation path with no independent fast loop; sudden workload changes can outpace planning and make proposals stale."
+        },
+        "scalability": {
+          "score": 4,
+          "rationale": "Centralized planning directly manages the required one-to-six-server range and distinguishes active capacity from pending additions to avoid redundant scaling.",
+          "tradeoff": "Observation processing, planning, and serialized execution share one logical control path, creating a potential adaptation bottleneck; server activation delays remain."
+        },
+        "reliability": {
+          "score": 3,
+          "rationale": "Versioned observations, serialized actions, explicit pending outcomes, and bounded replanning support consistent recovery without confusing acknowledgments with success.",
+          "tradeoff": "The logical controller is a shared dependency. Planner unavailability or exhausted recovery can suspend adaptation, and holding state does not preserve the response-time target."
+        },
+        "safety": {
+          "score": 5,
+          "rationale": "One inspectable deterministic boundary excludes direct LLM execution, checks allowed actions and numeric bounds, accounts for pending capacity, and revalidates each mutation against current state.",
+          "tradeoff": "Protection depends on correct policy encoding and authoritative state checks at the shared gate. Structural validation cannot guarantee response time under future workload."
+        },
+        "resource_efficiency": {
+          "score": 4,
+          "rationale": "Joint planning considers utilization, optional-content level, and pending capacity before adding or removing servers, supporting scale-in and avoidance of duplicate allocation.",
+          "tradeoff": "Efficiency depends on timely observations and context-sensitive planning; delayed decisions or inappropriate reuse of past episodes can prolong excess capacity or cause oscillation."
+        },
+        "explainability": {
+          "score": 5,
+          "rationale": "A centralized episode history links observation versions, retrieved evidence, proposal rationale, policy versions, safety verdicts, and measured outcomes in one ordered decision trail.",
+          "tradeoff": "Recorded LLM rationale is not proof of correctness or causality; review must distinguish proposed explanations from observed effects and unsettled outcomes."
+        }
+      },
+      "overall_tradeoff_summary": "Centralized coordination provides a clear trust boundary and strong end-to-end traceability for the bounded server pool. Its main compromise is dependence on one planning path, which simplifies coordination but exposes adaptation responsiveness and availability to controller or LLM delays.",
+      "weighted_breakdown": {
+        "performance": {
+          "score": 3.0,
+          "weight": 0.3,
+          "weighted_value": 0.9
+        },
+        "scalability": {
+          "score": 4.0,
+          "weight": 0.2,
+          "weighted_value": 0.8
+        },
+        "reliability": {
+          "score": 3.0,
+          "weight": 0.15,
+          "weighted_value": 0.45
+        },
+        "safety": {
+          "score": 5.0,
+          "weight": 0.15,
+          "weighted_value": 0.75
+        },
+        "resource_efficiency": {
+          "score": 4.0,
+          "weight": 0.1,
+          "weighted_value": 0.4
+        },
+        "explainability": {
+          "score": 5.0,
+          "weight": 0.1,
+          "weighted_value": 0.5
+        }
+      },
+      "weighted_total": 3.8,
+      "weighted_rank": 2
+    },
+    {
+      "alternative_id": "A2",
+      "alternative_name": "Coordinating Peer Adaptation Agents",
+      "quality_attribute_scores": {
+        "performance": {
+          "score": 3,
+          "rationale": "Capacity and optional-content diagnosis can run concurrently, while shared observations and global outcome checks align both agents with the response-time target.",
+          "tradeoff": "Peer reconciliation, reservations, and ordered commits add reaction latency. Neither actuator has an LLM-independent fast response path, and conflicting proposals can delay mitigation."
+        },
+        "scalability": {
+          "score": 4,
+          "rationale": "A dedicated capacity agent accounts for startup delays, and specialized planning responsibilities can scale independently while transactional reservations protect the required server range.",
+          "tradeoff": "All mutations still depend on coordinated commits to one managed system. The six-server limit does not itself justify the additional distributed planning infrastructure."
+        },
+        "reliability": {
+          "score": 3,
+          "rationale": "Separate planners allow one agent to keep producing proposals if its peer fails; fenced execution, shared retry budgets, and linked outcomes support controlled recovery.",
+          "tradeoff": "Proposal availability is not execution availability. Loss of authoritative coordination stops mutations, and distributed observations, reservations, and policy versions introduce more consistency failure modes."
+        },
+        "safety": {
+          "score": 4,
+          "rationale": "Untrusted peers cannot invoke effectors; common-policy validators, atomic reservations, ordered commits, and gateway fencing address jointly unsafe actions, stale ownership, and replay.",
+          "tradeoff": "Global safety depends on correct interaction among the ledger, validators, and gateway. This larger protocol surface is harder to validate than a single-controller boundary."
+        },
+        "resource_efficiency": {
+          "score": 3,
+          "rationale": "The capacity agent specializes in allocation and scale-in, using capacity episodes and shared transition records to avoid unnecessary or duplicate additions.",
+          "tradeoff": "Capacity removal and optional-content restoration are planned separately. Preventing premature scale-in and repeated reallocations depends on effective cross-agent reconciliation and accurate joint-outcome attribution."
+        },
+        "explainability": {
+          "score": 4,
+          "rationale": "Explicit action ownership clarifies individual responsibilities, while shared episode identifiers and ordered commits link peer proposals, objections, safety decisions, and global outcomes.",
+          "tradeoff": "The complete explanation must be reconstructed across federated memories and coordination records; local rationales alone can misattribute effects caused by both agents."
+        }
+      },
+      "overall_tradeoff_summary": "Decentralized planning enables specialized reasoning and partial planner independence, but safe execution remains globally coordinated. The resulting protocol makes conflicts explicit while adding latency, consistency dependencies, and explanatory complexity that may be substantial for the bounded SWIM deployment.",
+      "weighted_breakdown": {
+        "performance": {
+          "score": 3.0,
+          "weight": 0.3,
+          "weighted_value": 0.9
+        },
+        "scalability": {
+          "score": 4.0,
+          "weight": 0.2,
+          "weighted_value": 0.8
+        },
+        "reliability": {
+          "score": 3.0,
+          "weight": 0.15,
+          "weighted_value": 0.45
+        },
+        "safety": {
+          "score": 4.0,
+          "weight": 0.15,
+          "weighted_value": 0.6
+        },
+        "resource_efficiency": {
+          "score": 3.0,
+          "weight": 0.1,
+          "weighted_value": 0.3
+        },
+        "explainability": {
+          "score": 4.0,
+          "weight": 0.1,
+          "weighted_value": 0.4
+        }
+      },
+      "weighted_total": 3.45,
+      "weighted_rank": 3
+    }
+  ]
+}

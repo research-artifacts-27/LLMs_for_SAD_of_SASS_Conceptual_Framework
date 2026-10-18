@@ -1,0 +1,509 @@
+[
+  {
+    "final_rank": 1,
+    "similarity": 0.5697,
+    "semantic_rank": 1,
+    "selection_reasons": [
+      "semantic_top_k"
+    ],
+    "requirement_reason": null,
+    "knowledge": {
+      "id": "AK8",
+      "name": "Feature Degradation Through Dimmer Control",
+      "category": "adaptation_tactic",
+      "description": "Temporarily reduce optional functionality to protect critical response-time goals during constrained conditions.",
+      "supports": [
+        "performance",
+        "reliability"
+      ],
+      "applicability": [
+        "optional service functionality",
+        "graceful degradation",
+        "overload management"
+      ],
+      "benefits": [
+        "reduces workload without completely denying service",
+        "supports graceful degradation"
+      ],
+      "tradeoffs": [
+        "temporarily reduces delivered functionality",
+        "quality experienced by users may decline"
+      ],
+      "constraints": [
+        "optional and mandatory functionality must be distinguishable",
+        "dimmer bounds must be explicit"
+      ],
+      "source_kind": "architectural knowledge seed"
+    }
+  },
+  {
+    "final_rank": 2,
+    "similarity": 0.5638,
+    "semantic_rank": 2,
+    "selection_reasons": [
+      "semantic_top_k"
+    ],
+    "requirement_reason": null,
+    "knowledge": {
+      "id": "AK2",
+      "name": "Centralized Adaptation Controller",
+      "category": "control_architecture",
+      "description": "Use one logical controller to coordinate runtime adaptation decisions for the managed system.",
+      "supports": [
+        "explainability",
+        "reliability",
+        "safety"
+      ],
+      "applicability": [
+        "small to medium adaptation scope",
+        "single-system coordination",
+        "central policy enforcement"
+      ],
+      "benefits": [
+        "simplifies coordination",
+        "provides one decision point",
+        "makes policy enforcement easier to inspect"
+      ],
+      "tradeoffs": [
+        "may become a bottleneck",
+        "creates a centralized dependency",
+        "may scale poorly for highly distributed systems"
+      ],
+      "constraints": [
+        "controller must remain available",
+        "runtime state must be observable from the controller"
+      ],
+      "source_kind": "architectural knowledge seed"
+    }
+  },
+  {
+    "final_rank": 3,
+    "similarity": 0.5409,
+    "semantic_rank": 3,
+    "selection_reasons": [
+      "semantic_top_k",
+      "mandatory_requirement"
+    ],
+    "requirement_reason": "The requested system includes a runtime self-adaptation controller.",
+    "knowledge": {
+      "id": "AK1",
+      "name": "MAPE-K Feedback Loop",
+      "category": "self_adaptation_pattern",
+      "description": "Organize runtime adaptation around Monitor, Analyze, Plan, and Execute activities that share knowledge.",
+      "supports": [
+        "performance",
+        "scalability",
+        "reliability",
+        "explainability"
+      ],
+      "applicability": [
+        "runtime adaptation",
+        "closed-loop control",
+        "changing workload"
+      ],
+      "benefits": [
+        "separates adaptation responsibilities",
+        "supports explicit feedback-loop reasoning",
+        "provides clear locations for monitoring, diagnosis, planning, and execution"
+      ],
+      "tradeoffs": [
+        "introduces controller complexity",
+        "requires reliable runtime observations",
+        "control-loop latency may affect adaptation speed"
+      ],
+      "constraints": [
+        "runtime monitoring must be available",
+        "effectors must expose approved adaptation actions"
+      ],
+      "source_kind": "architectural knowledge seed"
+    }
+  },
+  {
+    "final_rank": 4,
+    "similarity": 0.5373,
+    "semantic_rank": 4,
+    "selection_reasons": [
+      "semantic_top_k",
+      "mandatory_requirement"
+    ],
+    "requirement_reason": "Human oversight and architect approval are explicitly required.",
+    "knowledge": {
+      "id": "AK12",
+      "name": "Human Approval and Escalation",
+      "category": "human_oversight",
+      "description": "Keep humans responsible for final design-time architecture approval and provide an escalation point when autonomous runtime recovery cannot find an acceptable plan.",
+      "supports": [
+        "safety",
+        "explainability",
+        "reliability"
+      ],
+      "applicability": [
+        "architecture approval",
+        "failed autonomous adaptation",
+        "high-impact design decisions"
+      ],
+      "benefits": [
+        "preserves human authority over architectural decisions",
+        "provides a fallback when autonomous recovery is exhausted"
+      ],
+      "tradeoffs": [
+        "human involvement may increase decision latency",
+        "operator availability may be required in deployed systems"
+      ],
+      "constraints": [
+        "the prototype must distinguish real human interaction from simulated escalation"
+      ],
+      "source_kind": "architectural knowledge seed"
+    }
+  },
+  {
+    "final_rank": 5,
+    "similarity": 0.5226,
+    "semantic_rank": 5,
+    "selection_reasons": [
+      "semantic_top_k",
+      "mandatory_requirement"
+    ],
+    "requirement_reason": "Runtime adaptation memory is explicitly required.",
+    "knowledge": {
+      "id": "AK10",
+      "name": "Runtime Adaptation Memory",
+      "category": "agent_memory",
+      "description": "Store previous adaptation states, decisions, safety verdicts, and observed outcomes for later retrieval.",
+      "supports": [
+        "reliability",
+        "explainability"
+      ],
+      "applicability": [
+        "agentic adaptation",
+        "experience reuse",
+        "RAG-supported runtime reasoning"
+      ],
+      "benefits": [
+        "allows previous adaptation experience to inform later decisions",
+        "supports inspection of prior decisions and outcomes",
+        "can distinguish successful and partially successful actions"
+      ],
+      "tradeoffs": [
+        "irrelevant experiences may bias decisions",
+        "memory can grow continuously",
+        "retrieval policy influences behavior"
+      ],
+      "constraints": [
+        "current trusted constraints must override retrieved experience",
+        "retrieved experience must not directly trigger effectors"
+      ],
+      "source_kind": "architectural knowledge seed"
+    }
+  },
+  {
+    "final_rank": 6,
+    "similarity": 0.5214,
+    "semantic_rank": 6,
+    "selection_reasons": [
+      "semantic_top_k"
+    ],
+    "requirement_reason": null,
+    "knowledge": {
+      "id": "AK3",
+      "name": "Decentralized Adaptation Control",
+      "category": "control_architecture",
+      "description": "Distribute adaptation responsibilities among multiple coordinating controllers or agents.",
+      "supports": [
+        "scalability",
+        "reliability"
+      ],
+      "applicability": [
+        "large distributed systems",
+        "multiple adaptation regions",
+        "systems without a single global controller"
+      ],
+      "benefits": [
+        "reduces dependence on one controller",
+        "supports distributed adaptation",
+        "may improve scalability"
+      ],
+      "tradeoffs": [
+        "coordination becomes more difficult",
+        "conflicting local decisions may occur",
+        "global safety enforcement becomes more complex"
+      ],
+      "constraints": [
+        "controllers require coordination mechanisms",
+        "consistency requirements must be defined"
+      ],
+      "source_kind": "architectural knowledge seed"
+    }
+  },
+  {
+    "final_rank": 7,
+    "similarity": 0.515,
+    "semantic_rank": 7,
+    "selection_reasons": [
+      "semantic_top_k",
+      "mandatory_requirement"
+    ],
+    "requirement_reason": "Trusted constraints require a deterministic safety validation layer.",
+    "knowledge": {
+      "id": "AK6",
+      "name": "Deterministic Safety Gate",
+      "category": "safety_tactic",
+      "description": "Place a deterministic policy-validation component between AI-generated adaptation plans and system effectors.",
+      "supports": [
+        "safety",
+        "reliability"
+      ],
+      "applicability": [
+        "LLM-based adaptation",
+        "agentic runtime control",
+        "systems with hard runtime constraints"
+      ],
+      "benefits": [
+        "prevents known policy violations from reaching effectors",
+        "separates generative reasoning from trusted enforcement",
+        "creates explicit safety evidence"
+      ],
+      "tradeoffs": [
+        "rules must be maintained",
+        "incorrect rules may reject useful plans",
+        "cannot guarantee properties outside encoded constraints"
+      ],
+      "constraints": [
+        "hard constraints must be machine-checkable",
+        "all executable plans must pass through the safety gate"
+      ],
+      "source_kind": "architectural knowledge seed"
+    }
+  },
+  {
+    "final_rank": 8,
+    "similarity": 0.4724,
+    "semantic_rank": 8,
+    "selection_reasons": [
+      "semantic_top_k",
+      "mandatory_requirement"
+    ],
+    "requirement_reason": "Agentic control requires bounded replanning and recovery.",
+    "knowledge": {
+      "id": "AK11",
+      "name": "Bounded Replanning",
+      "category": "agentic_control",
+      "description": "Allow an agent to reconsider failed plans but enforce a maximum number of autonomous recovery attempts.",
+      "supports": [
+        "safety",
+        "reliability"
+      ],
+      "applicability": [
+        "agentic adaptation",
+        "LLM planning",
+        "failed safety validation"
+      ],
+      "benefits": [
+        "supports recovery from rejected plans",
+        "prevents unlimited autonomous retry loops",
+        "provides an explicit escalation point"
+      ],
+      "tradeoffs": [
+        "retry bounds may terminate before a feasible plan is found",
+        "additional reasoning increases latency"
+      ],
+      "constraints": [
+        "retry limit must be explicit",
+        "each revised plan must be safety-checked again"
+      ],
+      "source_kind": "architectural knowledge seed"
+    }
+  },
+  {
+    "final_rank": 9,
+    "similarity": 0.4632,
+    "semantic_rank": null,
+    "selection_reasons": [
+      "mandatory_requirement"
+    ],
+    "requirement_reason": "Runtime adaptation requires post-execution validation.",
+    "knowledge": {
+      "id": "AK13",
+      "name": "Post-Execution Validation",
+      "category": "feedback_tactic",
+      "description": "Observe the managed system after an adaptation action and compare the actual effect against the intended goal.",
+      "supports": [
+        "reliability",
+        "explainability"
+      ],
+      "applicability": [
+        "runtime adaptation",
+        "closed-loop control",
+        "adaptation outcome evaluation"
+      ],
+      "benefits": [
+        "distinguishes proposed actions from observed effects",
+        "supports PASS, PARTIAL, and FAIL outcome semantics",
+        "provides evidence for future adaptation memory"
+      ],
+      "tradeoffs": [
+        "requires additional monitoring",
+        "effects may take time to become observable"
+      ],
+      "constraints": [
+        "outcomes should be based on observed state rather than assumed action success"
+      ],
+      "source_kind": "architectural knowledge seed"
+    }
+  },
+  {
+    "final_rank": 10,
+    "similarity": 0.4486,
+    "semantic_rank": null,
+    "selection_reasons": [
+      "mandatory_requirement"
+    ],
+    "requirement_reason": "Design scope explicitly requires LLM-supported architecture reasoning.",
+    "knowledge": {
+      "id": "AK5",
+      "name": "LLM Architecture Reasoning Component",
+      "category": "llm_support",
+      "description": "Use an LLM for requirement interpretation, architectural alternative generation, trade-off explanation, and rationale generation.",
+      "supports": [
+        "explainability"
+      ],
+      "applicability": [
+        "requirements analysis",
+        "design-space exploration",
+        "architecture rationale"
+      ],
+      "benefits": [
+        "supports natural-language requirements",
+        "can generate multiple candidate designs",
+        "can explain architectural reasoning"
+      ],
+      "tradeoffs": [
+        "outputs may be incorrect or inconsistent",
+        "results may vary between runs",
+        "architectural decisions cannot be accepted without validation"
+      ],
+      "constraints": [
+        "LLM output must not be treated as authoritative",
+        "important decisions require validation and human approval"
+      ],
+      "source_kind": "architectural knowledge seed"
+    }
+  },
+  {
+    "final_rank": 11,
+    "similarity": 0.4428,
+    "semantic_rank": null,
+    "selection_reasons": [
+      "mandatory_requirement"
+    ],
+    "requirement_reason": "Multiple weighted quality attributes require explicit trade-off analysis.",
+    "knowledge": {
+      "id": "AK15",
+      "name": "Weighted Quality-Attribute Trade-off Analysis",
+      "category": "architecture_evaluation",
+      "description": "Evaluate candidate architectures against explicit quality attributes using architect-defined weights and explain the trade-offs rather than selecting solely from an LLM preference.",
+      "supports": [
+        "performance",
+        "scalability",
+        "reliability",
+        "safety",
+        "resource_efficiency",
+        "explainability"
+      ],
+      "applicability": [
+        "architecture alternative comparison",
+        "design-space exploration",
+        "transparent architecture selection"
+      ],
+      "benefits": [
+        "makes selection criteria explicit",
+        "supports visual comparison of alternatives",
+        "allows architects to inspect how priorities affect ranking"
+      ],
+      "tradeoffs": [
+        "numeric scores simplify complex architectural judgments",
+        "results depend on selected criteria and weights"
+      ],
+      "constraints": [
+        "weights must be explicitly documented",
+        "scores require rationale",
+        "the highest numerical score must not automatically bypass architect validation"
+      ],
+      "source_kind": "architectural knowledge seed"
+    }
+  },
+  {
+    "final_rank": 12,
+    "similarity": 0.4084,
+    "semantic_rank": null,
+    "selection_reasons": [
+      "mandatory_requirement"
+    ],
+    "requirement_reason": "Design scope explicitly requires architectural RAG.",
+    "knowledge": {
+      "id": "AK4",
+      "name": "Architectural Knowledge Retrieval",
+      "category": "llm_support",
+      "description": "Retrieve relevant architectural knowledge before asking an LLM to reason about architecture design decisions.",
+      "supports": [
+        "reliability",
+        "explainability"
+      ],
+      "applicability": [
+        "LLM-assisted architecture design",
+        "architecture alternative generation",
+        "architecture rationale generation"
+      ],
+      "benefits": [
+        "grounds architectural reasoning in an explicit knowledge source",
+        "reduces dependence on model-only recall",
+        "allows retrieved evidence to be inspected"
+      ],
+      "tradeoffs": [
+        "retrieval quality affects downstream reasoning",
+        "irrelevant knowledge may bias architectural decisions",
+        "knowledge-base maintenance is required"
+      ],
+      "constraints": [
+        "retrieved knowledge must remain advisory",
+        "important design constraints must be represented explicitly"
+      ],
+      "source_kind": "architectural knowledge seed"
+    }
+  },
+  {
+    "final_rank": 13,
+    "similarity": 0.3705,
+    "semantic_rank": null,
+    "selection_reasons": [
+      "mandatory_requirement"
+    ],
+    "requirement_reason": "Architecture decisions require inspectable rationale and ADRs.",
+    "knowledge": {
+      "id": "AK14",
+      "name": "Architecture Decision Record",
+      "category": "design_documentation",
+      "description": "Record an architectural decision together with its context, considered alternatives, selected option, rationale, and consequences.",
+      "supports": [
+        "explainability"
+      ],
+      "applicability": [
+        "architecture design",
+        "design rationale",
+        "human review"
+      ],
+      "benefits": [
+        "preserves architectural reasoning",
+        "makes alternatives and consequences explicit",
+        "supports later review"
+      ],
+      "tradeoffs": [
+        "requires maintenance as architecture evolves"
+      ],
+      "constraints": [
+        "generated rationale must correspond to the actual selected architecture"
+      ],
+      "source_kind": "architectural knowledge seed"
+    }
+  }
+]

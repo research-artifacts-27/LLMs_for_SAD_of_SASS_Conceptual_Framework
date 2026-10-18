@@ -1,0 +1,515 @@
+[
+  {
+    "variant": "B2",
+    "variant_name": "LLM plus runtime RAG",
+    "run_id": "E8_B2_rep00",
+    "timestamp_utc": "2026-10-17T01:09:54.619778+00:00",
+    "initial_state": {
+      "response_time": 11.519294256592795,
+      "servers": 1,
+      "active_servers": 1,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 1.0,
+      "total_utilization": 1.0,
+      "utilization_entries": 1,
+      "dimmer": 0.9,
+      "arrival_rate": 56.1167,
+      "basic_response_time": 9.37416,
+      "optional_response_time": 11.5892,
+      "basic_throughput": 1.43333,
+      "optional_throughput": 43.9833
+    },
+    "diagnosis": "workload_saturation",
+    "candidate_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "final_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "executed_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "execution_performed": true,
+    "final_state": {
+      "response_time": 11.650647159724658,
+      "servers": 2,
+      "active_servers": 2,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.50001733295,
+      "total_utilization": 1.0000346659,
+      "utilization_entries": 2,
+      "dimmer": 0.9,
+      "arrival_rate": 56.85,
+      "basic_response_time": 10.0894,
+      "optional_response_time": 11.6981,
+      "basic_throughput": 1.51667,
+      "optional_throughput": 49.9
+    },
+    "execution_outcome": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "final_verdict": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "memory_episode_count_before": 0,
+    "analysis_latency_seconds": 3.444767958,
+    "planning_latency_seconds": 3.777741167000002,
+    "safety_latency_seconds": 0.0005107079999930875,
+    "decision_latency_seconds": 7.223019832999995,
+    "execution_latency_seconds": 0.007086749999999142,
+    "cycle_latency_seconds": 7.247457333,
+    "llm_used": true,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": false,
+    "runtime_memory_used_for_decisions": false,
+    "runtime_memory_scope": "isolated_B2_run",
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false
+  },
+  {
+    "variant": "B2",
+    "variant_name": "LLM plus runtime RAG",
+    "run_id": "E8_B2_rep00",
+    "timestamp_utc": "2026-10-17T01:10:57.700387+00:00",
+    "initial_state": {
+      "response_time": 12.515946657619658,
+      "servers": 2,
+      "active_servers": 2,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.9396709999999999,
+      "total_utilization": 1.8793419999999998,
+      "utilization_entries": 2,
+      "dimmer": 0.9,
+      "arrival_rate": 59.4333,
+      "basic_response_time": 9.05421,
+      "optional_response_time": 12.6867,
+      "basic_throughput": 2.68333,
+      "optional_throughput": 54.4
+    },
+    "diagnosis": "workload_saturation",
+    "candidate_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "final_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "executed_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "execution_performed": true,
+    "final_state": {
+      "response_time": 12.86662730563274,
+      "servers": 3,
+      "active_servers": 3,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.6666666666666666,
+      "total_utilization": 2.0,
+      "utilization_entries": 2,
+      "dimmer": 0.9,
+      "arrival_rate": 59.7167,
+      "basic_response_time": 9.62035,
+      "optional_response_time": 13.0467,
+      "basic_throughput": 3.01667,
+      "optional_throughput": 54.3833
+    },
+    "execution_outcome": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "final_verdict": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "memory_episode_count_before": 1,
+    "analysis_latency_seconds": 4.4914004999999975,
+    "planning_latency_seconds": 5.817441959000007,
+    "safety_latency_seconds": 0.00039695899999969697,
+    "decision_latency_seconds": 10.309239418000004,
+    "execution_latency_seconds": 0.005779958000005081,
+    "cycle_latency_seconds": 10.328780916,
+    "llm_used": true,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": true,
+    "runtime_memory_used_for_decisions": true,
+    "runtime_memory_scope": "isolated_B2_run",
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false
+  },
+  {
+    "variant": "B2",
+    "variant_name": "LLM plus runtime RAG",
+    "run_id": "E8_B2_rep00",
+    "timestamp_utc": "2026-10-17T01:11:54.746926+00:00",
+    "initial_state": {
+      "response_time": 13.361489572795097,
+      "servers": 3,
+      "active_servers": 3,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.9425880000000001,
+      "total_utilization": 2.827764,
+      "utilization_entries": 3,
+      "dimmer": 0.9,
+      "arrival_rate": 62.5833,
+      "basic_response_time": 8.90432,
+      "optional_response_time": 13.7877,
+      "basic_throughput": 5.31667,
+      "optional_throughput": 55.6
+    },
+    "diagnosis": "workload_saturation",
+    "candidate_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "final_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "executed_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "execution_performed": true,
+    "final_state": {
+      "response_time": 13.450805245413454,
+      "servers": 4,
+      "active_servers": 4,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.7376445,
+      "total_utilization": 2.950578,
+      "utilization_entries": 3,
+      "dimmer": 0.9,
+      "arrival_rate": 62.7833,
+      "basic_response_time": 8.85439,
+      "optional_response_time": 13.9043,
+      "basic_throughput": 5.53333,
+      "optional_throughput": 56.0833
+    },
+    "execution_outcome": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "final_verdict": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "memory_episode_count_before": 2,
+    "analysis_latency_seconds": 3.053001249999994,
+    "planning_latency_seconds": 4.292973332999992,
+    "safety_latency_seconds": 0.000426790999995319,
+    "decision_latency_seconds": 7.346401373999981,
+    "execution_latency_seconds": 0.013294207999990704,
+    "cycle_latency_seconds": 7.37527483400001,
+    "llm_used": true,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": true,
+    "runtime_memory_used_for_decisions": true,
+    "runtime_memory_scope": "isolated_B2_run",
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false
+  },
+  {
+    "variant": "B2",
+    "variant_name": "LLM plus runtime RAG",
+    "run_id": "E8_B2_rep00",
+    "timestamp_utc": "2026-10-17T01:12:53.402000+00:00",
+    "initial_state": {
+      "response_time": 9.505308781706535,
+      "servers": 4,
+      "active_servers": 4,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.91935725,
+      "total_utilization": 3.677429,
+      "utilization_entries": 4,
+      "dimmer": 0.9,
+      "arrival_rate": 58.8,
+      "basic_response_time": 4.79873,
+      "optional_response_time": 10.0422,
+      "basic_throughput": 7.13333,
+      "optional_throughput": 62.5333
+    },
+    "diagnosis": "workload_saturation",
+    "candidate_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "final_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "executed_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "execution_performed": true,
+    "final_state": {
+      "response_time": 8.637956807085573,
+      "servers": 5,
+      "active_servers": 5,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.740076,
+      "total_utilization": 3.70038,
+      "utilization_entries": 4,
+      "dimmer": 0.9,
+      "arrival_rate": 58.1333,
+      "basic_response_time": 4.04558,
+      "optional_response_time": 9.16287,
+      "basic_throughput": 7.1,
+      "optional_throughput": 62.1167
+    },
+    "execution_outcome": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "final_verdict": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "memory_episode_count_before": 3,
+    "analysis_latency_seconds": 3.045142334000019,
+    "planning_latency_seconds": 2.9431988329999967,
+    "safety_latency_seconds": 0.00039899999998738167,
+    "decision_latency_seconds": 5.988740167000003,
+    "execution_latency_seconds": 0.009245582999994895,
+    "cycle_latency_seconds": 6.032596916000017,
+    "llm_used": true,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": true,
+    "runtime_memory_used_for_decisions": true,
+    "runtime_memory_scope": "isolated_B2_run",
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false
+  },
+  {
+    "variant": "B2",
+    "variant_name": "LLM plus runtime RAG",
+    "run_id": "E8_B2_rep00",
+    "timestamp_utc": "2026-10-17T01:13:57.108684+00:00",
+    "initial_state": {
+      "response_time": 1.2204353754045307,
+      "servers": 5,
+      "active_servers": 5,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.6618341999999999,
+      "total_utilization": 3.3091709999999996,
+      "utilization_entries": 5,
+      "dimmer": 0.9,
+      "arrival_rate": 57.8,
+      "basic_response_time": 0.203721,
+      "optional_response_time": 1.33381,
+      "basic_throughput": 6.2,
+      "optional_throughput": 55.6
+    },
+    "diagnosis": "workload_saturation",
+    "candidate_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "final_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "executed_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "execution_performed": true,
+    "final_state": {
+      "response_time": 0.5254020994109139,
+      "servers": 6,
+      "active_servers": 6,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.5400515,
+      "total_utilization": 3.240309,
+      "utilization_entries": 5,
+      "dimmer": 0.9,
+      "arrival_rate": 58.3167,
+      "basic_response_time": 0.0104246,
+      "optional_response_time": 0.581823,
+      "basic_throughput": 6.01667,
+      "optional_throughput": 54.9167
+    },
+    "execution_outcome": {
+      "status": "PASS",
+      "action_effect_observed": true,
+      "goal_satisfied": true,
+      "reason": "The approved adaptation took effect and the post-execution response-time goal is satisfied."
+    },
+    "final_verdict": {
+      "status": "PASS",
+      "action_effect_observed": true,
+      "goal_satisfied": true,
+      "reason": "The approved adaptation took effect and the post-execution response-time goal is satisfied."
+    },
+    "memory_episode_count_before": 4,
+    "analysis_latency_seconds": 4.8989453749999825,
+    "planning_latency_seconds": 4.813632333000044,
+    "safety_latency_seconds": 0.0004125830000134556,
+    "decision_latency_seconds": 9.71299029100004,
+    "execution_latency_seconds": 0.006154459000015322,
+    "cycle_latency_seconds": 9.735763583999983,
+    "llm_used": true,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": true,
+    "runtime_memory_used_for_decisions": true,
+    "runtime_memory_scope": "isolated_B2_run",
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false
+  },
+  {
+    "variant": "B2",
+    "variant_name": "LLM plus runtime RAG",
+    "run_id": "E8_B2_rep00",
+    "timestamp_utc": "2026-10-17T01:15:00.084332+00:00",
+    "initial_state": {
+      "response_time": 0.058687033593258366,
+      "servers": 6,
+      "active_servers": 6,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.5510861666666668,
+      "total_utilization": 3.3065170000000004,
+      "utilization_entries": 6,
+      "dimmer": 0.9,
+      "arrival_rate": 62.1,
+      "basic_response_time": 0.00252238,
+      "optional_response_time": 0.0655892,
+      "basic_throughput": 6.8,
+      "optional_throughput": 55.3333
+    },
+    "diagnosis": "normal",
+    "candidate_plan": {
+      "action": "set_dimmer",
+      "value": 1.0,
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "final_plan": {
+      "action": "set_dimmer",
+      "value": 1.0,
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "set_dimmer satisfies trusted SWIM adaptation policies."
+    },
+    "executed_plan": {
+      "action": "set_dimmer",
+      "value": 1.0,
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "LLM-generated candidate based on current runtime evidence, trusted policies, and isolated B2 runtime RAG."
+    },
+    "execution_performed": true,
+    "final_state": {
+      "response_time": 0.05804171978345542,
+      "servers": 6,
+      "active_servers": 6,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.559122,
+      "total_utilization": 3.3547320000000003,
+      "utilization_entries": 6,
+      "dimmer": 1.0,
+      "arrival_rate": 63.1667,
+      "basic_response_time": 0.0024382,
+      "optional_response_time": 0.0649901,
+      "basic_throughput": 7.01667,
+      "optional_throughput": 56.15
+    },
+    "execution_outcome": {
+      "status": "PASS",
+      "action_effect_observed": true,
+      "goal_satisfied": true,
+      "reason": "The approved adaptation took effect and the post-execution response-time goal is satisfied."
+    },
+    "final_verdict": {
+      "status": "PASS",
+      "action_effect_observed": true,
+      "goal_satisfied": true,
+      "reason": "The approved adaptation took effect and the post-execution response-time goal is satisfied."
+    },
+    "memory_episode_count_before": 5,
+    "analysis_latency_seconds": 8.493944416999966,
+    "planning_latency_seconds": 4.19512279099996,
+    "safety_latency_seconds": 0.00037229200000865603,
+    "decision_latency_seconds": 12.689439499999935,
+    "execution_latency_seconds": 0.005284667000012178,
+    "cycle_latency_seconds": 12.711714083000004,
+    "llm_used": true,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": true,
+    "runtime_memory_used_for_decisions": true,
+    "runtime_memory_scope": "isolated_B2_run",
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false
+  }
+]

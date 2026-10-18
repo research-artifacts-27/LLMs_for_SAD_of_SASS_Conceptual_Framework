@@ -1,0 +1,73 @@
+{
+  "deterministic_failures": [
+    {
+      "check_id": "C3",
+      "description": "Architecture defines a runtime safety mechanism.",
+      "evidence": ""
+    },
+    {
+      "check_id": "C6",
+      "description": "Architecture defines failure recovery.",
+      "evidence": ""
+    }
+  ],
+  "requirement_failures": [
+    {
+      "item": "AG1: Maintain average response time at or below 0.75 seconds",
+      "status": "PARTIAL",
+      "evidence": "Planning addresses response-time pressure through dimming and scaling, and outcome evaluation explicitly checks the 0.75-second target.",
+      "concern": "No response-time measurement window, control-loop timing budget, or bounded planner latency is specified. There is no separate fast control path, and the target cannot be guaranteed under workloads exceeding maximum feasible capacity."
+    },
+    {
+      "item": "AG2: Preserve optional functionality when the response-time goal is satisfied",
+      "status": "PARTIAL",
+      "evidence": "The adaptation flow considers optional-content restoration when observed headroom permits.",
+      "concern": "Restoration thresholds and the decision rule for balancing additional optional content against resource use are not defined. The architecture supports restoration but does not establish that it preserves as much optional functionality as feasible."
+    },
+    {
+      "item": "AG3: Avoid unnecessary server allocation",
+      "status": "PARTIAL",
+      "evidence": "The planner considers server removal under observed headroom and accounts for pending capacity to avoid redundant additions.",
+      "concern": "Scale-in thresholds, cooldowns, and safeguards against removing capacity shortly before demand rebounds remain proposed configuration rather than specified behavior."
+    },
+    {
+      "item": "Trusted server bounds, dimmer bounds, and dimmer step",
+      "status": "PARTIAL",
+      "evidence": "The registry maintains supplied machine-readable runtime constraints, and the deterministic gate validates proposals against that policy. The scalability rationale acknowledges the one-to-six-server range.",
+      "concern": "The proposal does not enumerate checks for server count 1–6, dimmer range 0.0–1.0, and step 0.25. It should also specify how pending additions and removals affect capacity accounting. No conflicting limits are stated, but enforcement detail is incomplete."
+    },
+    {
+      "item": "U3: Incomplete or changing observations",
+      "status": "PARTIAL",
+      "evidence": "Snapshots include timestamps, versions, and missing-data indicators. The gate checks current state and rejects stale proposals; unsettled outcomes remain pending.",
+      "concern": "There is no explicit rule identifying which missing or stale measurements block which actions, or how long incomplete observations may remain pending."
+    },
+    {
+      "item": "Bounded recovery and replanning",
+      "status": "PARTIAL",
+      "evidence": "The Outcome Evaluator and Recovery Supervisor is responsible for bounded replanning and escalation. Architect approval includes proposed retry limits and observation windows.",
+      "concern": "The failure_recovery field is empty. Retry and elapsed-time limits, activation and execution timeouts, termination conditions, and behavior after exhaustion are not specified. Pending observations must not permit an indefinitely stalled recovery episode."
+    },
+    {
+      "item": "Human escalation",
+      "status": "PARTIAL",
+      "evidence": "The recovery supervisor escalates unresolved failures to a human, and the architecture recognizes infeasibility at maximum capacity and minimum optional content.",
+      "concern": "Escalation triggers, recipient, notification mechanism, required evidence, and safe behavior while awaiting a response are not defined."
+    },
+    {
+      "item": "Reliability of centralized adaptation",
+      "status": "PARTIAL",
+      "evidence": "One logical controller and serialized execution simplify coordination and traceability. The candidate explicitly acknowledges controller dependency and planning latency.",
+      "concern": "Controller failure, restart reconciliation, uncertain execution outcomes, and duplicate-dispatch prevention are not addressed sufficiently to establish dependable operation through failures."
+    }
+  ],
+  "major_validation_concerns": [
+    "The empty safety_mechanism and failure_recovery fields leave important operational contracts dispersed or incomplete. Their emptiness does not erase the mechanisms described elsewhere, but these contracts should be consolidated before implementation approval.",
+    "Exact deterministic enforcement of server bounds, dimmer bounds, dimmer step, pending-transition accounting, and invalid or incomplete state needs an explicit, testable policy specification.",
+    "Recovery is described as bounded without concrete bounds or fully specified timeout, exhaustion, and human-wait behavior.",
+    "Response-time adaptation lacks a defined measurement window, control-loop timing budget, and bounded behavior when LLM planning is slow or unavailable.",
+    "Optional-content restoration, scale-in, and anti-oscillation policies are insufficiently specified to demonstrate achievement of the quality and efficiency goals.",
+    "Central-controller failure handling and execution reconciliation remain open reliability concerns.",
+    "Human escalation is assigned but not operationalized, including escalation for infeasible response-time conditions."
+  ]
+}

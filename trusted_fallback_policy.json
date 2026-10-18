@@ -1,0 +1,35 @@
+{
+  "policy_id": "SWIM-FALLBACK-001",
+  "version": "1.0",
+  "enabled": true,
+
+  "trigger": "bounded_replanning_exhausted",
+
+  "planning_mode": "deterministic",
+
+  "overload_candidate_order": [
+    "add_server",
+    "reduce_dimmer"
+  ],
+
+  "healthy_candidate": "none",
+
+  "execute_at_most_one_action_per_cycle": true,
+
+  "require_existing_safety_check": true,
+
+  "on_no_safe_fallback": "preserve_current_configuration",
+
+  "operator_notification_required": true,
+
+  "human_acknowledgement_required_for_execution": false,
+
+  "notes": [
+    "Fallback planning does not use an LLM.",
+    "All fallback candidates must pass the existing deterministic safety checker before execution.",
+    "The fallback mechanism uses bounds and dimmer_step from trusted_policies.json.",
+    "A rejected fallback candidate is never sent to SWIM effectors.",
+    "If no fallback candidate passes safety checking, the current SWIM configuration is preserved.",
+    "Operator notification does not imply human acknowledgement or clearance."
+  ]
+}

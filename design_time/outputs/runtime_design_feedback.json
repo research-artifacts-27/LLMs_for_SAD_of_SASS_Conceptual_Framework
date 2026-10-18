@@ -1,0 +1,102 @@
+{
+  "report_type": "runtime_to_design_feedback",
+  "schema_version": "1.0",
+  "generated_utc": "2026-10-16T09:22:45.865554+00:00",
+  "purpose": "Deterministically summarize accumulated runtime adaptation evidence and identify evidence that may justify human-initiated architecture review.",
+  "authority_boundary": {
+    "automatic_redesign": false,
+    "automatic_architecture_approval": false,
+    "automatic_runtime_policy_change": false,
+    "human_architect_review_required": true
+  },
+  "sources": {
+    "runtime_kb": "runtime_kb.json",
+    "trusted_policies": "trusted_policies.json",
+    "design_request": "design_time/config/swim_design_request.json"
+  },
+  "trusted_runtime_context": {
+    "response_time_target_seconds": 0.75,
+    "max_servers": 6,
+    "allowed_actions": [
+      "add_server",
+      "remove_server",
+      "set_dimmer",
+      "none"
+    ]
+  },
+  "design_context_available": true,
+  "coverage": {
+    "total_runtime_episodes": 96,
+    "episodes_with_explicit_execution_outcome": 94,
+    "episodes_with_safety_information": 96,
+    "episodes_with_fail_safe_field": 85,
+    "note": "The runtime knowledge base contains episodes created under evolving schemas. Missing fields are treated as unavailable rather than fabricated."
+  },
+  "summary": {
+    "diagnoses": {
+      "normal": 86,
+      "workload_saturation": 10
+    },
+    "first_actions": {
+      "none": 58,
+      "remove_server": 22,
+      "add_server": 10,
+      "set_dimmer": 6
+    },
+    "final_actions": {
+      "none": 58,
+      "remove_server": 22,
+      "add_server": 10,
+      "set_dimmer": 6
+    },
+    "first_safety_statuses": {
+      "PASS": 96
+    },
+    "final_safety_statuses": {
+      "PASS": 96
+    },
+    "execution_outcomes": {
+      "PASS": 86,
+      "PARTIAL": 8
+    },
+    "recovery_routes": {},
+    "episodes_with_final_qos_violation": 8,
+    "episodes_with_qos_violation_at_max_capacity": 0,
+    "episodes_with_safety_rejection": 0,
+    "episodes_with_recovery_attempts": 0,
+    "total_recovery_attempts": 0,
+    "episodes_with_fail_safe": 0,
+    "episodes_with_operator_intervention": 0
+  },
+  "architecture_review": {
+    "review_recommended": true,
+    "trigger_count": 1,
+    "triggers": [
+      {
+        "id": "RTD-02",
+        "title": "Repeated partial adaptation outcomes",
+        "severity": "medium",
+        "condition": "An adaptation action took effect, but the runtime goal remained unsatisfied in multiple episodes.",
+        "evidence_count": 8,
+        "episode_indices": [
+          5,
+          6,
+          27,
+          28,
+          78,
+          79,
+          80,
+          81
+        ],
+        "interpretation": "Individual adaptations may be too incremental for some operating conditions, requiring multiple control cycles before the goal is restored.",
+        "design_review_question": "Should the architecture support stronger multi-step plans, adaptive planning horizons, or explicit reasoning about expected adaptation magnitude?"
+      }
+    ],
+    "decision": "Evidence package only. Any architecture reconsideration requires explicit human architect initiation and approval."
+  },
+  "data_quality_notes": [
+    "The runtime knowledge base may contain both ordinary runtime episodes and controlled fault-injection episodes.",
+    "Where experiment provenance is not explicitly stored in an episode, this analyzer does not guess whether the evidence came from natural operation or fault injection.",
+    "A review trigger indicates evidence worth examining; it does not by itself prove that the approved architecture is defective."
+  ]
+}

@@ -1,0 +1,672 @@
+[
+  {
+    "initial_state": {
+      "response_time": 11.520992016568526,
+      "servers": 1,
+      "active_servers": 1,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 1.0,
+      "total_utilization": 1.0,
+      "utilization_entries": 1,
+      "dimmer": 0.9,
+      "arrival_rate": 56.1,
+      "basic_response_time": 9.37416,
+      "optional_response_time": 11.5909,
+      "basic_throughput": 1.43333,
+      "optional_throughput": 44.0167
+    },
+    "diagnosis": "workload_saturation",
+    "first_plan": {
+      "action": "add_server"
+    },
+    "first_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "final_plan": {
+      "action": "add_server"
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "final_verdict": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "execution_outcome": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "executed_plan": {
+      "action": "add_server"
+    },
+    "executed_plan_source": "agentic_plan",
+    "executed_safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "recovery_attempts": 0,
+    "recovery_routes": [],
+    "fail_safe_triggered": false,
+    "fallback_invoked": false,
+    "fallback_status": null,
+    "fallback_attempted_candidates": [],
+    "fallback_selected_plan": null,
+    "fallback_safety_verdict": null,
+    "fallback_executed": false,
+    "fallback_outcome": null,
+    "operator_intervention": false,
+    "operator_intervention_mode": null,
+    "operator_escalation_requested": false,
+    "operator_alert_id": null,
+    "operator_notification_delivered_to_os": false,
+    "operator_acknowledgement_received": false,
+    "final_state": {
+      "response_time": 11.591827282030275,
+      "servers": 2,
+      "active_servers": 2,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.5,
+      "total_utilization": 1.0,
+      "utilization_entries": 1,
+      "dimmer": 0.9,
+      "arrival_rate": 56.65,
+      "basic_response_time": 10.0227,
+      "optional_response_time": 11.6391,
+      "basic_throughput": 1.46667,
+      "optional_throughput": 48.6833
+    },
+    "variant": "B3",
+    "variant_name": "Full agentic architecture",
+    "run_id": "E8_B3_rep00",
+    "comparison_schema_version": "E7-1",
+    "candidate_plan": {
+      "action": "add_server"
+    },
+    "candidate_safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "execution_performed": true,
+    "memory_episode_count_before": 0,
+    "memory_episode_count_after": 1,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": false,
+    "runtime_memory_used_for_decisions": false,
+    "runtime_memory_scope": "isolated_B3_run",
+    "llm_used": true,
+    "failure_router_enabled": true,
+    "bounded_replanning_enabled": true,
+    "deterministic_fallback_enabled": true,
+    "operator_escalation_enabled": true,
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false,
+    "initial_safety_rejection": false
+  },
+  {
+    "initial_state": {
+      "response_time": 12.562003948872434,
+      "servers": 2,
+      "active_servers": 2,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.9540535,
+      "total_utilization": 1.908107,
+      "utilization_entries": 2,
+      "dimmer": 0.9,
+      "arrival_rate": 59.4333,
+      "basic_response_time": 9.1667,
+      "optional_response_time": 12.735,
+      "basic_throughput": 2.76667,
+      "optional_throughput": 54.3
+    },
+    "diagnosis": "workload_saturation",
+    "first_plan": {
+      "action": "add_server"
+    },
+    "first_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "final_plan": {
+      "action": "add_server"
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "final_verdict": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "execution_outcome": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "executed_plan": {
+      "action": "add_server"
+    },
+    "executed_plan_source": "agentic_plan",
+    "executed_safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "recovery_attempts": 0,
+    "recovery_routes": [],
+    "fail_safe_triggered": false,
+    "fallback_invoked": false,
+    "fallback_status": null,
+    "fallback_attempted_candidates": [],
+    "fallback_selected_plan": null,
+    "fallback_safety_verdict": null,
+    "fallback_executed": false,
+    "fallback_outcome": null,
+    "operator_intervention": false,
+    "operator_intervention_mode": null,
+    "operator_escalation_requested": false,
+    "operator_alert_id": null,
+    "operator_notification_delivered_to_os": false,
+    "operator_acknowledgement_received": false,
+    "final_state": {
+      "response_time": 12.771591408168678,
+      "servers": 3,
+      "active_servers": 3,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.6666680731,
+      "total_utilization": 2.0000042193,
+      "utilization_entries": 3,
+      "dimmer": 0.9,
+      "arrival_rate": 59.5833,
+      "basic_response_time": 9.3668,
+      "optional_response_time": 12.9615,
+      "basic_throughput": 3.03333,
+      "optional_throughput": 54.3833
+    },
+    "variant": "B3",
+    "variant_name": "Full agentic architecture",
+    "run_id": "E8_B3_rep00",
+    "comparison_schema_version": "E7-1",
+    "candidate_plan": {
+      "action": "add_server"
+    },
+    "candidate_safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "execution_performed": true,
+    "memory_episode_count_before": 1,
+    "memory_episode_count_after": 2,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": true,
+    "runtime_memory_used_for_decisions": true,
+    "runtime_memory_scope": "isolated_B3_run",
+    "llm_used": true,
+    "failure_router_enabled": true,
+    "bounded_replanning_enabled": true,
+    "deterministic_fallback_enabled": true,
+    "operator_escalation_enabled": true,
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false,
+    "initial_safety_rejection": false
+  },
+  {
+    "initial_state": {
+      "response_time": 13.401057777374076,
+      "servers": 3,
+      "active_servers": 3,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.9600263333333333,
+      "total_utilization": 2.880079,
+      "utilization_entries": 3,
+      "dimmer": 0.9,
+      "arrival_rate": 62.5667,
+      "basic_response_time": 8.78107,
+      "optional_response_time": 13.8451,
+      "basic_throughput": 5.31667,
+      "optional_throughput": 55.3167
+    },
+    "diagnosis": "workload_saturation",
+    "first_plan": {
+      "action": "add_server"
+    },
+    "first_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "final_plan": {
+      "action": "add_server"
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "final_verdict": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "execution_outcome": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "executed_plan": {
+      "action": "add_server"
+    },
+    "executed_plan_source": "agentic_plan",
+    "executed_safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "recovery_attempts": 0,
+    "recovery_routes": [],
+    "fail_safe_triggered": false,
+    "fallback_invoked": false,
+    "fallback_status": null,
+    "fallback_attempted_candidates": [],
+    "fallback_selected_plan": null,
+    "fallback_safety_verdict": null,
+    "fallback_executed": false,
+    "fallback_outcome": null,
+    "operator_intervention": false,
+    "operator_intervention_mode": null,
+    "operator_escalation_requested": false,
+    "operator_alert_id": null,
+    "operator_notification_delivered_to_os": false,
+    "operator_acknowledgement_received": false,
+    "final_state": {
+      "response_time": 13.48433046784073,
+      "servers": 4,
+      "active_servers": 4,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.7465855,
+      "total_utilization": 2.986342,
+      "utilization_entries": 3,
+      "dimmer": 0.9,
+      "arrival_rate": 62.75,
+      "basic_response_time": 8.76724,
+      "optional_response_time": 13.9621,
+      "basic_throughput": 5.65,
+      "optional_throughput": 55.7833
+    },
+    "variant": "B3",
+    "variant_name": "Full agentic architecture",
+    "run_id": "E8_B3_rep00",
+    "comparison_schema_version": "E7-1",
+    "candidate_plan": {
+      "action": "add_server"
+    },
+    "candidate_safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "execution_performed": true,
+    "memory_episode_count_before": 2,
+    "memory_episode_count_after": 3,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": true,
+    "runtime_memory_used_for_decisions": true,
+    "runtime_memory_scope": "isolated_B3_run",
+    "llm_used": true,
+    "failure_router_enabled": true,
+    "bounded_replanning_enabled": true,
+    "deterministic_fallback_enabled": true,
+    "operator_escalation_enabled": true,
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false,
+    "initial_safety_rejection": false
+  },
+  {
+    "initial_state": {
+      "response_time": 9.223899269698459,
+      "servers": 4,
+      "active_servers": 4,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.92453425,
+      "total_utilization": 3.698137,
+      "utilization_entries": 4,
+      "dimmer": 0.9,
+      "arrival_rate": 58.8,
+      "basic_response_time": 4.68611,
+      "optional_response_time": 9.75066,
+      "basic_throughput": 7.35,
+      "optional_throughput": 63.3167
+    },
+    "diagnosis": "workload_saturation",
+    "first_plan": {
+      "action": "add_server"
+    },
+    "first_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "final_plan": {
+      "action": "add_server"
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "final_verdict": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "execution_outcome": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "The adaptation took effect successfully, but the response-time goal is still violated. Further adaptation may be needed."
+    },
+    "executed_plan": {
+      "action": "add_server"
+    },
+    "executed_plan_source": "agentic_plan",
+    "executed_safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "recovery_attempts": 0,
+    "recovery_routes": [],
+    "fail_safe_triggered": false,
+    "fallback_invoked": false,
+    "fallback_status": null,
+    "fallback_attempted_candidates": [],
+    "fallback_selected_plan": null,
+    "fallback_safety_verdict": null,
+    "fallback_executed": false,
+    "fallback_outcome": null,
+    "operator_intervention": false,
+    "operator_intervention_mode": null,
+    "operator_escalation_requested": false,
+    "operator_alert_id": null,
+    "operator_notification_delivered_to_os": false,
+    "operator_acknowledgement_received": false,
+    "final_state": {
+      "response_time": 8.406753485490272,
+      "servers": 5,
+      "active_servers": 5,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.7438032000000001,
+      "total_utilization": 3.7190160000000003,
+      "utilization_entries": 4,
+      "dimmer": 0.9,
+      "arrival_rate": 58.1667,
+      "basic_response_time": 3.97247,
+      "optional_response_time": 8.90717,
+      "basic_throughput": 7.08333,
+      "optional_throughput": 62.7667
+    },
+    "variant": "B3",
+    "variant_name": "Full agentic architecture",
+    "run_id": "E8_B3_rep00",
+    "comparison_schema_version": "E7-1",
+    "candidate_plan": {
+      "action": "add_server"
+    },
+    "candidate_safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "execution_performed": true,
+    "memory_episode_count_before": 3,
+    "memory_episode_count_after": 4,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": true,
+    "runtime_memory_used_for_decisions": true,
+    "runtime_memory_scope": "isolated_B3_run",
+    "llm_used": true,
+    "failure_router_enabled": true,
+    "bounded_replanning_enabled": true,
+    "deterministic_fallback_enabled": true,
+    "operator_escalation_enabled": true,
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false,
+    "initial_safety_rejection": false
+  },
+  {
+    "initial_state": {
+      "response_time": 0.9136792518139911,
+      "servers": 5,
+      "active_servers": 5,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.6527564000000001,
+      "total_utilization": 3.2637820000000004,
+      "utilization_entries": 5,
+      "dimmer": 0.9,
+      "arrival_rate": 57.8,
+      "basic_response_time": 0.0851144,
+      "optional_response_time": 1.00577,
+      "basic_throughput": 6.11667,
+      "optional_throughput": 55.0333
+    },
+    "diagnosis": "workload_saturation",
+    "first_plan": {
+      "action": "add_server"
+    },
+    "first_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "final_plan": {
+      "action": "add_server"
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "final_verdict": {
+      "status": "PASS",
+      "action_effect_observed": true,
+      "goal_satisfied": true,
+      "reason": "The approved adaptation took effect and the post-execution response-time goal is satisfied."
+    },
+    "execution_outcome": {
+      "status": "PASS",
+      "action_effect_observed": true,
+      "goal_satisfied": true,
+      "reason": "The approved adaptation took effect and the post-execution response-time goal is satisfied."
+    },
+    "executed_plan": {
+      "action": "add_server"
+    },
+    "executed_plan_source": "agentic_plan",
+    "executed_safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "recovery_attempts": 0,
+    "recovery_routes": [],
+    "fail_safe_triggered": false,
+    "fallback_invoked": false,
+    "fallback_status": null,
+    "fallback_attempted_candidates": [],
+    "fallback_selected_plan": null,
+    "fallback_safety_verdict": null,
+    "fallback_executed": false,
+    "fallback_outcome": null,
+    "operator_intervention": false,
+    "operator_intervention_mode": null,
+    "operator_escalation_requested": false,
+    "operator_alert_id": null,
+    "operator_notification_delivered_to_os": false,
+    "operator_acknowledgement_received": false,
+    "final_state": {
+      "response_time": 0.43597111287128715,
+      "servers": 6,
+      "active_servers": 6,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.5358213333333334,
+      "total_utilization": 3.214928,
+      "utilization_entries": 5,
+      "dimmer": 0.9,
+      "arrival_rate": 58.2,
+      "basic_response_time": 0.00898194,
+      "optional_response_time": 0.482893,
+      "basic_throughput": 6.0,
+      "optional_throughput": 54.6
+    },
+    "variant": "B3",
+    "variant_name": "Full agentic architecture",
+    "run_id": "E8_B3_rep00",
+    "comparison_schema_version": "E7-1",
+    "candidate_plan": {
+      "action": "add_server"
+    },
+    "candidate_safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "execution_performed": true,
+    "memory_episode_count_before": 4,
+    "memory_episode_count_after": 5,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": true,
+    "runtime_memory_used_for_decisions": true,
+    "runtime_memory_scope": "isolated_B3_run",
+    "llm_used": true,
+    "failure_router_enabled": true,
+    "bounded_replanning_enabled": true,
+    "deterministic_fallback_enabled": true,
+    "operator_escalation_enabled": true,
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false,
+    "initial_safety_rejection": false
+  },
+  {
+    "initial_state": {
+      "response_time": 0.05780793260869565,
+      "servers": 6,
+      "active_servers": 6,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.5517233333333333,
+      "total_utilization": 3.31034,
+      "utilization_entries": 6,
+      "dimmer": 0.9,
+      "arrival_rate": 62.1,
+      "basic_response_time": 0.00244262,
+      "optional_response_time": 0.0645598,
+      "basic_throughput": 6.75,
+      "optional_throughput": 55.35
+    },
+    "diagnosis": "normal",
+    "first_plan": {
+      "action": "set_dimmer",
+      "value": 1.0
+    },
+    "first_verdict": {
+      "status": "PASS",
+      "reason": "set_dimmer satisfies trusted SWIM adaptation policies."
+    },
+    "final_plan": {
+      "action": "set_dimmer",
+      "value": 1.0
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "set_dimmer satisfies trusted SWIM adaptation policies."
+    },
+    "final_verdict": {
+      "status": "PASS",
+      "action_effect_observed": true,
+      "goal_satisfied": true,
+      "reason": "The approved adaptation took effect and the post-execution response-time goal is satisfied."
+    },
+    "execution_outcome": {
+      "status": "PASS",
+      "action_effect_observed": true,
+      "goal_satisfied": true,
+      "reason": "The approved adaptation took effect and the post-execution response-time goal is satisfied."
+    },
+    "executed_plan": {
+      "action": "set_dimmer",
+      "value": 1.0
+    },
+    "executed_plan_source": "agentic_plan",
+    "executed_safety_verdict": {
+      "status": "PASS",
+      "reason": "set_dimmer satisfies trusted SWIM adaptation policies."
+    },
+    "recovery_attempts": 0,
+    "recovery_routes": [],
+    "fail_safe_triggered": false,
+    "fallback_invoked": false,
+    "fallback_status": null,
+    "fallback_attempted_candidates": [],
+    "fallback_selected_plan": null,
+    "fallback_safety_verdict": null,
+    "fallback_executed": false,
+    "fallback_outcome": null,
+    "operator_intervention": false,
+    "operator_intervention_mode": null,
+    "operator_escalation_requested": false,
+    "operator_alert_id": null,
+    "operator_notification_delivered_to_os": false,
+    "operator_acknowledgement_received": false,
+    "final_state": {
+      "response_time": 0.057394799470892564,
+      "servers": 6,
+      "active_servers": 6,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.5572275,
+      "total_utilization": 3.343365,
+      "utilization_entries": 6,
+      "dimmer": 1.0,
+      "arrival_rate": 63.15,
+      "basic_response_time": 0.00237615,
+      "optional_response_time": 0.0642211,
+      "basic_throughput": 6.96667,
+      "optional_throughput": 56.15
+    },
+    "variant": "B3",
+    "variant_name": "Full agentic architecture",
+    "run_id": "E8_B3_rep00",
+    "comparison_schema_version": "E7-1",
+    "candidate_plan": {
+      "action": "set_dimmer",
+      "value": 1.0
+    },
+    "candidate_safety_verdict": {
+      "status": "PASS",
+      "reason": "set_dimmer satisfies trusted SWIM adaptation policies."
+    },
+    "execution_performed": true,
+    "memory_episode_count_before": 5,
+    "memory_episode_count_after": 6,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": true,
+    "runtime_memory_used_for_decisions": true,
+    "runtime_memory_scope": "isolated_B3_run",
+    "llm_used": true,
+    "failure_router_enabled": true,
+    "bounded_replanning_enabled": true,
+    "deterministic_fallback_enabled": true,
+    "operator_escalation_enabled": true,
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false,
+    "initial_safety_rejection": false
+  }
+]

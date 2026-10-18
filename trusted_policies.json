@@ -1,0 +1,15 @@
+{
+    "max_servers": 6,
+    "min_servers": 1,
+    "response_time_target": 0.75,
+    "dimmer_min": 0.0,
+    "dimmer_max": 1.0,
+    "dimmer_step": 0.25,
+    "adaptation_period_seconds": 60,
+    "allowed_actions": [
+        "add_server",
+        "remove_server",
+        "set_dimmer",
+        "none"
+    ]
+}

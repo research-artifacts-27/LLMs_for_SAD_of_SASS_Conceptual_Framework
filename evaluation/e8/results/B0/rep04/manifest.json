@@ -1,0 +1,74 @@
+{
+  "schema_version": "E8-RUN-1",
+  "created_utc": "2026-10-17T18:24:41.049932+00:00",
+  "variant": "B0",
+  "repetition": 4,
+  "run_id": "E8_B0_rep04",
+  "protocol": {
+    "evaluation_window_seconds": 420.0,
+    "swim_sim_time_limit_seconds": 480.0,
+    "sample_interval_seconds": 2.0,
+    "control_times_seconds": [
+      60.0,
+      120.0,
+      180.0,
+      240.0,
+      300.0,
+      360.0
+    ],
+    "response_time_target": 0.75,
+    "expected_initial_servers": 1,
+    "expected_max_servers": 6,
+    "expected_initial_dimmer": 0.9,
+    "runtime_memory_policy": "not used"
+  },
+  "hashes": {
+    "host_e8_config_sha256": "107613df113772f24653bed5bf587bb1c0f488b6c7d557e9063cf5226adb30d3",
+    "container_e8_config_sha256": "107613df113772f24653bed5bf587bb1c0f488b6c7d557e9063cf5226adb30d3",
+    "container_trace_sha256": "d5f963eae561373e94c6114cf79e8bbb10d0c703e7989267bb173faf59188281",
+    "code": {
+      "e8_live_harness.py": "548dcc32dcb2602c1b880550b28757527d5b0fc3f0b867cbc5402ba3cbdf6c5a",
+      "b0_controller.py": "ea1408735f4ccb501b11f2bcbb90d285ce7d84615986c514f160e6a8a15b473b",
+      "b1_controller.py": "dbfbb0764a35482cbf0318c869a810399636a7df4169b93e149c657e74ca2c45",
+      "b2_controller.py": "eb9609a4e2556f7740cf80bb116631d10bf188f46be145f5c9ecc6a7110c6d51",
+      "b3_isolated_runner.py": "1b98e020702ce028a44e6b1c28b659e8b82c8b50b3bd426483271ff8b90fc753",
+      "e7_runtime_memory.py": "302c7221fb0cd9983a4514cf04efc243da7bb156f585f87c9518d7cd3d26b587",
+      "e7_metric_extractor.py": "b70bcc219b99ab34a1b561d6dd28316bf20828535997737379495f6df9b88acf",
+      "agent_controller.py": "a000553a49af4301c26cf74dd25250401b653db8e2803c535adef2cc9f477ea8",
+      "trusted_policies.json": "af353ac5683d8be4e03a4d8a1f8eb3f47156ef58114946add81dbbc97e0b65c4"
+    }
+  },
+  "status": "COMPLETE",
+  "swim_launch_command": [
+    "docker",
+    "exec",
+    "swim",
+    "sh",
+    "-lc",
+    "cd '/headless/seams-swim/swim/simulations/swim' && ./run.sh e8 4 e8_swim.ini"
+  ],
+  "experiment_t0_local": "2026-10-17T20:24:41.616330+02:00",
+  "initial_state": {
+    "response_time": 0.14585409898790072,
+    "servers": 1,
+    "active_servers": 1,
+    "max_servers": 6,
+    "server_booting": false,
+    "utilization": 0.00467536,
+    "total_utilization": 0.00467536,
+    "utilization_entries": 1,
+    "dimmer": 0.9,
+    "arrival_rate": 47.1519,
+    "basic_response_time": 0.0160275,
+    "optional_response_time": 0.275824,
+    "basic_throughput": 3.35577,
+    "optional_throughput": 3.35207
+  },
+  "observation_end_local": "2026-10-17T20:31:41.633927+02:00",
+  "sampler_sample_count": 211,
+  "sampler_error_count": 0,
+  "sampler_errors": [],
+  "swim_exit_code": 0,
+  "completed_utc": "2026-10-17T18:32:41.454085+00:00",
+  "summary_file": "evaluation/e8/results/B0/rep04/summary.json"
+}

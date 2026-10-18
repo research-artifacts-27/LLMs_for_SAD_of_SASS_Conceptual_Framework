@@ -1,0 +1,160 @@
+[
+  {
+    "variant": "B2",
+    "variant_name": "LLM plus runtime RAG",
+    "run_id": "b2_controller_cycle1_test_001",
+    "timestamp_utc": "2026-10-16T12:23:50.061671+00:00",
+    "initial_state": {
+      "response_time": 2.5,
+      "servers": 3,
+      "active_servers": 3,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.9,
+      "total_utilization": 2.7,
+      "dimmer": 1.0,
+      "arrival_rate": 60.0,
+      "basic_response_time": 2.0,
+      "optional_response_time": 0.5
+    },
+    "diagnosis": "workload_saturation",
+    "candidate_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "Controlled offline B2 test."
+    },
+    "final_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "Controlled offline B2 test."
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "executed_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "Controlled offline B2 test."
+    },
+    "execution_performed": true,
+    "final_state": {
+      "response_time": 0.5,
+      "servers": 4,
+      "active_servers": 4,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.6,
+      "total_utilization": 2.4,
+      "dimmer": 1.0,
+      "arrival_rate": 60.0,
+      "basic_response_time": 0.4,
+      "optional_response_time": 0.1
+    },
+    "execution_outcome": {
+      "status": "PASS",
+      "action_effect_observed": true,
+      "goal_satisfied": true,
+      "reason": "The approved adaptation took effect and the post-execution response-time goal is satisfied."
+    },
+    "final_verdict": {
+      "status": "PASS",
+      "action_effect_observed": true,
+      "goal_satisfied": true,
+      "reason": "The approved adaptation took effect and the post-execution response-time goal is satisfied."
+    },
+    "memory_episode_count_before": 0,
+    "analysis_latency_seconds": 2.042000000007649e-06,
+    "planning_latency_seconds": 1.6250000000050946e-06,
+    "safety_latency_seconds": 0.00020820900000000087,
+    "decision_latency_seconds": 0.0002118760000000136,
+    "execution_latency_seconds": 2.29200000000096e-06,
+    "cycle_latency_seconds": 0.0013263339999999985,
+    "llm_used": true,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": false,
+    "runtime_memory_used_for_decisions": false,
+    "runtime_memory_scope": "isolated_B2_run",
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false
+  },
+  {
+    "variant": "B2",
+    "variant_name": "LLM plus runtime RAG",
+    "run_id": "b2_controller_cycle1_test_001",
+    "timestamp_utc": "2026-10-16T12:26:20.988110+00:00",
+    "initial_state": {
+      "response_time": 1.3,
+      "servers": 4,
+      "active_servers": 4,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.82,
+      "total_utilization": 3.28,
+      "dimmer": 1.0,
+      "arrival_rate": 60.0,
+      "basic_response_time": 1.0,
+      "optional_response_time": 0.3
+    },
+    "diagnosis": "workload_saturation",
+    "candidate_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "Controlled Cycle-2 memory test."
+    },
+    "final_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "Controlled Cycle-2 memory test."
+    },
+    "safety_verdict": {
+      "status": "PASS",
+      "reason": "add_server satisfies trusted SWIM adaptation policies."
+    },
+    "executed_plan": {
+      "action": "add_server",
+      "decision_source": "B2_llm_rag",
+      "decision_reason": "Controlled Cycle-2 memory test."
+    },
+    "execution_performed": true,
+    "final_state": {
+      "response_time": 0.6,
+      "servers": 5,
+      "active_servers": 5,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.65,
+      "total_utilization": 3.25,
+      "dimmer": 1.0,
+      "arrival_rate": 60.0,
+      "basic_response_time": 0.45,
+      "optional_response_time": 0.15
+    },
+    "execution_outcome": {
+      "status": "PASS",
+      "action_effect_observed": true,
+      "goal_satisfied": true,
+      "reason": "The approved adaptation took effect and the post-execution response-time goal is satisfied."
+    },
+    "final_verdict": {
+      "status": "PASS",
+      "action_effect_observed": true,
+      "goal_satisfied": true,
+      "reason": "The approved adaptation took effect and the post-execution response-time goal is satisfied."
+    },
+    "memory_episode_count_before": 1,
+    "analysis_latency_seconds": 4.491599999999901e-05,
+    "planning_latency_seconds": 4.629099999999692e-05,
+    "safety_latency_seconds": 0.00012812499999999977,
+    "decision_latency_seconds": 0.0002193319999999957,
+    "execution_latency_seconds": 1.6659999999973918e-06,
+    "cycle_latency_seconds": 0.0003150840000000002,
+    "llm_used": true,
+    "runtime_rag_enabled": true,
+    "runtime_rag_used": true,
+    "runtime_memory_used_for_decisions": true,
+    "runtime_memory_scope": "isolated_B2_run",
+    "agentic_recovery_used": false,
+    "deterministic_fallback_used": false
+  }
+]

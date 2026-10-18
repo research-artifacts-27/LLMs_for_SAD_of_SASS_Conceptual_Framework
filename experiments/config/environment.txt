@@ -1,0 +1,7 @@
+Experiment environment
+======================
+Date: Thu Oct  8 03:33:14 CEST 2026
+Python: Python 3.9.6
+Docker: Docker version 29.8.2, build 7fc2dff
+Machine architecture: arm64
+Operating system: Darwin

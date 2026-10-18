@@ -1,0 +1,32 @@
+=== MONITOR — REAL SWIM ===
+Connecting to SWIM at localhost:4242...
+Connected to real SWIM.
+Observed Total Servers: 1
+Observed Active Servers: 1
+Observed Maximum Servers: 6
+Server Booting: False
+Observed Response Time: 0.0770 seconds
+Observed Average Utilization: 69.6%
+Observed Total Utilization: 0.696
+Utilization Entries Available: 1 / 1 active server(s)
+Observed Dimmer: 0.9
+Observed Arrival Rate: 10.7833
+Basic Response Time: 0.0032 seconds
+Optional Response Time: 0.0843 seconds
+SWIM connection closed.
+
+=== EXP-D: DELIBERATE UNSAFE PLAN ===
+Current servers: 1
+Current active servers: 1
+Trusted minimum servers: 1
+Candidate plan: {'action': 'remove_server'}
+
+=== SAFETY CHECK — REAL SWIM ===
+Result: FAIL
+Reason: Cannot remove a server because 1 active server(s) equals the trusted minimum of 1.
+
+=== SAFETY VERDICT ===
+{'status': 'FAIL', 'reason': 'Cannot remove a server because 1 active server(s) equals the trusted minimum of 1.'}
+
+=== EXECUTION STATUS ===
+BLOCKED - executor was not invoked.

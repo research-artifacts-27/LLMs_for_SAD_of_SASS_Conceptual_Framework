@@ -1,0 +1,403 @@
+{
+  "alternatives": [
+    {
+      "id": "A1",
+      "name": "Centralized Agentic MAPE-K",
+      "architectural_style": "Centralized MAPE-K controller with an untrusted LLM planner and a deterministic execution boundary",
+      "summary": "One logical controller coordinates server scaling and optional-content dimming using a shared runtime snapshot. LLM-supported diagnosis and planning remain advisory; deterministic validation, approved effectors, and observed outcomes govern execution.",
+      "design_time_structure": {
+        "components": [
+          {
+            "name": "Requirements and Trusted Policy Registry",
+            "responsibility": "Maintain the supplied requirements and machine-readable runtime constraints independently of generated reasoning. Separate mandatory constraints from proposed operating parameters."
+          },
+          {
+            "name": "Architectural RAG",
+            "responsibility": "Retrieve the supplied architectural knowledge with identifiers and selection context. Treat retrieved material as advisory rather than as executable policy."
+          },
+          {
+            "name": "LLM Architecture Reasoner",
+            "responsibility": "Generate and explain alternatives using the design request and retrieved knowledge, including centralized coordination, startup delays, and safety limitations."
+          },
+          {
+            "name": "Trade-off and Rationale Workspace",
+            "responsibility": "Document qualitative consequences against the six quality attributes and retain their supplied weights for later architect-led evaluation. Preserve evidence links without scoring, selecting a winner, or producing an ADR at this stage."
+          },
+          {
+            "name": "Architect Review and Configuration Approval",
+            "responsibility": "Validate requirement coverage, approve the eventual architecture and trusted policy configuration, and review proposed retry limits, observation windows, and anti-oscillation settings."
+          }
+        ],
+        "flow": [
+          "Load the design request into the requirements and trusted policy registry.",
+          "Retrieve relevant architectural knowledge before LLM-supported reasoning.",
+          "Generate alternatives and trace proposed components and trade-offs to requirements and knowledge identifiers.",
+          "Review qualitative trade-offs using the supplied quality-attribute priorities without calculating scores.",
+          "Require architect approval before an eventual selected design and its operating configuration can be deployed; record selection and any ADR only in a later stage."
+        ],
+        "architect_role": "The architect validates generated reasoning, approves the eventual architecture and executable policies, and retains authority over changes to trusted constraints. Generated recommendations cannot authorize deployment."
+      },
+      "runtime_structure": {
+        "control_style": "centralized",
+        "components": [
+          {
+            "name": "SWIM Managed Web System",
+            "responsibility": "Process incoming requests with distinguishable basic and optional processing. Expose approved server and dimmer effectors without exposing them to the LLM."
+          },
+          {
+            "name": "Runtime Monitor and Snapshot Store",
+            "responsibility": "Collect average response time, workload, utilization, server states, and dimmer state. Attach timestamps and state versions, and distinguish active servers from pending activation."
+          },
+          {
+            "name": "Central Agentic Analyzer and Planner",
+            "responsibility": "Use current observations and retrieved experience to diagnose adaptation needs and propose coordinated server and dimmer actions with rationale, expected effects, and preconditions."
+          },
+          {
+            "name": "Adaptation Memory and Runtime Retrieval",
+            "responsibility": "Retrieve relevant previous states, proposals, safety verdicts, and observed outcomes for the planner. Keep experience separate from authoritative policy."
+          },
+          {
+            "name": "Deterministic Safety Gate and Execution Coordinator",
+            "responsibility": "Validate structured proposals against trusted policy and current state, serialize changes, and prevent stale or conflicting proposals from reaching effectors."
+          },
+          {
+            "name": "Approved Effector Adapter",
+            "responsibility": "Execute only validated add_server, remove_server, set_dimmer, or none actions. Track acknowledgments and pending transitions without treating acknowledgment as successful adaptation."
+          },
+          {
+            "name": "Outcome Evaluator and Recovery Supervisor",
+            "responsibility": "Compare observed outcomes with intended effects and the 0.75-second target, record evidence, bound replanning, and escalate unresolved failures to a human."
+          }
+        ],
+        "adaptation_flow": [
+          "Monitor the managed system and build a versioned snapshot containing every FR5 observation and explicit missing-data indicators.",
+          "Retrieve relevant adaptation episodes; analyze response-time pressure, workload changes, utilization, pending server activation, and optional-content level.",
+          "Generate a structured proposal using only allowed actions. Coordinate dimmer reduction with delayed scaling when needed, and consider optional-content restoration and server removal when observed headroom permits.",
+          "Apply deterministic validation to the proposal. A multi-action proposal is not authorized wholesale: revalidate each state-changing action against the latest state before dispatch.",
+          "Execute validated actions through the approved adapter and monitor transitions, including the delay before an added server becomes active.",
+          "Evaluate observed effects over an architect-approved observation window. Record PASS when the intended effect is observed and the response-time target is met, PARTIAL when evidence shows incomplete improvement, and FAIL when execution or settled outcomes fail the intended objective. Keep incomplete or unsettled observations pending rather than claiming success.",
+          "Store the evidence and rationale, then continue monitoring or enter bounded replanning and escalation."
+        ],
+        "safety_mechanism": "The LLM has no effector credentials or direct invocation path. The deterministic gate enforces the allowed action vocabulary, server bounds of 1 through 6, dimmer bounds of 0.0 through 1.0, and the trusted 0.25 dimmer step. It checks dimmer values and changes against the approved step interpretation, rejecting ambiguous proposals. Server validation accounts for active servers, reserved additions, and pending removals so concurrent or delayed changes cannot exceed allocation bounds or remove the last serving server. State-dependent actions require sufficiently complete, fresh observations and matching state versions. The 0.75-second target remains an immutable trusted goal, but structural policy validation cannot guarantee future response time under uncertain workload. Performance must be checked through runtime feedback.",
+        "memory_strategy": "Maintain a centralized episode store containing observation versions, retrieved evidence, proposal rationale, policy version, gate verdicts, execution acknowledgments, and measured outcomes. Retrieve by workload, utilization, server-transition state, and dimmer context. Mark partial, failed, and unsettled episodes explicitly. Current observations and trusted constraints override retrieved experience; memory cannot invoke effectors.",
+        "failure_recovery": "Propose an explicit budget of two revised proposals after an initial rejected or unsuccessful proposal, subject to architect approval. Every revision uses refreshed observations and passes the gate again. Do not classify a still-starting server as failed merely because its capacity is not yet visible. After exhaustion, planner unavailability, or insufficient observations, dispatch no unvalidated mutation, continue monitoring, and escalate with the evidence trail. Holding state is not claimed to preserve the response-time target. Distinguish a real operator notification from simulated escalation in the demonstrator."
+      },
+      "key_patterns_and_tactics": [
+        "MAPE-K feedback loop with shared knowledge",
+        "One logical adaptation decision point",
+        "Horizontal scaling coordinated with dimmer-based feature degradation",
+        "Architectural RAG and runtime adaptation retrieval",
+        "Deterministic safety gate before approved effectors",
+        "Post-execution validation and bounded replanning",
+        "Architect approval and human escalation"
+      ],
+      "quality_attribute_rationale": {
+        "performance": "A unified view helps coordinate immediate dimmer changes with slower server activation, but placing LLM reasoning on the adaptation path can delay reactions to sudden workload changes.",
+        "scalability": "The controller can coordinate the required one-to-six-server range directly. Its centralized observation and planning path remains a potential adaptation bottleneck.",
+        "reliability": "Serialized actions and one state model simplify diagnosis and recovery, but the logical controller is a dependency whose failure can suspend adaptation.",
+        "safety": "A single inspectable execution boundary makes complete policy enforcement easier to audit. Its protection is limited to correctly encoded constraints and reliable state checks.",
+        "resource_efficiency": "Joint reasoning about utilization, optional content, and pending capacity can avoid redundant additions and identify opportunities for server removal.",
+        "explainability": "One ordered decision history connects observations, retrieved experience, rationale, safety verdicts, and measured effects."
+      },
+      "advantages": [
+        "Straightforward traceability from monitoring through execution and outcome evaluation.",
+        "Simple coordination between server scaling and dimmer control.",
+        "A clear, centralized trust boundary is relatively easy to inspect in the demonstrator."
+      ],
+      "disadvantages": [
+        "Centralized planning introduces a dependency and possible latency bottleneck.",
+        "No separate fast control path protects adaptation responsiveness during slow LLM reasoning.",
+        "The controller must manage observation freshness, pending transitions, and action sequencing together."
+      ],
+      "risks": [
+        "Workload may change while the LLM constructs a plan, making otherwise reasonable proposals stale.",
+        "Reusing successful past plans without sufficient contextual filtering may cause oscillation or inappropriate scaling.",
+        "Response time may remain above 0.75 seconds even at maximum capacity and minimum optional content; the architecture must expose and escalate this condition rather than promise feasibility."
+      ],
+      "knowledge_used": [
+        "AK1",
+        "AK2",
+        "AK4",
+        "AK5",
+        "AK6",
+        "AK7",
+        "AK8",
+        "AK10",
+        "AK11",
+        "AK12",
+        "AK13",
+        "AK15"
+      ]
+    },
+    {
+      "id": "A2",
+      "name": "Coordinating Peer Adaptation Agents",
+      "architectural_style": "Distributed MAPE-K control with specialized peer planners and transactionally coordinated execution",
+      "summary": "Separate capacity and optional-content agents analyze and plan independently, then reconcile proposals through a shared coordination protocol. No central LLM selects every action; deterministic state arbitration and safety enforcement protect the shared SWIM system.",
+      "design_time_structure": {
+        "components": [
+          {
+            "name": "Requirements and Action-Ownership Model",
+            "responsibility": "Map capacity actions to a capacity agent and dimmer actions to an optional-content agent while preserving global response-time and safety goals."
+          },
+          {
+            "name": "Architectural RAG",
+            "responsibility": "Retrieve supplied knowledge about decentralized control, feedback loops, memory, safety, and oversight, exposing both benefits and coordination constraints."
+          },
+          {
+            "name": "LLM Architecture Reasoner",
+            "responsibility": "Propose peer responsibilities, interaction sequences, and conflict scenarios using the retrieved evidence without treating generated protocols as trustworthy."
+          },
+          {
+            "name": "Coordination and Policy Validator",
+            "responsibility": "Check proposed action ownership, global bounds, versioning, conflict resolution, and behavior during unavailable or inconsistent coordination."
+          },
+          {
+            "name": "Trade-off and Architect Review Workspace",
+            "responsibility": "Present qualitative trade-offs against the supplied attributes and retain their weights for later evaluation. Obtain architect approval for the eventual design, protocol, and configuration without scoring, selecting, or creating an ADR now."
+          }
+        ],
+        "flow": [
+          "Load requirements and identify the two adaptation responsibilities already present in SWIM: server allocation and optional-content control.",
+          "Retrieve architectural knowledge before asking the LLM to propose distributed responsibilities and coordination alternatives.",
+          "Examine conflicts such as server removal concurrent with dimmer restoration, duplicate scale-out requests, and planning from different observation versions.",
+          "Validate the proposed coordination and safety design against trusted constraints and document qualitative consequences.",
+          "Require architect approval before deploying an eventual chosen protocol and policy configuration."
+        ],
+        "architect_role": "The architect approves action ownership, consistency rules, deterministic arbitration policy, and escalation behavior. The architect must explicitly accept the additional distributed-control complexity; no new requirement for a geographically distributed deployment is assumed."
+      },
+      "runtime_structure": {
+        "control_style": "decentralized",
+        "components": [
+          {
+            "name": "SWIM Managed Web System",
+            "responsibility": "Process basic and optional web-request work and expose the approved server and dimmer effectors behind the protected execution interface."
+          },
+          {
+            "name": "Versioned Observation Service",
+            "responsibility": "Publish response time, workload, utilization, server states, and dimmer state with timestamps, missing-data indicators, and versions visible to both agents."
+          },
+          {
+            "name": "Capacity Agent",
+            "responsibility": "Use LLM-supported analysis, planning, and retrieved capacity episodes to propose add_server, remove_server, or none actions while accounting for startup delays."
+          },
+          {
+            "name": "Optional-Content Agent",
+            "responsibility": "Use LLM-supported analysis, planning, and retrieved dimmer episodes to propose set_dimmer or none actions that protect response time and recover optional functionality when headroom permits."
+          },
+          {
+            "name": "Peer Coordination Ledger",
+            "responsibility": "Record proposals, observation versions, intended effects, pending transitions, and peer objections. Provide atomic reservations and a single ordered record of committed adaptation actions."
+          },
+          {
+            "name": "Deterministic Commit Validators and Effector Gateway",
+            "responsibility": "Validate proposals under the same trusted policy version and commit only nonconflicting, current actions. Use an authoritative fencing check at the effector boundary to reject stale owners, replayed commits, and unvalidated commands."
+          },
+          {
+            "name": "Outcome Evaluators and Federated Memory",
+            "responsibility": "Evaluate local effects against global response-time observations and store linked episodes across the two agent memories and coordination ledger."
+          },
+          {
+            "name": "Recovery and Human Escalation Endpoint",
+            "responsibility": "Enforce a shared recovery budget for each adaptation episode and present unresolved conflicts, execution failures, or infeasible goals to an operator."
+          }
+        ],
+        "adaptation_flow": [
+          "Publish a versioned observation snapshot containing all required runtime measurements.",
+          "Both agents retrieve relevant experience and independently diagnose their assigned adaptation responsibility against the common response-time target.",
+          "Agents publish structured proposals and expected cross-effects to the coordination ledger rather than invoking effectors.",
+          "Reconcile compatible proposals using an architect-approved deterministic policy. Serialize interacting changes; require a later proposal to use updated observations or account explicitly for recorded in-flight transitions.",
+          "Atomically reserve the required state transition and validate bounds, action ownership, policy version, and observation freshness before committing the action.",
+          "The gateway executes only the committed, fenced action through an approved effector. Other peers observe the pending transition rather than counting requested capacity as active capacity.",
+          "Evaluate the actual effect globally as well as locally, store linked outcomes, and initiate bounded renegotiation or escalation if the action is rejected or ineffective."
+        ],
+        "safety_mechanism": "Both agents are untrusted proposers without effector access. Deterministic validators enforce only add_server, remove_server, set_dimmer, and none; server bounds of 1 through 6; dimmer bounds of 0.0 through 1.0; and the approved interpretation of the 0.25 dimmer step. Atomic reservations include pending additions and removals, and removal must not eliminate the last serving server. A common policy version, ordered commits, and gateway fencing prevent two independently valid proposals from jointly violating constraints. Conflicting or stale proposals are rejected or deferred rather than executed speculatively. If coordination cannot establish authoritative state, new mutations stop. The 0.75-second target is shared trusted configuration and an observed outcome criterion, not a property guaranteed merely by transaction safety.",
+        "memory_strategy": "Maintain agent-specific retrieval indexes for capacity and dimmer experience, linked by common episode, observation, policy, and commit identifiers. Include peer proposals and cross-effects so an agent does not infer that its own action alone caused an improvement. Store safety verdicts and PASS, PARTIAL, FAIL, or pending observations. Current policy overrides every retrieved case, and retrieval cannot create a committed action.",
+        "failure_recovery": "Propose a shared maximum of two revised coordination rounds after the initial failed round, subject to architect approval. The budget belongs to the global episode so peers cannot multiply retries independently. Refresh observations, retrieve relevant failures, reconcile again, and revalidate every revision. Track server activation until an approved observation timeout before classifying it as failed. On exhausted rounds, unresolved conflicts, or loss of authoritative coordination, stop new mutations, keep monitoring, and escalate. The demonstrator must label simulated escalation separately from actual human interaction."
+      },
+      "key_patterns_and_tactics": [
+        "Distributed MAPE-K loops with specialized action ownership",
+        "Peer proposal negotiation and deterministic conflict arbitration",
+        "Versioned shared observations and transactional action reservations",
+        "Fenced deterministic safety boundary",
+        "Horizontal scaling and feature degradation",
+        "Federated adaptation memory with shared episode identifiers",
+        "Global post-execution validation and bounded coordinated replanning",
+        "Architect approval and human escalation"
+      ],
+      "quality_attribute_rationale": {
+        "performance": "Independent diagnosis can proceed concurrently, but negotiation and commit coordination add latency. Global outcome checks are needed because local improvements may work against each other.",
+        "scalability": "Analysis responsibilities can scale separately, although commits remain coordinated because both actuators affect one shared web system. The supplied six-server limit does not itself require distributed control.",
+        "reliability": "Loss of one planner need not stop the other from producing proposals, but execution still depends on authoritative coordination. Fencing prevents unsafe split-brain actions at the cost of pausing changes when state is uncertain.",
+        "safety": "Transactional reservations and consistent policy versions can enforce global bounds across peers. The larger protocol surface is harder to validate than a single-controller gate.",
+        "resource_efficiency": "A dedicated capacity agent can focus on removing unnecessary servers, but it must account for optional-content restoration to avoid premature scale-in.",
+        "explainability": "Specialized responsibilities clarify individual proposals, while shared episode identifiers and ordered commits are necessary to reconstruct the complete causal story."
+      },
+      "advantages": [
+        "Meaningfully separates capacity and optional-content reasoning rather than placing all planning in one controller.",
+        "Allows independent analysis and specialized retrieval for the two actuators.",
+        "Makes cross-controller conflicts explicit and inspectable."
+      ],
+      "disadvantages": [
+        "Requires coordination, fencing, shared policy versions, and global outcome reconciliation.",
+        "Distributed planning does not remove the need for a trusted coordinated execution boundary.",
+        "May introduce more complexity than the bounded SWIM server pool warrants."
+      ],
+      "risks": [
+        "Agents may oscillate if the capacity agent removes servers while the optional-content agent restores work.",
+        "Inconsistent observations or incorrectly implemented reservations may admit conflicting actions.",
+        "Coordination unavailability can suspend adaptation even when individual agents remain operational.",
+        "Local memories can misattribute joint outcomes and reinforce ineffective policies unless episodes capture cross-agent context."
+      ],
+      "knowledge_used": [
+        "AK1",
+        "AK3",
+        "AK4",
+        "AK5",
+        "AK6",
+        "AK7",
+        "AK8",
+        "AK10",
+        "AK11",
+        "AK12",
+        "AK13",
+        "AK15"
+      ]
+    },
+    {
+      "id": "A3",
+      "name": "Two-Timescale Supervisory Adaptation",
+      "architectural_style": "Hybrid hierarchical control combining a deterministic fast dimmer loop with an agentic supervisory MAPE-K loop",
+      "summary": "A fast deterministic controller adjusts optional content without waiting for LLM reasoning. A slower agentic supervisor reasons about capacity, persistent overload, and recovery of optional quality. Both paths use one trusted execution boundary and explicit actuator arbitration.",
+      "design_time_structure": {
+        "components": [
+          {
+            "name": "Requirements and Timescale Model",
+            "responsibility": "Separate promptly available dimmer adaptation from server capacity changes that require activation time. Treat loop periods, observation windows, and hysteresis as proposed configuration rather than supplied requirements."
+          },
+          {
+            "name": "Architectural RAG",
+            "responsibility": "Retrieve supplied knowledge on MAPE-K, dimmer degradation, scaling delays, safety, memory, and oversight to ground the proposed hierarchy."
+          },
+          {
+            "name": "LLM Architecture and Control Reasoner",
+            "responsibility": "Explain alternatives for fast-loop rules, supervisory responsibilities, and cross-loop interaction while leaving executable policy outside the LLM."
+          },
+          {
+            "name": "Deterministic Policy and Interaction Reviewer",
+            "responsibility": "Check fast-loop rules, arbitration, trusted bounds, and scenarios in which dimmer recovery and server removal might interact unsafely or cause oscillation."
+          },
+          {
+            "name": "Qualitative Trade-off and Architect Approval Workspace",
+            "responsibility": "Preserve grounded rationale against the supplied attributes and weights for later evaluation. Require approval of the eventual design and fast-loop configuration without scoring alternatives, selecting a winner, or issuing an ADR at this stage."
+          }
+        ],
+        "flow": [
+          "Load trusted constraints and identify the differing response characteristics of dimmer and server actions.",
+          "Retrieve architectural knowledge before generating the hierarchical design and its rationale.",
+          "Propose deterministic fast-loop behavior and an LLM-supported supervisory loop with clearly separated authority.",
+          "Review observation uncertainty, loop interference, dimmer exhaustion, delayed activation, and supervisory failure scenarios.",
+          "Require architect approval of an eventual chosen architecture, control rules, retry budget, and operating windows before deployment."
+        ],
+        "architect_role": "The architect approves the eventual hierarchy, deterministic fast-loop rules, arbitration policy, and all trusted operating parameters. The LLM cannot rewrite those rules or change the response-time target at runtime."
+      },
+      "runtime_structure": {
+        "control_style": "hybrid",
+        "components": [
+          {
+            "name": "SWIM Managed Web System",
+            "responsibility": "Process incoming requests with basic and optional work, adjustable server allocation, and a dimmer exposed only through approved effectors."
+          },
+          {
+            "name": "Shared Runtime Monitor",
+            "responsibility": "Provide versioned response-time, workload, utilization, server-state, and dimmer observations to both loops, including measurement completeness and pending transitions."
+          },
+          {
+            "name": "Fast Deterministic Dimmer Controller",
+            "responsibility": "Propose bounded set_dimmer actions using architect-approved rules when observations indicate response-time pressure, and cautiously restore optional content when sustained observed headroom permits. Perform no LLM calls."
+          },
+          {
+            "name": "Agentic Supervisory Analyzer and Planner",
+            "responsibility": "Use LLM-supported diagnosis, planning, and runtime retrieval to propose server additions or removals, identify persistent problems, and recommend dimmer recovery actions. Account for fast-loop activity and server activation delays."
+          },
+          {
+            "name": "Hierarchical Arbitration and Safety Gate",
+            "responsibility": "Serialize proposals from both loops, resolve conflicting dimmer proposals deterministically, reject stale plans, and enforce trusted constraints on every executable action."
+          },
+          {
+            "name": "Approved Effector Adapter",
+            "responsibility": "Execute validated server and dimmer actions, track acknowledgments and in-flight changes, and prevent either controller from bypassing the gate."
+          },
+          {
+            "name": "Cross-Timescale Outcome Evaluator",
+            "responsibility": "Evaluate immediate dimmer effects and delayed server effects against observed state, the intended objective, and the response-time target without assuming that either loop acted in isolation."
+          },
+          {
+            "name": "Shared Adaptation Memory and Recovery Supervisor",
+            "responsibility": "Store episodes spanning both loops, provide runtime retrieval to the agentic supervisor, bound unsuccessful replanning, and notify a human when autonomous recovery is exhausted."
+          }
+        ],
+        "adaptation_flow": [
+          "Collect and version all required observations, distinguishing active capacity from servers still starting.",
+          "The fast loop evaluates its approved rules and may propose one valid dimmer step without waiting for the supervisory LLM.",
+          "The supervisory loop retrieves episodes and analyzes persistent pressure, resource usage, and optional-content loss before proposing capacity changes or quality-restoration actions.",
+          "Arbitrate proposals using current state. Defer a supervisory dimmer increase that conflicts with a current deterministic overload response, and re-evaluate interacting server-removal proposals against the latest dimmer and workload observations.",
+          "Apply the same deterministic safety checks to both proposal sources, then invoke only approved effectors.",
+          "Observe short-term dimmer effects and delayed capacity effects using separately approved windows. Record PASS, PARTIAL, or FAIL from actual evidence and keep unsettled effects pending.",
+          "Feed linked outcomes to memory and supervisory replanning. Once headroom is observed, consider restoring optional content and removing unnecessary capacity without assuming either improvement is safe from stale measurements."
+        ],
+        "safety_mechanism": "Neither the LLM supervisor nor the deterministic fast loop can invoke effectors directly. The shared gate enforces the allowed actions, 1-to-6 server bounds, 0.0-to-1.0 dimmer bounds, and the approved 0.25-step interpretation. It validates current observations, policy versions, pending capacity reservations, and preservation of at least one serving server. Arbitration and fast-loop rules are trusted deterministic configuration, not LLM-generated runtime instructions. Both loops treat 0.75 seconds as the immutable response-time target. Faster dimmer control improves reaction opportunities but does not prove target satisfaction when observations lag or available capacity is insufficient.",
+        "memory_strategy": "Store joint episodes containing fast-loop interventions, supervisory proposals, observation and policy versions, safety verdicts, server activation timelines, and observed outcomes. Runtime retrieval informs supervisory planning but cannot alter fast-loop rules or trusted constraints. Preserve the distinction between a capacity improvement and a response-time improvement obtained by temporarily reducing optional content.",
+        "failure_recovery": "Propose at most two revised supervisory plans after an initial rejection or unsuccessful settled outcome, subject to architect approval; every revision is revalidated. The fast loop may continue only under its preapproved rules with sufficiently fresh observations. A rejected fast-loop action is not blindly retried against the same state: refresh observations and pass the issue to the supervisor. Repeated ineffective interventions or exhaustion of available dimmer reduction trigger the bounded recovery episode rather than an unlimited adjustment cycle. On supervisory failure or exhausted recovery, escalate while retaining only permitted deterministic behavior; if observations are inadequate, stop new state changes. Distinguish actual human escalation from a simulated demonstrator event."
+      },
+      "key_patterns_and_tactics": [
+        "Hierarchical MAPE-K with fast deterministic and slower agentic loops",
+        "Dimmer-based graceful degradation outside the LLM latency path",
+        "Supervisory horizontal resource scaling",
+        "Deterministic cross-loop arbitration",
+        "Shared safety gate and approved effectors",
+        "Cross-timescale adaptation memory and post-execution validation",
+        "Bounded supervisory replanning",
+        "Architect approval and human escalation"
+      ],
+      "quality_attribute_rationale": {
+        "performance": "The fast loop can react without LLM latency while capacity is starting. Observation lag, dimmer limits, and workload magnitude still constrain achievable response time.",
+        "scalability": "The supervisory loop manages the required server range while the fast loop absorbs transient pressure. Correctly accounting for startup state remains essential.",
+        "reliability": "Approved dimmer control can continue during supervisory LLM unavailability, but monitoring, arbitration, and the safety boundary remain shared dependencies.",
+        "safety": "Deterministic rules and a common gate keep both control paths within encoded constraints. Interaction rules require careful validation because two timescales influence the same response-time outcome.",
+        "resource_efficiency": "Separating transient mitigation from slower scaling may avoid unnecessary capacity additions. Conversely, excessive reliance on dimming could retain too little capacity and sacrifice optional quality.",
+        "explainability": "Fast actions have rule-based explanations, and supervisory actions have evidence-linked rationale. Joint episode records are needed to explain interactions between them."
+      },
+      "advantages": [
+        "Removes LLM inference latency from the immediate dimmer-response path.",
+        "Uses dimming to bridge the known delay before added servers become active.",
+        "Maintains a limited, approved adaptation capability when supervisory reasoning is unavailable."
+      ],
+      "disadvantages": [
+        "Requires tuning and validation of two interacting control timescales.",
+        "Deterministic fast-loop rules may be less context-sensitive than supervisory reasoning.",
+        "Shared arbitration and cross-loop outcome attribution add complexity compared with one centralized loop."
+      ],
+      "risks": [
+        "Fast dimming can mask sustained capacity shortages, causing prolonged optional-content degradation.",
+        "Poorly coordinated dimmer restoration and server removal can produce repeated overload.",
+        "Incomplete or delayed observations can cause the fast loop to react incorrectly even when every action remains within structural bounds.",
+        "Minimum dimmer and maximum capacity may still be insufficient for the workload, requiring explicit escalation rather than continued autonomous retries."
+      ],
+      "knowledge_used": [
+        "AK1",
+        "AK2",
+        "AK4",
+        "AK5",
+        "AK6",
+        "AK7",
+        "AK8",
+        "AK10",
+        "AK11",
+        "AK12",
+        "AK13",
+        "AK15"
+      ]
+    }
+  ]
+}

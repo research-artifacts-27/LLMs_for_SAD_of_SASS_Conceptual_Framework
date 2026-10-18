@@ -1,0 +1,72 @@
+{
+  "experiment": "E7",
+  "purpose": "Controlled comparison of increasingly capable runtime adaptation architectures.",
+  "variants": {
+    "B0": {
+      "name": "Rule-based baseline",
+      "llm_analysis": false,
+      "llm_planning": false,
+      "runtime_rag": false,
+      "runtime_memory_used_for_decisions": false,
+      "agentic_failure_routing": false,
+      "bounded_replanning": false,
+      "deterministic_safety_check": true,
+      "deterministic_fallback": false,
+      "operator_escalation": false
+    },
+    "B1": {
+      "name": "LLM-only",
+      "llm_analysis": true,
+      "llm_planning": true,
+      "runtime_rag": false,
+      "runtime_memory_used_for_decisions": false,
+      "agentic_failure_routing": false,
+      "bounded_replanning": false,
+      "deterministic_safety_check": true,
+      "deterministic_fallback": false,
+      "operator_escalation": false
+    },
+    "B2": {
+      "name": "LLM plus runtime RAG",
+      "llm_analysis": true,
+      "llm_planning": true,
+      "runtime_rag": true,
+      "runtime_memory_used_for_decisions": true,
+      "agentic_failure_routing": false,
+      "bounded_replanning": false,
+      "deterministic_safety_check": true,
+      "deterministic_fallback": false,
+      "operator_escalation": false
+    },
+    "B3": {
+      "name": "Full agentic architecture",
+      "llm_analysis": true,
+      "llm_planning": true,
+      "runtime_rag": true,
+      "runtime_memory_used_for_decisions": true,
+      "agentic_failure_routing": true,
+      "bounded_replanning": true,
+      "deterministic_safety_check": true,
+      "deterministic_fallback": true,
+      "operator_escalation": true
+    }
+  },
+  "fairness_constraints": {
+    "same_swim_workload": true,
+    "same_trusted_policies": true,
+    "same_response_time_target": true,
+    "same_adaptation_period": true,
+    "same_monitoring": true,
+    "same_safety_checker": true,
+    "same_executor": true,
+    "same_metric_definitions": true,
+    "isolated_runtime_kb_per_variant_run": true,
+    "no_cross_variant_memory_contamination": true
+  },
+  "safety_rejection_behavior": {
+    "B0": "execute_nothing_and_continue_next_cycle",
+    "B1": "execute_nothing_and_continue_next_cycle",
+    "B2": "execute_nothing_and_continue_next_cycle",
+    "B3": "bounded_agentic_recovery_then_deterministic_fallback"
+  }
+}

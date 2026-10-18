@@ -1,0 +1,46 @@
+======================================================================
+EXP-B ACTIVE-LOAD WINDOW
+======================================================================
+Samples: 254
+Start time: 0.0 s
+End time:   507.0 s
+Duration:   507.0 s
+
+Response Time
+Mean: 6.0900 s
+Min:  0.0494 s
+Max:  13.1752 s
+P95:  13.0866 s
+Violations: 150
+Violation percentage: 59.06%
+
+Arrival Rate
+Mean: 58.0422
+Min:  0.5833
+Max:  73.8500
+
+Utilization
+Mean: 68.12%
+Min:  0.51%
+Max:  100.00%
+
+Servers
+Start: 1
+End:   5
+Min:   1
+Max:   6
+
+Server Transitions
+t=0.0s -> 1
+t=66.1s -> 2
+t=126.3s -> 3
+t=186.4s -> 4
+t=246.5s -> 5
+t=306.6s -> 6
+t=456.9s -> 5
+
+Recovery
+First violation: t=0.0s
+Sustained recovery: t=300.6s
+Recovery duration: 300.6s
+======================================================================

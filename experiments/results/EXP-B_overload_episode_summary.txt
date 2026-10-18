@@ -1,0 +1,55 @@
+======================================================================
+EXP-B FINAL OVERLOAD EPISODE
+======================================================================
+Analysis boundary:
+Start of experiment through the point immediately before the first scale-down.
+
+Samples: 228
+Duration: 454.9 s
+
+Response Time
+Mean: 6.7782 s
+Min:  0.0549 s
+Max:  13.1752 s
+P95:  13.0930 s
+QoS target: 0.75 s
+Violations: 150
+Violation percentage: 65.79%
+
+Arrival Rate
+Mean: 61.4859
+Min:  55.9198
+Max:  73.8500
+
+Utilization
+Mean: 73.36%
+Min:  51.16%
+Max:  100.00%
+
+Servers
+Start: 1
+End:   6
+Min:   1
+Max:   6
+Mean:  3.961
+
+Dimmer
+Start: 0.90
+End:   1.00
+Min:   0.90
+Max:   1.00
+
+Server Transitions
+t=0.0s -> 1 server(s)
+t=66.1s -> 2 server(s)
+t=126.3s -> 3 server(s)
+t=186.4s -> 4 server(s)
+t=246.5s -> 5 server(s)
+t=306.6s -> 6 server(s)
+
+Recovery
+First violation: t=0.0s
+Sustained recovery begins: t=300.6s
+Recovery duration: 300.6s
+Post-recovery QoS violations: 0
+======================================================================

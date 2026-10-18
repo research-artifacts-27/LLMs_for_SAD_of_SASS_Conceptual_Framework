@@ -1,0 +1,57 @@
+{
+  "decision_type": "human_architect_reconsideration_decision",
+  "schema_version": "1.0",
+  "decided_utc": "2026-10-16T09:50:26.523086+00:00",
+  "selected_option": {
+    "id": "R1",
+    "disposition": "retain_current",
+    "name": "Retain A1 and investigate episode-level behavior"
+  },
+  "decision": "RETAIN_CURRENT_ARCHITECTURE",
+  "approved_architecture": "A1",
+  "architect_rationale": "RTD-02 identified repeated PARTIAL adaptation outcomes and therefore justified architectural review. Episode-level inspection showed that the PARTIAL outcomes represented successful incremental scale-out actions for which the response-time goal had not yet been restored within the same control cycle. Subsequent control cycles continued adaptation, and the inspected sequences included eventual goal restoration. The available evidence therefore does not demonstrate that the approved A1 architecture lacks the required architectural capability. A1 is retained without architectural or runtime-policy modification.",
+  "runtime_evidence_interpretation": {
+    "review_trigger": "RTD-02",
+    "partial_episode_count": 8,
+    "partial_episode_indices": [
+      5,
+      6,
+      27,
+      28,
+      78,
+      79,
+      80,
+      81
+    ],
+    "interpretation": "PARTIAL means the adaptation action was successfully enacted but the runtime goal remained unsatisfied at evaluation time. It is not equivalent to a safety failure or failed adaptation.",
+    "observed_recovery_example": "Episodes 78-82 show successive scale-out from one to six active servers, with episodes 78-81 classified PARTIAL and episode 82 classified PASS with the runtime goal satisfied.",
+    "causality_claimed": false
+  },
+  "llm_advisory_recommendation": {
+    "recommended_option": "R2",
+    "accepted_by_architect": false,
+    "note": "The LLM advisory recommendation was considered but was not accepted because the inspected runtime evidence was insufficient to justify architectural revision."
+  },
+  "future_work": {
+    "R2_status": "NOT_APPROVED",
+    "R2_role": "Potential experimental refinement for future comparative evaluation.",
+    "recommended_evidence_improvements": [
+      "record experiment and scenario provenance",
+      "record run identifiers",
+      "record control-cycle timing",
+      "record action and activation timing",
+      "distinguish incremental progress from persistent unresolved adaptation",
+      "link consecutive control cycles into recovery episodes"
+    ]
+  },
+  "authority_boundary": {
+    "human_architect_decision": true,
+    "automatic_redesign": false,
+    "architecture_changed": false,
+    "trusted_policy_changed": false,
+    "runtime_controller_changed": false,
+    "swim_configuration_changed": false,
+    "ADR_001_superseded": false
+  },
+  "status": "APPROVED_R1_RETAIN_A1"
+}

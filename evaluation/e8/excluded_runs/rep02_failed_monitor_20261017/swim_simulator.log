@@ -1,0 +1,20 @@
+../../src//swim e8_swim.ini -u Cmdenv -c e8 -n ..:../../src/:../../../queueinglib:../../src -lqueueinglib -s --cmdenv-redirect-output=true -r 2
+e8 run 2: , $repetition=2
+t=0 addServer() complete
+t=60.320025 executing addServer()
+adding server with latency=0
+t=60.320025 addServer() complete
+t=120.321024 executing addServer()
+adding server with latency=0
+t=120.321024 addServer() complete
+t=180.318724 executing addServer()
+adding server with latency=0
+t=180.318724 addServer() complete
+t=240.330883 executing addServer()
+adding server with latency=0
+t=240.330883 addServer() complete
+t=300.322047 executing setDimmer(1)
+t=360.318987 executing removeServer()
+scheduled complete remove at 360.318987
+/headless/seams-swim/swim/simulations/swim/Makefile.BLUS2G:16: recipe for target 'run2' failed
+make: *** [run2] Segmentation fault

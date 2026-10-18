@@ -1,0 +1,146 @@
+
+======================================================================
+EXP-A Healthy Baseline
+======================================================================
+Samples: 477
+Duration: 954.0 s
+
+Response Time
+  Mean: 0.0419 s
+  Min:  0.0372 s
+  Max:  0.0526 s
+  P95:  0.0491 s
+  QoS target: 0.75 s
+  Violations: 0
+  Violation percentage: 0.00%
+
+Arrival Rate
+  Mean: 8.2567
+  Min:  7.0000
+  Max:  9.6667
+
+Utilization
+  Mean: 34.73%
+  Min:  26.48%
+  Max:  49.09%
+
+Servers
+  Start: 1
+  End:   1
+  Min:   1
+  Max:   1
+  Mean:  1.000
+
+Dimmer
+  Start: 1.00
+  End:   1.00
+  Min:   1.00
+  Max:   1.00
+
+Server Transitions
+  t=0.0s -> 1 server(s)
+
+======================================================================
+EXP-B Overload Scale-Up
+======================================================================
+Samples: 340
+Duration: 679.4 s
+
+Response Time
+  Mean: 4.5496 s
+  Min:  0.0000 s
+  Max:  13.1752 s
+  P95:  12.9909 s
+  QoS target: 0.75 s
+  Violations: 150
+  Violation percentage: 44.12%
+
+Arrival Rate
+  Mean: 43.3609
+  Min:  0.0000
+  Max:  73.8500
+
+Utilization
+  Mean: 50.89%
+  Min:  0.00%
+  Max:  100.00%
+
+Servers
+  Start: 1
+  End:   2
+  Min:   1
+  Max:   6
+  Mean:  3.750
+
+Dimmer
+  Start: 0.90
+  End:   1.00
+  Min:   0.90
+  Max:   1.00
+
+Server Transitions
+  t=0.0s -> 1 server(s)
+  t=66.1s -> 2 server(s)
+  t=126.3s -> 3 server(s)
+  t=186.4s -> 4 server(s)
+  t=246.5s -> 5 server(s)
+  t=306.6s -> 6 server(s)
+  t=456.9s -> 5 server(s)
+  t=517.1s -> 4 server(s)
+  t=545.1s -> 3 server(s)
+  t=605.2s -> 2 server(s)
+
+Overload Recovery
+  First QoS violation: t=0.0s
+  Sustained recovery begins: t=300.6s
+  Recovery duration: 300.6s
+
+======================================================================
+EXP-C Scale-Down
+======================================================================
+Samples: 301
+Duration: 601.2 s
+
+Response Time
+  Mean: 0.0726 s
+  Min:  0.0540 s
+  Max:  0.0820 s
+  P95:  0.0813 s
+  QoS target: 0.75 s
+  Violations: 0
+  Violation percentage: 0.00%
+
+Arrival Rate
+  Mean: 9.9932
+  Min:  9.1000
+  Max:  12.0479
+
+Utilization
+  Mean: 29.67%
+  Min:  11.65%
+  Max:  62.32%
+
+Servers
+  Start: 6
+  End:   1
+  Min:   1
+  Max:   6
+  Mean:  3.322
+
+Dimmer
+  Start: 0.90
+  End:   1.00
+  Min:   0.90
+  Max:   1.00
+
+Server Transitions
+  t=0.0s -> 6 server(s)
+  t=156.3s -> 5 server(s)
+  t=216.4s -> 4 server(s)
+  t=278.6s -> 3 server(s)
+  t=342.7s -> 2 server(s)
+  t=406.8s -> 1 server(s)
+
+======================================================================
+SUMMARY COMPLETE
+======================================================================

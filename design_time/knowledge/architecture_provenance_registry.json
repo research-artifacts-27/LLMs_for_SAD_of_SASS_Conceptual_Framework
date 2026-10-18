@@ -1,0 +1,237 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Provide explicit and auditable provenance for architectural knowledge used by the design-time Architecture RAG.",
+  "provenance_policy": {
+    "peer_reviewed_literature": "The core concept represented by the knowledge entry is directly supported by a scholarly peer-reviewed source.",
+    "SWIM_or_domain_source": "The knowledge entry is grounded primarily in the SWIM exemplar or another system/domain-specific source.",
+    "research_design_decision": "The knowledge entry represents an explicit design choice made for this research architecture and must not be presented as if it were directly prescribed by literature.",
+    "prototype_engineering_rule": "The knowledge entry represents an implementation-specific engineering rule of the prototype.",
+    "mixed_provenance": "The knowledge entry combines literature-supported concepts with research-specific synthesis, constraints, or mechanisms."
+  },
+  "external_sources": [
+    {
+      "source_id": "LIT-KC2003",
+      "source_type": "peer_reviewed_journal",
+      "authors": [
+        "Jeffrey O. Kephart",
+        "David M. Chess"
+      ],
+      "title": "The Vision of Autonomic Computing",
+      "venue": "Computer",
+      "year": 2003,
+      "volume": "36",
+      "issue": "1",
+      "pages": "41-50",
+      "doi": "10.1109/MC.2003.1160055",
+      "evidence_role": "Foundational autonomic-computing feedback-loop and self-management concepts associated with MAPE-K."
+    },
+    {
+      "source_id": "LIT-RAINBOW2004",
+      "source_type": "peer_reviewed_journal",
+      "authors": [
+        "David Garlan",
+        "Shang-Wen Cheng",
+        "An-Cheng Huang",
+        "Bradley Schmerl",
+        "Peter Steenkiste"
+      ],
+      "title": "Rainbow: Architecture-Based Self-Adaptation with Reusable Infrastructure",
+      "venue": "Computer",
+      "year": 2004,
+      "volume": "37",
+      "issue": "10",
+      "pages": "46-54",
+      "doi": "10.1109/MC.2004.175",
+      "evidence_role": "Architecture-based runtime adaptation using explicit models, monitoring, adaptation strategies, and external control infrastructure."
+    },
+    {
+      "source_id": "LIT-LEWIS2020",
+      "source_type": "peer_reviewed_conference",
+      "authors": [
+        "Patrick Lewis",
+        "Ethan Perez",
+        "Aleksandra Piktus",
+        "Fabio Petroni",
+        "Vladimir Karpukhin",
+        "Naman Goyal",
+        "Heinrich Kuttler",
+        "Mike Lewis",
+        "Wen-tau Yih",
+        "Tim Rocktaschel",
+        "Sebastian Riedel",
+        "Douwe Kiela"
+      ],
+      "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "venue": "NeurIPS",
+      "year": 2020,
+      "arxiv": "2005.11401",
+      "evidence_role": "Foundational retrieval-augmented generation concept combining generated output with retrieved external knowledge."
+    },
+    {
+      "source_id": "LIT-DHAR2024",
+      "source_type": "peer_reviewed_conference",
+      "authors": [
+        "Rudra Dhar",
+        "Karthik Vaidhyanathan",
+        "Vasudeva Varma"
+      ],
+      "title": "Can LLMs Generate Architectural Design Decisions? An Exploratory Empirical Study",
+      "venue": "IEEE International Conference on Software Architecture (ICSA)",
+      "year": 2024,
+      "pages": "79-89",
+      "doi": "10.1109/ICSA59870.2024.00016",
+      "evidence_role": "Empirical evidence for LLM-supported architectural decision and ADR generation, together with limitations requiring further validation."
+    },
+    {
+      "source_id": "DOMAIN-SWIM2018",
+      "source_type": "peer_reviewed_domain_exemplar",
+      "authors": [
+        "Gabriel A. Moreno",
+        "Bradley Schmerl",
+        "David Garlan"
+      ],
+      "title": "SWIM: An Exemplar for Evaluation and Comparison of Self-Adaptation Approaches for Web Applications",
+      "venue": "SEAMS",
+      "year": 2018,
+      "pages": "137-143",
+      "doi": "10.1145/3194133.3194163",
+      "evidence_role": "Domain provenance for the SWIM managed system, web-system adaptation, server scaling, workload variation, and adaptation experimentation."
+    },
+    {
+      "source_id": "LIT-BLAIR2009",
+      "source_type": "peer_reviewed_journal",
+      "authors": [
+        "Gordon S. Blair",
+        "Nelly Bencomo",
+        "Robert B. France"
+      ],
+      "title": "Models@run.time",
+      "venue": "Computer",
+      "year": 2009,
+      "volume": "42",
+      "issue": "10",
+      "pages": "22-27",
+      "doi": "10.1109/MC.2009.326",
+      "evidence_role": "Runtime models as causally connected representations supporting reasoning and adaptation during execution."
+    },
+    {
+      "source_id": "LIT-LI2024",
+      "source_type": "peer_reviewed_conference",
+      "authors": [
+        "Jialong Li",
+        "Mingyue Zhang",
+        "Nianyu Li",
+        "Danny Weyns",
+        "Zhi Jin",
+        "Kenji Tei"
+      ],
+      "title": "Exploring the Potential of Large Language Models in Self-adaptive Systems",
+      "venue": "SEAMS",
+      "year": 2024,
+      "pages": "77-83",
+      "doi": "10.1145/3643915.3644088",
+      "evidence_role": "Literature-based exploration of LLM capabilities relevant to self-adaptive systems, including analysis, planning, autonomous-agent concepts, memory, and human involvement."
+    },
+    {
+      "source_id": "LIT-ATAM2000",
+      "source_type": "technical_report",
+      "authors": [
+        "Rick Kazman",
+        "Mark H. Klein",
+        "Paul C. Clements"
+      ],
+      "title": "ATAM: Method for Architecture Evaluation",
+      "institution": "Software Engineering Institute, Carnegie Mellon University",
+      "year": 2000,
+      "report_number": "CMU/SEI-2000-TR-004",
+      "evidence_role": "Established architecture-evaluation foundation for reasoning about competing quality attributes, risks, and architectural trade-offs."
+    }
+  ],
+  "research_design_decisions": [
+    {
+      "source_id": "RD-CONTROL-SPACE",
+      "source_type": "research_design_decision",
+      "description": "The demonstrator deliberately considers centralized, decentralized, and hybrid control structures as alternative architecture choices so that control topology is exposed as a design decision rather than fixed implicitly.",
+      "documented_in": [
+        "design_time/generate_architecture_alternatives.py",
+        "design_time/outputs/architecture_alternatives.json"
+      ]
+    },
+    {
+      "source_id": "RD-SAFETY-BOUNDARY",
+      "source_type": "research_design_decision",
+      "description": "Generative LLM reasoning is separated from deterministic runtime authority. Candidate adaptations must pass an independently implemented deterministic safety check before effectors may be invoked.",
+      "documented_in": [
+        "trusted_policies.json",
+        "safety_checker.py",
+        "agent_controller.py"
+      ]
+    },
+    {
+      "source_id": "RD-BOUNDED-REPLANNING",
+      "source_type": "research_design_decision",
+      "description": "Agentic replanning is intentionally bounded so autonomous recovery cannot continue indefinitely; exhausted recovery transfers control to fail-safe handling and escalation.",
+      "documented_in": [
+        "agent_controller.py",
+        "failure_router.py"
+      ]
+    },
+    {
+      "source_id": "RD-HUMAN-AUTHORITY",
+      "source_type": "research_design_decision",
+      "description": "The LLM and automated design workflow provide decision support only. Final architecture approval remains with the human architect, and unresolved runtime recovery is escalated rather than autonomously overriding trusted authority.",
+      "documented_in": [
+        "design_time/architect_approval.py",
+        "design_time/outputs/architect_decision.json",
+        "design_time/outputs/architecture_reconsideration_decision.json"
+      ]
+    },
+    {
+      "source_id": "RD-OUTCOME-SEMANTICS",
+      "source_type": "research_design_decision",
+      "description": "Post-execution outcomes are represented as PASS, PARTIAL, or FAIL using observed managed-system state. PARTIAL indicates successful actuation without yet restoring the adaptation goal.",
+      "documented_in": [
+        "outcome_evaluator.py",
+        "runtime_kb.json"
+      ]
+    },
+    {
+      "source_id": "RD-QA-WEIGHTING",
+      "source_type": "research_design_decision",
+      "description": "Candidate architectures are scored from 1 to 5 for architect-selected quality attributes and combined using architect-defined numerical weights. The weighted mechanism is a demonstrator-specific decision-support implementation and must not be described as the ATAM method itself.",
+      "documented_in": [
+        "design_time/config/swim_design_request.json",
+        "design_time/evaluate_architecture_alternatives.py"
+      ]
+    },
+    {
+      "source_id": "RD-RUNTIME-MEMORY",
+      "source_type": "research_design_decision",
+      "description": "The prototype records adaptation states, diagnoses, candidate plans, safety verdicts, execution outcomes, and recovery information in a runtime knowledge base for later retrieval and analysis.",
+      "documented_in": [
+        "runtime_kb.json",
+        "rag_retriever.py",
+        "analyzer.py"
+      ]
+    },
+    {
+      "source_id": "RD-ARCH-RAG",
+      "source_type": "research_design_decision",
+      "description": "The demonstrator applies retrieval-augmented generation specifically to software-architecture design by retrieving curated architectural knowledge before LLM-supported alternative generation, trade-off reasoning, validation, and reconsideration. This is a research-specific application of the broader RAG concept.",
+      "documented_in": [
+        "design_time/architecture_rag.py",
+        "design_time/generate_architecture_alternatives.py"
+      ]
+    },
+    {
+      "source_id": "RD-ADR-DOCUMENTATION",
+      "source_type": "research_design_decision",
+      "description": "The demonstrator records the selected architecture, alternatives, rationale, and consequences in an explicit architecture-decision artifact so that human approval and later reconsideration remain traceable.",
+      "documented_in": [
+        "design_time/generate_adr.py",
+        "design_time/outputs/ADR-001.json",
+        "design_time/outputs/ADR-001.md"
+      ]
+    }
+  ]
+}

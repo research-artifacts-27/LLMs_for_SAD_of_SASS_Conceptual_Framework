@@ -1,0 +1,21 @@
+{
+  "response_time_target": 0.75,
+  "valid_response_time_samples": 211,
+  "qos_violation_samples": 147,
+  "qos_violation_rate_percent": 69.66824644549763,
+  "mean_response_time": 7.207628866407001,
+  "max_response_time": 13.648936550006033,
+  "active_servers_start": 1.0,
+  "active_servers_end": 4.0,
+  "dimmer_start": 0.9,
+  "dimmer_end": 1.0,
+  "p95_response_time": 13.505454148085219,
+  "variant": "B0",
+  "repetition": 0,
+  "run_id": "E8_B0_rep00",
+  "controller_cycles_expected": 6,
+  "evaluation_window_seconds": 420.0,
+  "sampling_interval_seconds": 2.0,
+  "sampler_sample_count": 211,
+  "sampler_error_count": 0
+}

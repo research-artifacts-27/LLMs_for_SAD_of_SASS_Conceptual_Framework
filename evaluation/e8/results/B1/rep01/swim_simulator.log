@@ -1,0 +1,20 @@
+../../src//swim e8_swim.ini -u Cmdenv -c e8 -n ..:../../src/:../../../queueinglib:../../src -lqueueinglib -s --cmdenv-redirect-output=true -r 1
+e8 run 1: , $repetition=1
+t=0 addServer() complete
+t=64.412787 executing addServer()
+adding server with latency=0
+t=64.412787 addServer() complete
+t=124.933884 executing addServer()
+adding server with latency=0
+t=124.933884 addServer() complete
+t=183.299518 executing addServer()
+adding server with latency=0
+t=183.299518 addServer() complete
+t=244.738075 executing addServer()
+adding server with latency=0
+t=244.738075 addServer() complete
+t=308.326133 executing addServer()
+adding server with latency=0
+t=308.326133 addServer() complete
+t=364.148036 executing setDimmer(1)
+All runs completed.

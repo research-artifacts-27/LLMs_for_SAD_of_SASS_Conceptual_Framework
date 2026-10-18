@@ -1,0 +1,80 @@
+[
+  {
+    "variant": "B2",
+    "diagnosis": "workload_saturation",
+    "initial_state": {
+      "response_time": 2.4,
+      "servers": 3,
+      "active_servers": 3,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.88,
+      "total_utilization": 2.64,
+      "dimmer": 1.0,
+      "arrival_rate": 60.0
+    },
+    "candidate_plan": {
+      "action": "add_server"
+    },
+    "final_plan": {
+      "action": "add_server"
+    },
+    "execution_outcome": {
+      "status": "PASS",
+      "action_effect_observed": true,
+      "goal_satisfied": true,
+      "reason": "CONTROLLED_TARGET_EPISODE"
+    },
+    "final_state": {
+      "response_time": 0.55,
+      "servers": 4,
+      "active_servers": 4,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.6,
+      "total_utilization": 2.4,
+      "dimmer": 1.0,
+      "arrival_rate": 60.0
+    }
+  },
+  {
+    "variant": "B2",
+    "diagnosis": "workload_saturation",
+    "initial_state": {
+      "response_time": 8.0,
+      "servers": 6,
+      "active_servers": 6,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.99,
+      "total_utilization": 5.94,
+      "dimmer": 0.5,
+      "arrival_rate": 120.0
+    },
+    "candidate_plan": {
+      "action": "set_dimmer",
+      "value": 0.25
+    },
+    "final_plan": {
+      "action": "set_dimmer",
+      "value": 0.25
+    },
+    "execution_outcome": {
+      "status": "PARTIAL",
+      "action_effect_observed": true,
+      "goal_satisfied": false,
+      "reason": "CONTROLLED_DISTANT_EPISODE"
+    },
+    "final_state": {
+      "response_time": 4.5,
+      "servers": 6,
+      "active_servers": 6,
+      "max_servers": 6,
+      "server_booting": false,
+      "utilization": 0.95,
+      "total_utilization": 5.7,
+      "dimmer": 0.25,
+      "arrival_rate": 120.0
+    }
+  }
+]
